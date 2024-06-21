@@ -11,6 +11,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@tanstack/react-query": "^5.45.1",
     "class-variance-authority": "^0.7.0",
@@ -20,8 +21,11 @@
     "next": "14.2.4",
     "react": "^18",
     "react-dom": "^18",
+    "react-qr-code": "^2.0.15",
     "tailwind-merge": "^2.3.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "uuid": "^10.0.0",
+    "vaul": "^0.9.1"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.5.0",
