@@ -15,7 +15,7 @@ interface Props {
 const MenuButton = ({
   isOpen = false,
   width = 16,
-  height = 10,
+  height = 9.7,
   strokeWidth = 2.5,
   color = "#000",
   transition = undefined,
