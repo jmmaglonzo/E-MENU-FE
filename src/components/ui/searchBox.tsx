@@ -15,7 +15,7 @@ const SearchBox = () => {
   };
 
   return (
-    <div className="container mx-auto mt-6 flex w-[400px] items-center rounded-md border-2 px-4 focus-within:border-orange-500">
+    <div className="container mx-auto mt-6 flex w-[90%] items-center rounded-md border-2 px-4 focus-within:border-orange-500 md:w-[400px]">
       <input
         type="text"
         className="w-full flex-grow py-2 outline-none focus:border-orange-500"
