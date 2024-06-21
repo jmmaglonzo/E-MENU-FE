@@ -1,32 +1,31 @@
 // components/SearchBox.js
-'use client'
-import { useState } from 'react';
+"use client";
+import { useState } from "react";
 
 const SearchBox = () => {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
 
-  const handleInputChange = (e:any) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
   };
 
   const handleSearch = () => {
     // Implement search functionality here
-    console.log('Searching for:', query);
+    console.log("Searching for:", query);
   };
 
   return (
-    <div className="flex  items-center border-2  rounded-md p-3 m-3  focus-within:border-orange-500">
+    <div className="container mx-auto mt-6 flex w-[400px] items-center rounded-md border-2 px-4 focus-within:border-orange-500">
       <input
         type="text"
-        className="flex-grow outline-none focus:border-orange-500"
+        className="w-full flex-grow py-2 outline-none focus:border-orange-500"
         placeholder="Search here"
         value={query}
-
         onChange={handleInputChange}
       />
       <button onClick={handleSearch}>
         <svg
-          className="w-5 h-5 text-gray-500"
+          className="h-5 w-5 text-gray-500"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
