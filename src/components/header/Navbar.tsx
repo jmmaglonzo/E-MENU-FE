@@ -1,44 +1,46 @@
-"use client"
-import React, { useState } from 'react'
-import MenuButton from './MenuButton'
-import Image from 'next/image';
-// import { UserPlus } from 'lucide-react';
+"use client";
+import React, { useState } from "react";
+import MenuButton from "./MenuButton";
+import Image from "next/image";
 
 const Navbar = () => {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <header>
-        <nav className='flex justify-between mt-5  mx-5 items-center'>
-            <div>
-            <MenuButton
+      <nav className="container mt-5 flex items-center justify-between">
+        <div className="cursor-pointer">
+          <MenuButton
             isOpen={isOpen}
-            onClick={() => setIsOpen(!isOpen)} width={undefined} height={undefined}/>
-            </div>
+            onClick={() => setIsOpen(!isOpen)}
+            width={undefined}
+            height={undefined}
+          />
+        </div>
 
-            <div>
-            <Image src="/emenu-logo-white.png" 
-            alt='icon-menu' 
+        <div>
+          <Image
+            src="/emenu-logo-white.png"
+            alt="icon-menu"
             width={60}
             height={50}
-            style={{ width: 'auto', height: 'auto' }}
+            style={{ width: "auto", height: "auto" }}
             priority
-            />
-            </div>
+          />
+        </div>
 
-            <div>
-            <Image
+        <div className="cursor-pointer">
+          <Image
             src="/profile_add.png"
-            alt='add-logo'
+            alt="add-logo"
             width={15}
             height={15}
-            style={{ width: 'auto', height: 'auto' }}
-            priority />
-            </div>
-        </nav>
-        
-    
+            style={{ width: "auto", height: "auto" }}
+            priority
+          />
+        </div>
+      </nav>
     </header>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
