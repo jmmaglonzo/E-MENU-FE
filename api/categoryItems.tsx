@@ -1,7 +1,11 @@
 import { FaFire } from 'react-icons/fa';
 import { FaHotdog } from "react-icons/fa";
 import { GiChickenLeg } from "react-icons/gi";
-import { MdEmojiFoodBeverage } from "react-icons/md";
+import { TbSoupFilled } from "react-icons/tb";
+import { FaCarrot } from "react-icons/fa";
+import { FaCocktail } from "react-icons/fa";
+import { IoMdIceCream } from "react-icons/io";
+
 import { ReactElement } from 'react';
 
 type ImgType = string | ReactElement;
@@ -17,7 +21,10 @@ const categoryItems: CategoryItem[] = [
     { title: 'Popular', img: <FaFire /> },
     { title: 'Appetizers', img: <FaHotdog /> },
     { title: 'Main Course', img: <GiChickenLeg /> },
-    { title: 'Side Dishes', img: <MdEmojiFoodBeverage /> },
+    { title: 'Side Dishes', img: <FaCarrot /> },
+    { title: 'Drinks', img: <FaCocktail /> },
+    { title: 'Soup', img: <TbSoupFilled /> },
+    { title: 'Desserts', img: <IoMdIceCream /> },
     
 ];
 
