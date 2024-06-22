@@ -1,42 +1,53 @@
-"use client"
-import React, { useRef } from 'react'
-import categoryItems from "../../../api/categoryItems"
+"use client";
+import React, { useRef } from "react";
+import categoryItems from "../../../api/categoryItems";
+import Image from "next/image";
 
 const MenuTab = () => {
   const buttonRef = useRef<(HTMLButtonElement | null)[]>([]);
 
   const handleFocus = (e: React.FocusEvent<HTMLButtonElement>) => {
-    if(e.target){
+    if (e.target) {
       e.target.scrollIntoView({
-        behavior: 'smooth',
-        block: 'nearest',
-        inline: 'center',
-      })
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center",
+      });
     }
-  }
+  };
   return (
-    <div className='flex justify-center text-xs mx-2 mt-10 p-2 '>
-        <div className='flex justify-between overflow-x-scroll no-scrollbar
-         whitespace-nowrap gap-x-2 lg:w-[50%]'>
-          {/* rendering tab item title */}
-        {categoryItems.map((item, index) => (     
-          <div key={index} className='flex flex-col justify-center items-center  gap-x-5'>
+    <div className="container mt-2 flex justify-center text-xs">
+      <div className="flex justify-between gap-x-2 overflow-x-scroll whitespace-nowrap py-2 no-scrollbar">
+        {/* rendering tab item title */}
+        {categoryItems.map((item, index) => (
+          <div
+            key={index}
+            className="flex flex-col items-center justify-center gap-x-5"
+          >
             <button
-             ref={(e:any) =>(buttonRef.current[index] = e)}
-             onFocus={handleFocus}
+              ref={(e: any) => (buttonRef.current[index] = e)}
+              onFocus={handleFocus}
+              className="flex w-[100px] flex-col items-center rounded-sm py-3 shadow-md hover:bg-zinc-200 focus:bg-orange-400 focus:text-white"
+            >
+              <span>
+                {item.img && (
+                  <div className="relative aspect-square h-10 w-10">
+                    <Image
+                      className="rounded-full focus:bg-orange-400"
+                      fill
+                      src={item.img}
+                      alt={item.title}
+                    />
+                  </div>
+                )}
+              </span>
 
-             className='hover:bg-zinc-200  rounded-sm flex flex-col items-center w-[100px] py-3
-             focus:bg-orange-400 focus:text-white shadow-2xl'>
-                <span>{item.img && <img className='w-10 h-10 rounded-full focus:bg-orange-400'
-                 src={item.img} 
-                 alt={item.title} />}</span>
-
-                <span className='truncate'>{item.title}</span>
+              <span className="truncate">{item.title}</span>
             </button>
-            </div>
+          </div>
         ))}
-        </div>
+      </div>
     </div>
-  )
-}
-export default MenuTab
+  );
+};
+export default MenuTab;
