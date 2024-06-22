@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "prestorybook": "npx tailwindcss -o src/styles/tailwind.css --minify",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
