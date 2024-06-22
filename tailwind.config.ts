@@ -72,6 +72,15 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      fontSize: {
+        xs: ["0.5rem", { lineHeight: "1rem" }],
+        sm: ["0.625rem", { lineHeight: "1.25rem" }],
+        base: ["0.75rem", { lineHeight: "1.5rem" }],
+        lg: ["0.875rem", { lineHeight: "1.75rem" }],
+        xl: ["1rem", { lineHeight: "1.75rem" }],
+        "2xl": ["1.25rem", { lineHeight: "2rem" }],
+        "3xl": ["1.5rem", { lineHeight: "2rem" }],
+      },
     },
   },
   plugins: [
