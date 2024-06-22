@@ -1,6 +1,7 @@
 import QRCode from "react-qr-code";
 import { v4 as uuidv4 } from "uuid";
-import { UserPlusIcon } from "@heroicons/react/24/solid";
+import { FaUserGroup } from "react-icons/fa6";
+
 import {
   Drawer,
   DrawerContent,
@@ -17,10 +18,10 @@ export const QrDrawer = () => {
     <Drawer>
       <DrawerTrigger asChild>
         <button>
-          <UserPlusIcon className="h-6 w-6" />
+          <FaUserGroup size={20} />
         </button>
       </DrawerTrigger>
-      <DrawerContent className="container flex items-center">
+      <DrawerContent className="mx-auto flex max-w-[350px] items-center p-0">
         <div>
           <DrawerHeader>
             <div className="flex flex-col items-start gap-y-1">
