@@ -1,4 +1,3 @@
-// components/SearchBox.js
 "use client";
 import { useState } from "react";
 
