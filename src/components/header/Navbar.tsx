@@ -9,7 +9,7 @@ import MenuTab from "./MenuTab";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
-    <header>
+    <>
       <nav className="container mt-5 flex items-center justify-between">
         <div className="cursor-pointer">
           <MenuButton
@@ -34,7 +34,7 @@ const Navbar = () => {
       </nav>
       <SearchBox />
       <MenuTab />
-    </header>
+    </>
   );
 };
 
