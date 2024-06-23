@@ -55,11 +55,11 @@ export const ProductCard = ({ data }: Props) => {
     const worstTimeUnit = checkTimeUnits(parseTimeToMinutes(data.time.worst_case))
 
     return (
-        <Card className='h-[335px] w-[170px] grid grid-rows-2 p-0 m-0 bg-white'>
+        <Card className='h-full w-full flex flex-col p-0 m-0 bg-white'>
             <CardHeader className='h-full w-full flex flex-col p-0 '>
                 <Image src={data.image} alt='food/img' width={100} height={100} className='w-full h-full object-cover rounded-t-md' priority />
             </CardHeader>
-            <div className='h-full w-full flex flex-col px-[7px] py-[14px] gap-[16px] rounded-b-md '>
+            <div className='h-full w-full flex flex-col px-[7px] py-[14px] gap-[16px] rounded-b-md justify-between'>
                 <CardContent className='h-full w-full flex flex-col p-0 gap-[8px] '>
                     <div className='h-full w-full flex flex-col gap-[4px]'>
                         <CardTitle className='font-[700] text-base !leading-[1.024rem] capitalize'>
@@ -69,15 +69,17 @@ export const ProductCard = ({ data }: Props) => {
                             {data.description}
                         </CardDescription>
                     </div>
+                </CardContent >
+                <CardFooter className='h-full w-full flex flex-col p-0 gap-2'>
                     <div className='h-full w-full flex flex-row justify-center items-center gap-2 font-[400] text-sm leading-[0.854rem]'>
-                        <div className='h-full w-full flex flex-row gap-[4px] justify-center items-center'>
+                        <div className='w-full flex flex-row gap-[4px] justify-center items-center'>
                             <div className="flex flex-col items-center justify-center w-[10px] h-[12px]">
                                 <Image
                                     src={TimerIcon}
                                     alt="timer/icon"
-                                    width={10}
-                                    height={12}
-                                    className='w-full h-full object-contain'
+                                    width={0}
+                                    height={0}
+                                    className='w-[10px] h-full object-contain'
                                     priority
                                 />
                             </div>
@@ -115,14 +117,14 @@ export const ProductCard = ({ data }: Props) => {
 
                         </div>
                     </div>
-                </CardContent >
-                <CardFooter className='h-full w-full flex flex-row text-start p-0 gap-[8px] justify-between'>
-                    <h1 className='text-xl font-bold'>
-                        &#8369; {data.price}
-                    </h1>
-                    <Button size="icon" className='rounded-full flex items-center h-[28px] w-[28px] hover:scale-105 transition'>
-                        <Image src={AddIcon} alt='add/icon' height={10} width={10} priority />
-                    </Button>
+                    <div className='w-full flex flex-row text-start  gap-[8px]  justify-between'>
+                        <h1 className='text-xl font-bold'>
+                            &#8369; {data.price}
+                        </h1>
+                        <Button size="icon" className='rounded-full flex items-center h-[28px] w-[28px] hover:scale-105 transition'>
+                            <Image src={AddIcon} alt='add/icon' height={10} width={10} priority />
+                        </Button>
+                    </div>
                 </CardFooter>
             </div >
         </Card>

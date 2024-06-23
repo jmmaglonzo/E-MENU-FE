@@ -11,6 +11,7 @@ export type CardObject = {
     worst_case: string;
   };
   rating: number;
+  category: string;
 };
 
 export type MenuArray = CardObject[];
