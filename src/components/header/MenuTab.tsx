@@ -19,7 +19,7 @@ const MenuTab = () => {
         <button
           key={index}
           ref={(e: any) => (buttonRef.current[index] = e)}
-          className="flex items-center justify-center space-x-1 rounded-sm px-2 py-3 font-semibold text-gray-500 shadow-md hover:bg-zinc-200 focus:bg-orange-400 focus:text-white"
+          className="flex items-center justify-center space-x-1 rounded-sm px-2 py-1.5 text-sm font-semibold text-gray-500 shadow-md hover:bg-zinc-200 focus:bg-orange-400 focus:text-white"
         >
           {item.title}
         </button>
@@ -32,7 +32,7 @@ const MenuTab = () => {
             <button
               ref={(e: any) => (buttonRef.current[index] = e)}
               onFocus={handleFocus}
-              className="flex items-center justify-center space-x-1 rounded-sm px-2 py-3 font-semibold text-gray-500 shadow-md hover:bg-zinc-200 focus:bg-orange-400 focus:text-white"
+              className="flex items-center justify-center space-x-1 rounded-sm px-2 py-1.5 text-sm font-semibold text-gray-500 shadow-md hover:bg-zinc-200 focus:bg-orange-400 focus:text-white"
             >
               {item.icon}
               <span className="truncate">{item.title}</span>
