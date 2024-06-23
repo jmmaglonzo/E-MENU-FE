@@ -12,17 +12,24 @@ import {
   DrawerTrigger,
 } from "./ui/drawer";
 import { Button } from "./ui/button";
+import { X } from "lucide-react";
+import { useState } from "react";
 
 export const QrDrawer = () => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <Drawer>
+    <Drawer onOpenChange={setIsOpen} open={isOpen}>
       <DrawerTrigger asChild>
         <button>
           <FaUserGroup size={20} />
         </button>
       </DrawerTrigger>
       <DrawerContent className="mx-auto flex max-w-[350px] items-center p-0">
-        <div>
+        <div className="relative">
+          <X
+            className="absolute right-0 size-6 cursor-pointer text-muted-foreground"
+            onClick={() => setIsOpen(!isOpen)}
+          />
           <DrawerHeader>
             <div className="flex flex-col items-start gap-y-1">
               <DrawerTitle className="text-base text-primary">
