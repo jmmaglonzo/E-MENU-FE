@@ -79,7 +79,7 @@ export const ProductCard = ({ data }: Props) => {
                                     alt="timer/icon"
                                     width={0}
                                     height={0}
-                                    className='w-[10px] h-full object-contain'
+                                    className='w-[10px] h-auto object-contain'
                                     priority
                                 />
                             </div>
