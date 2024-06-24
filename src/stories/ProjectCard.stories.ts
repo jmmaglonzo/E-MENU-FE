@@ -14,6 +14,7 @@ const dummyData = {
     worst_case: "00:10:00",
   },
   rating: 5,
+  category: "main course",
 };
 
 const meta: Meta<typeof ProductCard> = {

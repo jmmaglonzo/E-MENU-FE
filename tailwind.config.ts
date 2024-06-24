@@ -12,9 +12,9 @@ const config = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: "1rem",
       screens: {
-        DEFAULT: "460px",
+        DEFAULT: "430px",
       },
     },
     extend: {
@@ -84,20 +84,22 @@ const config = {
     },
   },
   plugins: [
-    function({addUtilities}: any) { //for hiding scrollbar
+    function ({ addUtilities }: any) {
+      //for hiding scrollbar
       const newUtilities = {
-        ".no-scrollbar::-webkit-scrollbar":{
+        ".no-scrollbar::-webkit-scrollbar": {
           display: "none",
         },
-        ".no-scrollbar":{
+        ".no-scrollbar": {
           "-ms-overflow-style": "none",
           "scrollbar-width": "none",
         },
       };
-      addUtilities(newUtilities)
+      addUtilities(newUtilities);
     },
-    
-    require("tailwindcss-animate")],
+
+    require("tailwindcss-animate"),
+  ],
 } satisfies Config;
 
 export default config;
