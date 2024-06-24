@@ -18,7 +18,7 @@ const TipSummary = () => {
       </div>
 
       <Link
-        href="/checkout"
+        href="/"
         className="mt-2 rounded-sm bg-primary py-2 text-center font-semibold text-white"
       >
         Proceed to checkout
