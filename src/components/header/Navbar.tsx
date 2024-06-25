@@ -5,19 +5,21 @@ import Image from "next/image";
 import { QrDrawer } from "../QrDrawer";
 import SearchBox from "@/components/header/searchBox";
 import MenuTab from "./MenuTab";
+import InfoDrawer from "../MenuDrawer";
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  // const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <>
       <nav className="container mt-5 flex items-center justify-between">
         <div className="cursor-pointer">
-          <MenuButton
+          {/* <MenuButton
             isOpen={isOpen}
             onClick={() => setIsOpen(!isOpen)}
             width={undefined}
             height={undefined}
-          />
+          /> */}
+          <InfoDrawer />
         </div>
 
         <div>
