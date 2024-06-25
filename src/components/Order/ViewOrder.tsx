@@ -4,10 +4,12 @@ import TipSelector from "@/components/Order/TipSelector";
 import TipSummary from "@/components/Order/TipSummary";
 import { fakeOrderData } from "@/utils/orderData";
 import Link from "next/link";
+import OrderNav from "./OrderNav";
 
 const ViewOrder = () => {
   return (
     <section className="container">
+      <OrderNav />
       <div className="flex h-[340px] flex-col gap-2 overflow-y-scroll no-scrollbar">
         {fakeOrderData.map((items) => (
           <OrderCards key={items.product_id} data={items} />
