@@ -10,8 +10,8 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "./ui/drawer";
-import { Button } from "./ui/button";
+} from "../ui/drawer";
+import { Button } from "../ui/button";
 import { useState } from "react";
 import { X } from "lucide-react";
 

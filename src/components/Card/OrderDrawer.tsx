@@ -1,4 +1,4 @@
-import { Drawer, DrawerContent, DrawerTrigger } from "./ui/drawer";
+import { Drawer, DrawerContent, DrawerTrigger } from "../ui/drawer";
 
 export const OrderDrawer = () => {
   return (
