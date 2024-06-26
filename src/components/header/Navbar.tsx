@@ -1,27 +1,18 @@
 "use client";
 import React, { useState } from "react";
-import MenuButton from "./MenuButton";
 import Image from "next/image";
 import { QrDrawer } from "../Card/QrDrawer";
 import SearchBox from "@/components/header/searchBox";
 import MenuTab from "./MenuTab";
-import InfoDrawer from "../MenuDrawer";
+import MenuDrawer from "../Card/MenuDrawer";
 
 const Navbar = () => {
-  // const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <>
       <nav className="container mt-5 flex items-center justify-between">
         <div className="cursor-pointer">
-          {/* <MenuButton
-            isOpen={isOpen}
-            onClick={() => setIsOpen(!isOpen)}
-            width={undefined}
-            height={undefined}
-          /> */}
-          <InfoDrawer />
+          <MenuDrawer />
         </div>
-
         <div>
           <Image
             src="/emenu-logo-white.png"

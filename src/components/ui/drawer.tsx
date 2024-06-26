@@ -22,6 +22,8 @@ const DrawerPortal = DrawerPrimitive.Portal;
 
 const DrawerClose = DrawerPrimitive.Close;
 
+
+
 const DrawerOverlay = React.forwardRef<
 	React.ElementRef<typeof DrawerPrimitive.Overlay>,
 	React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay>
@@ -95,6 +97,18 @@ const DrawerDescription = React.forwardRef<
 ));
 DrawerDescription.displayName = DrawerPrimitive.Description.displayName;
 
+const DrawerImage = React.forwardRef<
+	HTMLImageElement,
+	React.ImgHTMLAttributes<HTMLImageElement>
+>(({ className, ...props }, ref) => (
+	<img
+		ref={ref}
+		className={cn('w-full h-auto rounded-t-[10px]', className)}
+		{...props}
+	/>
+));
+DrawerImage.displayName = 'DrawerImage';
+
 export {
 	Drawer,
 	DrawerPortal,
@@ -106,4 +120,5 @@ export {
 	DrawerFooter,
 	DrawerTitle,
 	DrawerDescription,
+	DrawerImage,
 };
