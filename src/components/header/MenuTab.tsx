@@ -1,43 +1,50 @@
 "use client";
 import React, { useRef } from "react";
 import categoryItems from "@/utils/categoryItems";
+import { useMenuStore } from "@/store/menuTab-store";
 const MenuTab = () => {
-  const buttonRef = useRef<(HTMLButtonElement | null)[]>([]);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
-  const handleFocus = (e: React.FocusEvent<HTMLButtonElement>) => {
-    if (e.target) {
-      e.target.scrollIntoView({
+  const selected = useMenuStore((state) => state.selected);
+  const setSelected = useMenuStore((state) => state.setSelected);
+
+  const handleButtonClick = (value: string): void => {
+    setSelected(value);
+    const button = document.querySelector(`button[data-value="${value}"]`);
+    if (button && scrollContainerRef.current) {
+      button.scrollIntoView({
         behavior: "smooth",
-        block: "nearest",
         inline: "center",
+        block: "nearest",
       });
     }
   };
+
   return (
-    <div className="container mt-2 flex items-center gap-2 text-lg">
-      {categoryItems.slice(0, 1).map((item, index) => (
+    <div className="container mt-4 flex items-center gap-2 text-base">
+      {categoryItems.slice(0, 1).map((c) => (
         <button
-          key={index}
-          ref={(e: any) => (buttonRef.current[index] = e)}
-          className="flex items-center justify-center space-x-1 rounded-sm px-2 py-1.5 font-semibold text-gray-500 shadow-md hover:bg-zinc-200 focus:bg-orange-400 focus:text-white"
+          key={c.value}
+          className={`${selected === c.value && "bg-primary text-white"} flex items-center gap-2 rounded-sm px-4 py-1 font-medium shadow-md`}
+          onClick={() => handleButtonClick(c.value)}
         >
-          {item.title}
+          {c.label}
         </button>
       ))}
-      <div className="flex justify-between gap-x-2 overflow-x-scroll whitespace-nowrap py-2 no-scrollbar">
-        {/* rendering tab item title */}
 
-        {categoryItems.slice(1).map((item, index) => (
-          <div key={index} className="flex items-center justify-center gap-x-5">
-            <button
-              ref={(e: any) => (buttonRef.current[index] = e)}
-              onFocus={handleFocus}
-              className="flex items-center justify-center space-x-1 rounded-sm px-2 py-1.5 font-semibold text-gray-500 shadow-md hover:bg-zinc-200 focus:bg-orange-400 focus:text-white"
-            >
-              {item.icon}
-              <span className="truncate">{item.title}</span>
-            </button>
-          </div>
+      <div
+        className="flex items-center gap-4 overflow-x-scroll whitespace-nowrap no-scrollbar"
+        ref={scrollContainerRef}
+      >
+        {categoryItems.slice(1).map((c) => (
+          <button
+            key={c.value}
+            data-value={c.value}
+            onClick={() => handleButtonClick(c.value)}
+            className={`${selected === c.value ? "bg-primary text-white" : "bg-slate-200 text-black"} flex items-center gap-2 rounded-sm px-4 py-1 font-medium shadow-md`}
+          >
+            {c.label}
+          </button>
         ))}
       </div>
     </div>
