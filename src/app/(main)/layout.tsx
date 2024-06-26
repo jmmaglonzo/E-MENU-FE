@@ -1,3 +1,5 @@
+import ViewOrder from "@/components/Order/ViewOrder";
+import ViewOrderCheckout from "@/components/Order/ViewOrderCheckout";
 import Navbar from "@/components/header/Navbar";
 
 export default function MainLayout({
@@ -7,10 +9,12 @@ export default function MainLayout({
 }) {
   return (
     <>
-      <header>
+      {/* <header>
         <Navbar />
-      </header>
-      {children}
+      </header> */}
+      {/* {children} */}
+      <ViewOrder />
+      {/* <ViewOrderCheckout /> */}
     </>
   );
 }
