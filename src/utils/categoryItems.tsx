@@ -6,11 +6,6 @@ import { FaCarrot } from "react-icons/fa";
 import { FaCocktail } from "react-icons/fa";
 import { IoMdIceCream } from "react-icons/io";
 
-interface CategoryItem {
-  title: string;
-  icon?: JSX.Element;
-}
-
 export const categoryItems = [
   { value: "all", label: "All" },
   { value: "popular", label: "Popular", icon: <FaFire /> },
