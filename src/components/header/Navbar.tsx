@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import MenuButton from "./MenuButton";
 import Image from "next/image";
-import { QrDrawer } from "../Card/QrDrawer";
+import { QrDrawer } from "../Drawer/QrDrawer";
 import SearchBox from "@/components/header/searchBox";
 import MenuTab from "./MenuTab";
 
