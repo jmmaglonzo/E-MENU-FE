@@ -11,15 +11,15 @@ interface CategoryItem {
   icon?: JSX.Element;
 }
 
-const categoryItems: CategoryItem[] = [
-  { title: "All" },
-  { title: "Popular", icon: <FaFire /> },
-  { title: "Appetizers", icon: <FaHotdog /> },
-  { title: "Main Course", icon: <PiBowlFoodFill /> },
-  { title: "Side Dishes", icon: <FaCarrot /> },
-  { title: "Drinks", icon: <FaCocktail /> },
-  { title: "Soup", icon: <TbSoupFilled /> },
-  { title: "Desserts", icon: <IoMdIceCream /> },
+export const categoryItems = [
+  { value: "all", label: "All" },
+  { value: "popular", label: "Popular", icon: <FaFire /> },
+  { value: "appetizers", label: "Appetizers", icon: <FaHotdog /> },
+  { value: "main-course", label: "Main Course", icon: <PiBowlFoodFill /> },
+  { value: "side-dishes", label: "Side Dishes", icon: <FaCarrot /> },
+  { value: "drinks", label: "Drinks", icon: <FaCocktail /> },
+  { value: "soup", label: "Soup", icon: <TbSoupFilled /> },
+  { value: "desserts", label: "Desserts", icon: <IoMdIceCream /> },
 ];
 
 export default categoryItems;
