@@ -6,6 +6,6 @@ interface MenuStore {
 }
 
 export const useMenuStore = create<MenuStore>((set) => ({
-  selected: "All",
+  selected: "all",
   setSelected: (value) => set(() => ({ selected: value })),
 }));
