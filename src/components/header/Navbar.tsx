@@ -13,14 +13,12 @@ const Navbar = () => {
         <div className="cursor-pointer">
           <MenuDrawer />
         </div>
-        <div>
+        <div className="relative h-[40px] w-[160px]">
           <Image
-            src="/emenu-logo-white.png"
+            src="/emenu-logo-dark.png"
             alt="icon-menu"
-            width={60}
-            height={50}
-            style={{ width: "auto", height: "auto" }}
-            priority
+            fill
+            className="object-contain"
           />
         </div>
         <QrDrawer />
