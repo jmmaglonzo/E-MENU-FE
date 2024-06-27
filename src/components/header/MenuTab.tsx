@@ -25,7 +25,7 @@ const MenuTab = () => {
       {categoryItems.slice(0, 1).map((c) => (
         <button
           key={c.value}
-          className={`${selected === c.value && "bg-primary text-white"} flex items-center gap-2 rounded-sm px-4 py-1 font-medium shadow-md`}
+          className={`${selected === c.value ? "bg-primary text-white" : "bg-slate-200 text-black"} flex items-center gap-2 rounded-sm px-4 py-1 font-medium shadow-md`}
           onClick={() => handleButtonClick(c.value)}
         >
           {c.label}

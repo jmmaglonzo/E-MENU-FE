@@ -1,11 +1,10 @@
-"use client"
+"use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const TipSummary = () => {
   const pathname = usePathname();
   return (
-    
     <div className="mt-4 flex flex-col text-base text-gray-600">
       <div className="flex justify-between">
         <span>Subtotal</span>
@@ -22,11 +21,11 @@ const TipSummary = () => {
       </div>
 
       <Link
-      href="/order_route/view-order-checkout"
-      className={`mt-2 rounded-sm bg-primary py-2 text-center font-semibold text-white ${
-        pathname === '/order_route/view-order-checkout' ? 'active' : ''
-      }`}
-    >
+        href="/checkout"
+        className={`mt-2 rounded-sm bg-primary py-2 text-center font-semibold text-white ${
+          pathname === "/checkout" ? "active" : ""
+        }`}
+      >
         Proceed to checkout
       </Link>
     </div>
