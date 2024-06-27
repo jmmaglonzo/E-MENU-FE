@@ -3,7 +3,6 @@ import Image from "next/image";
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import { PlusIcon } from "lucide-react";
 import { Button } from "../ui/button";
-import dummyImg from "/public/dummyImg.jpg";
 import { PiClockCountdownFill } from "react-icons/pi";
 import { FaStar } from "react-icons/fa6";
 
