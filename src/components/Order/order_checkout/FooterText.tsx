@@ -4,9 +4,9 @@ import React from 'react'
 const FooterText = () => {
   return (
     <div>
-        <div className='text-[0.7em] flex justify-center items-center leading-4
-        my-10'>
-        <span className='text-center'>
+        <div className=' flex justify-center items-center leading-3
+        '>
+        <span className=' text-gray-800 text-center text-[0.5em]'>
              I hereby give  Chef Morgan Restaurant the permission to share my customer data
           with the Restaurant, and is applicable, their respective affiliates and subsidaries,
           for service improvement and/or other related marketing purposes.
@@ -15,8 +15,8 @@ const FooterText = () => {
           </span>
         </div>
 
-        <div className='text-[0.7em] flex justify-center my-5'>
-        <span className='text-center'>By completing this order, I agree to all
+        <div className='flex justify-center mt-4'>
+        <span className='text-gray-800 text-center text-[0.5em]'>By completing this order, I agree to all
         <Link href="#" className='text-orange-300 font-bold'> terms and conditions</Link></span>
         </div>
     </div>
