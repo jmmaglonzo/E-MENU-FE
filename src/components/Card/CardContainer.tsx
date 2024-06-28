@@ -8,7 +8,7 @@ const CardContainer = () => {
 
   if (isLoading)
     return (
-      <div className="container mt-36 flex min-h-dvh justify-center">
+      <div className="container mt-36 flex h-dvh justify-center">
         <Loader />
       </div>
     );

@@ -21,7 +21,7 @@ const MenuTab = () => {
   };
 
   return (
-    <div className="container mt-4 flex items-center gap-2 text-base">
+    <div className="container mt-1.5 flex items-center gap-3 py-1 text-base">
       {categoryItems.slice(0, 1).map((c) => (
         <button
           key={c.value}
@@ -33,7 +33,7 @@ const MenuTab = () => {
       ))}
 
       <div
-        className="flex items-center gap-4 overflow-x-scroll whitespace-nowrap no-scrollbar"
+        className="flex items-center gap-3 overflow-x-scroll whitespace-nowrap py-1 no-scrollbar"
         ref={scrollContainerRef}
       >
         {categoryItems.slice(1).map((c) => (
