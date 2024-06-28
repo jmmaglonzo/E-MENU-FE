@@ -8,9 +8,9 @@ import FooterText from "./FooterText";
 const OrderCheckout = () => {
   return (
     <>
-      <main className="container">
-        <section className="mt-5 flex flex-wrap items-center justify-between">
-          <div className="flex items-center gap-x-2">
+      <main className="container h-screen ">
+        <section className="mt-3 flex flex-wrap items-center justify-between">
+          <div className="flex items-center gap-x-2 mb-3">
             <div>
               <FaCreditCard className="text-orange-500" />
             </div>

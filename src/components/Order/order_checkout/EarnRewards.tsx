@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from 'next/link';
 const EarnRewards = () => {
   return (
-    <div className='flex flex-col items-center justify-center mt-5 mb-5'>
+    <div className='flex flex-col items-center justify-center mb-5 mt-8 xs:mt-1 lg:mt-16'>
         <Image
             src="/giftbox.png"
             alt="icon-menu"
