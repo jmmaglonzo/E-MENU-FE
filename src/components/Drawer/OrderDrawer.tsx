@@ -21,8 +21,8 @@ export const OrderDrawer = () => {
         </DrawerTrigger>
         <DrawerContent className="container h-full">
           <ViewOrder />
-          <DrawerClose className="absolute left-6 top-[34px]">
-            <ChevronLeft size={20} />
+          <DrawerClose className="absolute left-8 top-[32px]">
+            <ChevronLeft size={24} />
           </DrawerClose>
         </DrawerContent>
       </Drawer>
