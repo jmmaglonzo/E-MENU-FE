@@ -1,10 +1,16 @@
 "use client";
+import { useMenuStore } from "@/store/menuTab-store";
 import ErrorPage from "../common/ErrorPage";
 import Loader from "../common/Loader";
 import ProductCard from "./ProductCard";
 import { useGetProducts } from "@/services/queries";
 const CardContainer = () => {
   const { data, isLoading, error } = useGetProducts();
+  const selected = useMenuStore((state) => state.selected);
+
+  const filteredItems = data?.filter((food) =>
+    selected === "all" ? true : food.categories.includes(selected),
+  );
 
   if (isLoading)
     return (
@@ -22,7 +28,9 @@ const CardContainer = () => {
 
   return (
     <div className="bg-slate-[#E8E9EA] mt-4 grid h-dvh grid-cols-2 gap-4 overflow-y-scroll px-2 py-4 no-scrollbar">
-      {data?.map((product) => <ProductCard key={product.id} data={product} />)}
+      {filteredItems?.map((product) => (
+        <ProductCard key={product.id} data={product} />
+      ))}
     </div>
   );
 };
