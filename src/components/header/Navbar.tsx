@@ -19,6 +19,7 @@ const Navbar = () => {
             priority
             alt="icon-menu"
             fill
+            sizes="160px"
             className="object-contain"
           />
         </div>
