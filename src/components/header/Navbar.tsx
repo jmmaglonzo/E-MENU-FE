@@ -1,10 +1,11 @@
 "use client";
 import Image from "next/image";
-import { QrDrawer } from "../Drawer/QrDrawer";
 import SearchBox from "@/components/header/searchBox";
 import MenuTab from "./MenuTab";
 import MenuDrawer from "../Card/MenuDrawer";
 import menuLogo from "/public/emenu-logo-dark.png";
+import NavDrawer from "../Drawer/NavDrawer";
+
 const Navbar = () => {
   return (
     <>
@@ -21,7 +22,7 @@ const Navbar = () => {
             className="object-contain"
           />
         </div>
-        <QrDrawer />
+        <NavDrawer />
       </nav>
       <SearchBox />
       <MenuTab />
