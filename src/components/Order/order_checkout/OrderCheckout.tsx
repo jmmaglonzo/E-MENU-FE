@@ -9,16 +9,18 @@ const OrderCheckout = () => {
   return (
     <>
       <main className="container h-screen ">
-        <section className="mt-3 flex flex-wrap items-center justify-between">
+        <section className="mt-3 flex flex-wrap justify-between">
           <div className="flex items-center gap-x-2 mb-3">
             <div>
               <FaCreditCard className="text-orange-500" />
             </div>
             <div className="text-[0.7em] font-semibold">Payment Method</div>
           </div>
+
           <div className="text-[0.7em] font-bold text-orange-400">
             <Link href="#">Edit</Link>
           </div>
+
         </section>
 
         <section className="flex flex-wrap items-center gap-x-2">
