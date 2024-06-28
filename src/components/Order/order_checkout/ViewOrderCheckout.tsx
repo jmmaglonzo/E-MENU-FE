@@ -5,7 +5,7 @@ const ViewOrderCheckout = () => {
   return (
     <section>
       <OrderNav />
-      <div className="mx-4">
+      <div className=" h-screen w-screen lg:h-lvh">
         <OrderCheckout />
       </div>
     </section>
