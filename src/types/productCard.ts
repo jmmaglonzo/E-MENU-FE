@@ -1,29 +1,14 @@
-interface Category {
-  id: string;
-  name: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-interface ProductCategorize {
-  categoryId: string;
-  productId: string;
-  category: Category;
-}
-
-interface ProductReview {}
-
-export interface ProductType {
+export interface ItemTypes {
   id: string;
   name: string;
   image: string;
   description: string;
   price: number;
-  cookingTimeInSec: number;
   createdAt: string;
   updatedAt: string;
-  productCategorize: ProductCategorize[];
-  productReview: ProductReview[];
+  estimatedCookingTimeMin: number;
+  productCategorize: string[];
+  productReview: string[];
   categories: string[];
   ratings: number;
 }

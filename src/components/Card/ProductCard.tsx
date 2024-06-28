@@ -1,4 +1,4 @@
-import { ProductType } from "@/types/productCard";
+import { ItemTypes } from "@/types/productCard";
 import Image from "next/image";
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import { PlusIcon } from "lucide-react";
@@ -7,7 +7,7 @@ import { PiClockCountdownFill } from "react-icons/pi";
 import { FaStar } from "react-icons/fa6";
 
 interface ProductCardProps {
-  data: ProductType;
+  data: ItemTypes;
 }
 
 const ProductCard = ({ data }: ProductCardProps) => {
