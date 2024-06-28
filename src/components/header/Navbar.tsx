@@ -16,7 +16,7 @@ const Navbar = () => {
         <div className="relative h-[40px] w-[160px]">
           <Image
             src={menuLogo}
-            placeholder="blur"
+            priority
             alt="icon-menu"
             fill
             className="object-contain"
