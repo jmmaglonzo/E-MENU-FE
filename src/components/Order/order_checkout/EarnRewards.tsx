@@ -3,12 +3,12 @@ import Image from "next/image";
 import Link from 'next/link';
 const EarnRewards = () => {
   return (
-    <div className='flex flex-col items-center justify-center mt-16'>
+    <div className='flex flex-col items-center justify-center mt-5 mb-5'>
         <Image
             src="/giftbox.png"
             alt="icon-menu"
-            width={70}
-            height={50}
+            width={60}
+            height={60}
             style={{ width: "auto", height: "auto" }}
             priority
           />
