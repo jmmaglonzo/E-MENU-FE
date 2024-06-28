@@ -10,7 +10,7 @@ const ViewOrder = () => {
   return (
     <section className="container">
       <OrderNav />
-      <div className="flex h-[340px] flex-col gap-2 overflow-y-scroll no-scrollbar">
+      <div className="flex h-[290px] flex-col gap-2 overflow-y-scroll no-scrollbar">
         {fakeOrderData.map((items) => (
           <OrderCards key={items.product_id} data={items} />
         ))}
