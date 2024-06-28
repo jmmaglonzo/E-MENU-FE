@@ -8,9 +8,11 @@ const OrderNav = () => {
   return (
     <nav className="container flex flex-col items-center gap-6 py-4 text-center">
       <div className="flex w-full items-center">
-        <Link href="/">
-          <ChevronLeft />
-        </Link>
+        {pathname === "/checkout" && (
+          <Link href="/">
+            <ChevronLeft size={20} />
+          </Link>
+        )}
         <span className="flex-grow font-bold">
           {pathname === "/order_route/view-order-checkout"
             ? "Order Checkout"
