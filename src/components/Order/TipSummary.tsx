@@ -13,7 +13,7 @@ const TipSummary = ({selectedTip,productAmount}: TipSummaryProp) => {
     <div className="mt-2 flex flex-col text-base text-gray-600">
       <div className="flex justify-between">
         <span>Subtotal</span>
-        <span>&#8369;${productAmount}</span>
+        <span>&#8369;{productAmount}</span>
       </div>
       <div className="flex justify-between">
         <span>Tip</span>
@@ -27,7 +27,7 @@ const TipSummary = ({selectedTip,productAmount}: TipSummaryProp) => {
       <div className="my-2 h-[2px] w-full bg-gray-400"></div>
       <div className="flex flex-col justify-center text-center font-medium text-black">
         <span className="text-lg">Total amount</span>
-        <span className="text-4xl font-bold">&#8369;</span>
+        <span className="text-4xl font-bold">&#8369;{productAmount + (selectedTip || 0)}</span>
       </div>
 
       <Link
