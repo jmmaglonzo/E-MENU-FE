@@ -9,6 +9,7 @@ import Link from "next/link";
 import OrderNav from "./OrderNav";
 import { ItemTypes } from "@/types/productCard";
 import { CartItem } from "@/types/cart";
+import { useState } from "react";
 
 interface ViewOrderProp {
   productAmount: number;
@@ -17,6 +18,7 @@ interface ViewOrderProp {
 }
 
 const ViewOrder = ({productAmount, items, data}: ViewOrderProp) => {
+  const [selectedTip, setSelectedTip] = useState<number>(20);
 
   return (
     <section className="container p-0">
@@ -46,8 +48,8 @@ const ViewOrder = ({productAmount, items, data}: ViewOrderProp) => {
         </Link>
       </div>
       <TipCard />
-      <TipSelector />
-      <TipSummary productAmount={productAmount} />
+      <TipSelector selectedTip={selectedTip as number} setSelectedTip={setSelectedTip}/>
+      <TipSummary selectedTip={selectedTip} productAmount={productAmount} />
     </section>
   );
 };
