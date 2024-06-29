@@ -8,7 +8,7 @@ import {
 } from "../ui/drawer";
 export const OrderDrawer = () => {
   return (
-    <div className="container absolute bottom-4">
+    <div className="container fixed bottom-0 bg-white p-4">
       <Drawer>
         <DrawerTrigger className="inline-flex w-[90%] items-center justify-center rounded-md bg-primary text-white">
           <div className="flex w-full items-center justify-between p-2.5 px-8">
@@ -19,7 +19,7 @@ export const OrderDrawer = () => {
             <span>200.00</span>
           </div>
         </DrawerTrigger>
-        <DrawerContent className="container h-full">
+        <DrawerContent className="container h-dvh">
           <ViewOrder />
           <DrawerClose className="absolute left-8 top-[32px]">
             <ChevronLeft size={24} />
