@@ -30,7 +30,7 @@ export const OrderDrawer = () => {
               1
             </div>
             <span>View Orders</span>
-            <span>{productAmount}</span>
+            <span>&#8369;{productAmount}</span>
           </div>
         </DrawerTrigger>
         <DrawerContent className="container h-dvh">
