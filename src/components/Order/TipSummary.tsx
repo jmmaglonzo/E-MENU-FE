@@ -4,9 +4,10 @@ import { usePathname } from "next/navigation";
 
 interface TipSummaryProp {
   productAmount: number;
+  selectedTip: number;
 }
 
-const TipSummary = ({productAmount}: TipSummaryProp) => {
+const TipSummary = ({selectedTip,productAmount}: TipSummaryProp) => {
   const pathname = usePathname();
   return (
     <div className="mt-2 flex flex-col text-base text-gray-600">
@@ -16,12 +17,17 @@ const TipSummary = ({productAmount}: TipSummaryProp) => {
       </div>
       <div className="flex justify-between">
         <span>Tip</span>
-        <span>&#8369;20.00</span>
+        {
+          selectedTip? 
+            <span>&#8369;{selectedTip}</span>
+            :
+            <></>
+        }
       </div>
       <div className="my-2 h-[2px] w-full bg-gray-400"></div>
       <div className="flex flex-col justify-center text-center font-medium text-black">
         <span className="text-lg">Total amount</span>
-        <span className="text-4xl font-bold">&#8369;820.00</span>
+        <span className="text-4xl font-bold">&#8369;</span>
       </div>
 
       <Link
