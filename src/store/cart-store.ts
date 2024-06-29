@@ -1,13 +1,5 @@
 import { create } from "zustand";
-
-interface CartItem {
-    id: string;
-    quantity: number;
-}
-
-interface CartData {
-    items: CartItem[];
-}
+import type { CartItem, CartData } from "@/types/cart";
 
 interface CartActions {
     addCart: (id: string) => void;
@@ -50,5 +42,5 @@ export const useCart = create<CartData & CartActions>((set) => ({
     })),
     subCart: (id: string) => set((state) => ({
         items: cartReducer(state.items, "subCart",id)
-    }))
+    })),
 }));
