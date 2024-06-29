@@ -5,7 +5,7 @@ import Image from "next/image";
 import TotalAmount from "./TotalAmount";
 import EarnRewards from "./EarnRewards";
 import FooterText from "./FooterText";
-import Gcash from "/public/Gcash-Logo.png";
+import Gcash from "/public/GCash-Logo.png";
 const OrderCheckout = () => {
   return (
     <>
