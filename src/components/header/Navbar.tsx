@@ -1,10 +1,10 @@
 "use client";
-import React, { useState } from "react";
 import Image from "next/image";
-import { QrDrawer } from "../Drawer/QrDrawer";
 import SearchBox from "@/components/header/searchBox";
 import MenuTab from "./MenuTab";
 import MenuDrawer from "../Card/MenuDrawer";
+import menuLogo from "/public/emenu-logo-dark.png";
+import NavDrawer from "../Drawer/NavDrawer";
 
 const Navbar = () => {
   return (
@@ -13,17 +13,17 @@ const Navbar = () => {
         <div className="cursor-pointer">
           <MenuDrawer />
         </div>
-        <div>
+        <div className="relative h-[40px] w-[160px]">
           <Image
-            src="/emenu-logo-white.png"
-            alt="icon-menu"
-            width={60}
-            height={50}
-            style={{ width: "auto", height: "auto" }}
+            src={menuLogo}
             priority
+            alt="icon-menu"
+            fill
+            sizes="160px"
+            className="object-contain"
           />
         </div>
-        <QrDrawer />
+        <NavDrawer />
       </nav>
       <SearchBox />
       <MenuTab />

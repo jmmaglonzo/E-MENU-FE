@@ -3,12 +3,10 @@ import OrderCheckout from "./OrderCheckout";
 
 const ViewOrderCheckout = () => {
   return (
-    <section>
+    <>
       <OrderNav />
-      <div className="mx-4">
-        <OrderCheckout />
-      </div>
-    </section>
+      <OrderCheckout />
+    </>
   );
 };
 
