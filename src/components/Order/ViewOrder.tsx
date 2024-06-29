@@ -7,12 +7,16 @@ import TipSummary from "@/components/Order/TipSummary";
 import { OrderData } from "@/utils/orderData";
 import Link from "next/link";
 import OrderNav from "./OrderNav";
-import { useCart } from "@/store/cart-store";
-import { useGetProducts } from "@/services/queries";
+import { ItemTypes } from "@/types/productCard";
+import { CartItem } from "@/types/cart";
 
-const ViewOrder = () => {
-  const {items} = useCart();
-  const {data} = useGetProducts();
+interface ViewOrderProp {
+  productAmount: number;
+  items: CartItem[];
+  data: ItemTypes[];
+}
+
+const ViewOrder = ({productAmount, items, data}: ViewOrderProp) => {
 
   return (
     <section className="container p-0">
@@ -43,7 +47,7 @@ const ViewOrder = () => {
       </div>
       <TipCard />
       <TipSelector />
-      <TipSummary />
+      <TipSummary productAmount={productAmount} />
     </section>
   );
 };
