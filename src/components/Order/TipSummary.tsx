@@ -2,13 +2,17 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const TipSummary = () => {
+interface TipSummaryProp {
+  productAmount: number;
+}
+
+const TipSummary = ({productAmount}: TipSummaryProp) => {
   const pathname = usePathname();
   return (
     <div className="mt-2 flex flex-col text-base text-gray-600">
       <div className="flex justify-between">
         <span>Subtotal</span>
-        <span>&#8369;800.00</span>
+        <span>&#8369;${productAmount}</span>
       </div>
       <div className="flex justify-between">
         <span>Tip</span>
