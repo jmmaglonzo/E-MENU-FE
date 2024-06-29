@@ -1,17 +1,18 @@
 "use client";
-import { useState } from "react";
+
 import Image from "next/image";
 import { OrderData } from "@/utils/orderData";
+import { useCart } from "@/store/cart-store";
 
 interface OrderProps {
   data: OrderData;
+  quantity: number;
 }
 
-const OrderCards = ({ data }: OrderProps) => {
-  const [quantity, setQuantity] = useState<number>(1);
+const OrderCards = ({ data, quantity }: OrderProps) => {
 
-  const increment = () => setQuantity((prevQuantity) => prevQuantity + 1);
-  const decrement = () => setQuantity((prevQuantity) => prevQuantity - 1);
+  const addCart = useCart((state) => state.addCart);
+  const subCart = useCart((state) => state.subCart);
 
   return (
     <div className="flex justify-between gap-2 rounded-sm p-2">
@@ -20,7 +21,6 @@ const OrderCards = ({ data }: OrderProps) => {
           src={data.image}
           alt="DummyImage"
           fill
-          placeholder="blur"
           className="object-cover"
           sizes="(min-width: 500px) 78px, calc(18.89vw - 13px)"
         />
@@ -30,7 +30,7 @@ const OrderCards = ({ data }: OrderProps) => {
         <p className="text-xs md:text-sm">{data.description}</p>
 
         <div className="flex w-[70px] items-center gap-2">
-          <button className="text-xl text-primary" onClick={decrement}>
+          <button className="text-xl text-primary" onClick={() => subCart(data.id)}>
             -
           </button>
           <input
@@ -39,7 +39,7 @@ const OrderCards = ({ data }: OrderProps) => {
             value={quantity}
             readOnly
           />
-          <button className="text-xl text-primary" onClick={increment}>
+          <button className="text-xl text-primary" onClick={() => addCart(data.id)}>
             +
           </button>
         </div>
