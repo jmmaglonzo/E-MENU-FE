@@ -1,19 +1,26 @@
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
-import React from 'react'
+import Link from "next/link";
+import React from "react";
 
 const TotalAmount = () => {
   return (
-    <div className='bg-slate-100 p-2 lg:mt-8'>
-        <div className='flex flex-col items-center mt-5 gap-y-2'>
-        <span className='font-bold text-[0.7em]'>Total Amount to Pay</span>
-        <span className='font-bold text-[1.8em]'>₱100,820.00</span>
-        <Link href="#" className='text-[0.6em]'>Vat Included <span className='text-orange-300'>learn more?</span></Link>
-        <Link href="#" className=' w-[100%] mt-2 rounded-sm bg-primary py-2 text-[0.8em] text-center font-semibold text-white'>Place Order</Link>
-        </div>
-       
+    <div className="p-2">
+      <div className="h-0.5 w-full bg-slate-100"></div>
+      <div className="mt-5 flex flex-col items-center gap-y-2">
+        <span className="text-[0.7em] font-bold">Total Amount to Pay</span>
+        <span className="text-[1.8em] font-bold">₱100,820.00</span>
+        <Link href="#" className="text-base">
+          Vat Included <span className="text-primary">Learn more?</span>
+        </Link>
+        <Link
+          href="#"
+          className="mt-2 w-full rounded-sm bg-primary py-2 text-center text-[0.8em] font-semibold text-white"
+        >
+          Place Order
+        </Link>
+        <div className="mt-4 h-0.5 w-full bg-slate-100"></div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default TotalAmount
+export default TotalAmount;
