@@ -14,8 +14,8 @@ const OrderCards = ({ data }: OrderProps) => {
   const decrement = () => setQuantity((prevQuantity) => prevQuantity - 1);
 
   return (
-    <div className="flex justify-between gap-2 rounded-sm p-2">
-      <div className="relative aspect-square h-[72px] w-[110px] overflow-hidden rounded-md">
+    <div className="flex justify-between gap-1 rounded-sm p-2">
+      <div className="relative aspect-square h-[72px] w-[72px] shrink-0 overflow-hidden rounded-md">
         <Image
           src={data.image}
           alt="DummyImage"
@@ -25,8 +25,8 @@ const OrderCards = ({ data }: OrderProps) => {
           sizes="(min-width: 500px) 78px, calc(18.89vw - 13px)"
         />
       </div>
-      <div className="ml-2 flex flex-col">
-        <span className="text-sm font-semibold md:text-base">{data.name}</span>
+      <div className="ml-1 flex flex-col">
+        <div className="text-sm font-semibold md:text-base">{data.name}</div>
         <p className="text-xs md:text-sm">{data.description}</p>
 
         <div className="flex w-[70px] items-center gap-2">
