@@ -1,11 +1,16 @@
 "use client";
-import { useState } from "react";
+
 interface TipValue {
   value: number | null;
   label: string;
 }
-const TipSelector = () => {
-  const [selectedTip, setSelectedTip] = useState<number | null>(20);
+
+interface TipSelectorProp {
+  selectedTip: number;
+  setSelectedTip: Function;
+}
+
+const TipSelector = ({selectedTip,setSelectedTip}: TipSelectorProp) => {
   const tip: TipValue[] = [
     {
       value: null,
