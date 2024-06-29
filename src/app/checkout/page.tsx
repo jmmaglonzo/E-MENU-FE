@@ -1,7 +1,11 @@
 import ViewOrderCheckout from "@/components/Order/order_checkout/ViewOrderCheckout";
 
 const page = () => {
-  return <ViewOrderCheckout />;
+  return (
+    <section className="container">
+      <ViewOrderCheckout />
+    </section>
+  );
 };
 
 export default page;
