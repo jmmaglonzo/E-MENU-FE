@@ -15,8 +15,8 @@ const ProductCard = ({ data }: ProductCardProps) => {
   const addCart = useCart((state) => state.addCart);
 
   return (
-    <Card className="text-center">
-      <CardHeader className="relative aspect-square h-[120px] w-full overflow-hidden rounded-md">
+    <Card className="flex flex-col">
+      <CardHeader className="relative aspect-square h-[120px] w-full overflow-hidden rounded-tl-md rounded-tr-md md:h-[150px]">
         <Image
           fill
           src={data.image}
@@ -26,24 +26,26 @@ const ProductCard = ({ data }: ProductCardProps) => {
           priority
         />
       </CardHeader>
-      <CardContent className="p-0 px-3">
-        <h2 className="text-base font-bold md:text-lg">{data.name}</h2>
-        <p className="line-clamp-3 text-sm text-muted-foreground">
+      <CardContent className="overflow-hidden p-0 px-3">
+        <h2 className="my-2 truncate text-base font-semibold leading-4">
+          {data.name}
+        </h2>
+        <p className="line-clamp-3 text-sm leading-3 text-muted-foreground">
           {data.description}
         </p>
         <div className="mt-1 flex items-center justify-between text-sm">
-          <div className="flex items-center gap-1">
-            <PiClockCountdownFill className="h-4 w-4 text-muted-foreground" />
+          <div className="flex items-center gap-1 text-muted-foreground">
+            <PiClockCountdownFill className="h-4 w-4" />
             <span>{data.estimatedCookingTimeMin} mins</span>
           </div>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 text-muted-foreground">
             <FaStar className="h-4 w-4 text-yellow-500" />
             <span>{data.ratings}/5</span>
           </div>
         </div>
       </CardContent>
-      <CardFooter className="flex items-center justify-between px-4 py-2">
-        <span className="text-base font-bold md:text-lg">
+      <CardFooter className="mt-auto flex items-center justify-between px-2 py-2">
+        <span className="pl-1 text-base font-bold md:text-lg">
           ₱{data.price.toFixed(2)}
         </span>
         <Button

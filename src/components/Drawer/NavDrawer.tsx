@@ -21,19 +21,17 @@ const NavDrawer = () => {
       <DrawerTrigger>
         <FaUserGroup size={20} />
       </DrawerTrigger>
-      <DrawerContent className="mx-auto flex max-w-[350px] items-center p-0">
+      <DrawerContent className="mx-auto flex max-w-[350px] items-center">
         <DrawerClose className="absolute right-4 top-2">
           <IoClose size={20} />
         </DrawerClose>
         <DrawerHeader>
-          <div className="flex flex-col items-start gap-y-1">
-            <DrawerTitle className="text-base text-primary">
-              Join me
-            </DrawerTitle>
-            <DrawerDescription className="mb-4">
-              Scan this QR code to start adding items.
-            </DrawerDescription>
-          </div>
+          <DrawerTitle className="p-0 text-xl text-primary">
+            Join me
+          </DrawerTitle>
+          <DrawerDescription className="mb-4">
+            Scan this QR code to start adding items.
+          </DrawerDescription>
 
           <QRCode value={uuidv4()} className="w-full" />
         </DrawerHeader>
