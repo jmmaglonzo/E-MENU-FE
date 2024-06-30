@@ -11,10 +11,16 @@ import {
 import { useCart } from "@/store/cart-store";
 import { useGetProducts } from "@/services/queries";
 import { ItemTypes } from "@/types/productCard";
+import { useEffect } from "react";
 
 export const OrderDrawer = () => {
-  const {items} = useCart();
+  const {items, fetchCart} = useCart();
   const {data} = useGetProducts();
+  
+  useEffect(() => {
+    fetchCart();
+  },[]);
+
   const productAmount = items.reduce((amount,cartItem) => {
     const item = data?.find(item => item.id == cartItem.id);
     const price = item?.price || 0;
