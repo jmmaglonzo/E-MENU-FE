@@ -5,8 +5,11 @@ import { Modal, ModalContainer, ModalHeader, ModalTitle, ModalContent, ModalFoot
 import EarnPointsModal from '@/components/loyalty_points/EarnPointsModal';
 
 
+
 const EarnRewards = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [showCheck, setShowCheck] = useState(false);
+
   return (
     <>
     <EarnPointsModal isOpen={isOpen} setIsOpen={setIsOpen} />
@@ -25,6 +28,7 @@ const EarnRewards = () => {
           onClick={() => setIsOpen(true)}
           className='text-orange-400 font-bold
           text-[0.7em]'>Earn and Save Points</button>
+
         </div>
     </div>
     </>
