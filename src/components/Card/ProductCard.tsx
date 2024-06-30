@@ -1,4 +1,4 @@
-import { Toaster, toast } from "sonner";
+import { toast } from "sonner";
 
 import { ItemTypes } from "@/types/productCard";
 import Image from "next/image";
@@ -9,6 +9,7 @@ import { FaStar } from "react-icons/fa6";
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import { useAddCart } from "@/services/queries";
 import { AxiosError } from "axios";
+
 import useCardStore from "@/store/productCard-store";
 interface ProductCardProps {
   data: ItemTypes;
@@ -16,6 +17,7 @@ interface ProductCardProps {
 
 const ProductCard = ({ data }: ProductCardProps) => {
   const { error, isError, mutate } = useAddCart();
+
   const setSelectedItem = useCardStore((state) => state.setSelectedItem);
   function handleAddCart() {
     mutate(data.id);
@@ -44,7 +46,6 @@ const ProductCard = ({ data }: ProductCardProps) => {
         />
       </CardHeader>
       <CardContent className="overflow-hidden p-0 px-3">
-        <Toaster />
         <h2 className="my-2 truncate text-base font-semibold leading-4">
           {data.name}
         </h2>

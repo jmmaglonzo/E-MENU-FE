@@ -14,18 +14,18 @@ import { ItemTypes } from "@/types/productCard";
 import { useEffect } from "react";
 
 export const OrderDrawer = () => {
-  const {items, fetchCart} = useCart();
-  const {data} = useGetProducts();
-  
+  const { items, fetchCart } = useCart();
+  const { data } = useGetProducts();
+
   useEffect(() => {
     fetchCart();
-  },[]);
+  }, []);
 
-  const productAmount = items.reduce((amount,cartItem) => {
-    const item = data?.find(item => item.id == cartItem.id);
+  const productAmount = items.reduce((amount, cartItem) => {
+    const item = data?.find((item) => item.id == cartItem.id);
     const price = item?.price || 0;
-    return amount + (price * cartItem.quantity);
-  },0);
+    return amount + price * cartItem.quantity;
+  }, 0);
 
   if (items.length === 0) return <></>;
 
@@ -42,7 +42,11 @@ export const OrderDrawer = () => {
           </div>
         </DrawerTrigger>
         <DrawerContent className="container h-dvh">
-          <ViewOrder items={items} data={data as ItemTypes[]} productAmount={productAmount}/>
+          <ViewOrder
+            items={items}
+            data={data as ItemTypes[]}
+            productAmount={productAmount}
+          />
           <DrawerClose className="absolute left-8 top-[32px]">
             <ChevronLeft size={24} />
           </DrawerClose>

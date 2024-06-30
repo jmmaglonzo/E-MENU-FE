@@ -17,30 +17,30 @@ interface ViewOrderProp {
   data: ItemTypes[];
 }
 
-const ViewOrder = ({productAmount, items, data}: ViewOrderProp) => {
+const ViewOrder = ({ productAmount, items, data }: ViewOrderProp) => {
   const [selectedTip, setSelectedTip] = useState<number>(20);
 
   return (
     <section className="container p-0">
       <OrderNav />
       <div className="flex h-[290px] flex-col gap-2 overflow-y-scroll no-scrollbar">
-        {
-          items.map(({id,quantity}) => {
-            const item = data?.find(item => item.id == id);
+        {items.map(({ id, quantity }) => {
+          const item = data?.find((item) => item.id == id);
 
-            if (!item) return <></>;
+          if (!item) return <></>;
 
-            const orderItem = {
-               id: item.id,
-               name: item.name,
-               description: item.description,
-               price: item.price,
-               image: item.image
-            } as OrderData;
+          const orderItem = {
+            id: item.id,
+            name: item.name,
+            description: item.description,
+            price: item.price,
+            image: item.image,
+          } as OrderData;
 
-            return <OrderCards key={item.id} data={orderItem} quantity={quantity} />           
-          })
-        }
+          return (
+            <OrderCards key={item.id} data={orderItem} quantity={quantity} />
+          );
+        })}
       </div>
       <div className="text-center">
         <Link href="/" className="text-base font-semibold text-primary">
@@ -48,8 +48,15 @@ const ViewOrder = ({productAmount, items, data}: ViewOrderProp) => {
         </Link>
       </div>
       <TipCard />
-      <TipSelector selectedTip={selectedTip as number} setSelectedTip={setSelectedTip}/>
-      <TipSummary items={items} selectedTip={selectedTip} productAmount={productAmount} />
+      <TipSelector
+        selectedTip={selectedTip as number}
+        setSelectedTip={setSelectedTip}
+      />
+      <TipSummary
+        items={items}
+        selectedTip={selectedTip}
+        productAmount={productAmount}
+      />
     </section>
   );
 };

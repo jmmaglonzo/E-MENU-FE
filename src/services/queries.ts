@@ -10,13 +10,13 @@ export const useGetProducts = () => {
 export const useUpdateCartItems = () => {
   return useMutation({
     mutationKey: ["cart/update"],
-    mutationFn: updateCartItems
+    mutationFn: updateCartItems,
   });
-}
+};
 
 export const useAddCart = () => {
   return useMutation({
     mutationKey: ["cart/add"],
-    mutationFn: addCartItem
+    mutationFn: addCartItem,
   });
-}
+};
