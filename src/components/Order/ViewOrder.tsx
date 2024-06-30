@@ -27,7 +27,7 @@ const ViewOrder = ({productAmount, items, data}: ViewOrderProp) => {
         {
           items.map(({id,quantity}) => {
             const item = data?.find(item => item.id == id);
-            
+
             if (!item) return <></>;
 
             const orderItem = {
@@ -49,7 +49,7 @@ const ViewOrder = ({productAmount, items, data}: ViewOrderProp) => {
       </div>
       <TipCard />
       <TipSelector selectedTip={selectedTip as number} setSelectedTip={setSelectedTip}/>
-      <TipSummary selectedTip={selectedTip} productAmount={productAmount} />
+      <TipSummary items={items} selectedTip={selectedTip} productAmount={productAmount} />
     </section>
   );
 };
