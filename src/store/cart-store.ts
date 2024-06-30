@@ -1,9 +1,11 @@
 import { create } from "zustand";
 import type { CartItem, CartData } from "@/types/cart";
+import { getCartItems } from "@/services/api";
 
 interface CartActions {
     addCart: (id: string) => void;
     subCart: (id: string) => void;
+    fetchCart: () => void;
 }
 
 function cartReducer(state: CartItem[], action: keyof CartActions,id: string): CartItem[] {
@@ -43,4 +45,11 @@ export const useCart = create<CartData & CartActions>((set) => ({
     subCart: (id: string) => set((state) => ({
         items: cartReducer(state.items, "subCart",id)
     })),
+    fetchCart: async () => {
+        const data = await getCartItems();
+        set((state) => ({
+            items: data,
+            isFetched: true
+        }));
+    }
 }));
