@@ -57,3 +57,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+.kitchen-container {
+  max-width: 1200px;
+  width: 100%;
+  padding: 10px 1rem;
+}
