@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import { getProducts, getCartItems } from "./api";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { getProducts, updateCartItems } from "./api";
 export const useGetProducts = () => {
   return useQuery({
     queryKey: ["products"],
@@ -7,9 +7,9 @@ export const useGetProducts = () => {
   });
 };
 
-export const useGetCartItems = () => {
-  return useQuery({
-    queryKey: ["cart"],
-    queryFn: getCartItems,
+export const useUpdateCartItems = () => {
+  return useMutation({
+    mutationKey: ["cart/update"],
+    mutationFn: updateCartItems
   });
-};
+}
