@@ -1,5 +1,5 @@
 const Kitchen = () => {
-  return <div>Orders</div>;
+  return <div>Table</div>;
 };
 
 export default Kitchen;

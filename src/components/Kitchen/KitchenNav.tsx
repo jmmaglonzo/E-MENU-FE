@@ -12,11 +12,19 @@ const KitchenNav = () => {
         <Image src={menuLogo} alt="Menu Logo" fill className="object-contain" />
       </div>
       <h1 className="mt-2 font-bold">Kitchen Dashboard</h1>
-      <ul className="mt-2 flex flex-1 items-center justify-center gap-4 font-medium">
+      <ul className="mt-2 flex flex-1 items-center justify-center gap-6 font-medium">
         <li>
           <Link
             href={"/kitchen"}
             className={`${pathname === "/kitchen" && "border-b-2 border-primary"}`}
+          >
+            Tables
+          </Link>
+        </li>
+        <li>
+          <Link
+            href={"/kitchen/order"}
+            className={`${pathname === "/kitchen/order" && "border-b-2 border-primary"}`}
           >
             Orders
           </Link>
