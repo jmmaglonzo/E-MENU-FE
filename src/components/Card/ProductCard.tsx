@@ -5,12 +5,15 @@ import { Button } from "../ui/button";
 import { PiClockCountdownFill } from "react-icons/pi";
 import { FaStar } from "react-icons/fa6";
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
+import { useCart } from "@/store/cart-store";
 
 interface ProductCardProps {
   data: ItemTypes;
 }
 
 const ProductCard = ({ data }: ProductCardProps) => {
+  const addCart = useCart((state) => state.addCart);
+
   return (
     <Card className="flex flex-col">
       <CardHeader className="relative aspect-square h-[120px] w-full overflow-hidden rounded-tl-md rounded-tr-md md:h-[150px]">
@@ -48,6 +51,7 @@ const ProductCard = ({ data }: ProductCardProps) => {
         <Button
           variant="outline"
           className="h-7 w-7 rounded-full bg-primary p-0 text-white hover:bg-primary/90 hover:text-white"
+          onClick={() => addCart(data.id)}
         >
           <PlusIcon className="h-4 w-4" />
         </Button>
