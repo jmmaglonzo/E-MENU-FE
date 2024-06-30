@@ -1,14 +1,22 @@
 import dummyImg from "/public/dummyImg.jpg";
 import { StaticImageData } from "next/image";
 
-export interface OrderData {
+interface OrderData1 {
   product_id: number;
   name: string;
   description: string;
   price: number;
   image: StaticImageData;
 }
-export const fakeOrderData: OrderData[] = [
+
+export interface OrderData {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+}
+export const fakeOrderData: OrderData1[] = [
   {
     product_id: 1,
     name: "Mashed potato with bacons",
