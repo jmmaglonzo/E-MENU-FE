@@ -4,6 +4,7 @@ import ErrorPage from "../common/ErrorPage";
 import Loader from "../common/Loader";
 import ProductCard from "./ProductCard";
 import { useGetProducts } from "@/services/queries";
+import ModalCard from "./ModalCard";
 const CardContainer = () => {
   const { data, isLoading, error } = useGetProducts();
   const selected = useMenuStore((state) => state.selected);
@@ -27,10 +28,11 @@ const CardContainer = () => {
     );
 
   return (
-    <div className="grid grid-cols-2 gap-3 rounded-sm px-2 py-4">
+    <div className="relative grid grid-cols-2 gap-3 rounded-sm px-2 py-4">
       {filteredItems?.map((product) => (
         <ProductCard key={product.id} data={product} />
       ))}
+      <ModalCard />
     </div>
   );
 };
