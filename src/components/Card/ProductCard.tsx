@@ -1,4 +1,4 @@
-import { Toaster, toast } from 'sonner'
+import { toast } from "sonner";
 
 import { ItemTypes } from "@/types/productCard";
 import Image from "next/image";
@@ -7,27 +7,25 @@ import { Button } from "../ui/button";
 import { PiClockCountdownFill } from "react-icons/pi";
 import { FaStar } from "react-icons/fa6";
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
-import { useAddCart } from '@/services/queries';
-import { AxiosError } from 'axios';
+import { useAddCart } from "@/services/queries";
+import { AxiosError } from "axios";
 
 interface ProductCardProps {
   data: ItemTypes;
 }
 
 const ProductCard = ({ data }: ProductCardProps) => {
-  const { error, isError, mutate} = useAddCart();
+  const { error, isError, mutate } = useAddCart();
 
   function handleAddCart() {
-     mutate(data.id);
+    mutate(data.id);
   }
 
   if (isError) {
     const errStatus = (error as AxiosError).response?.request.status;
-    
-    if (errStatus === 401)
-      toast("You are not allowed to order!"); 
-  }
 
+    if (errStatus === 401) toast.error("You are not allowed to order!");
+  }
 
   return (
     <Card className="flex flex-col">
@@ -42,7 +40,6 @@ const ProductCard = ({ data }: ProductCardProps) => {
         />
       </CardHeader>
       <CardContent className="overflow-hidden p-0 px-3">
-        <Toaster/>
         <h2 className="my-2 truncate text-base font-semibold leading-4">
           {data.name}
         </h2>
