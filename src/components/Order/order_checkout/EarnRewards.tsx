@@ -31,4 +31,4 @@ const EarnRewards = () => {
   )
 }
 
-export default EarnRewards
+export default EarnRewards;

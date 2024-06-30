@@ -41,7 +41,7 @@ const EarnPointsModal = ({isOpen, setIsOpen}: EarnPointsModal) => {
       {isOpen && (
         <Modal onClick={() => setIsOpen(false)}>
           <ModalContainer onClick={(e: React.MouseEvent) => e.stopPropagation()}
-          className="w-[100%] mx-2" >
+          className="" >
             <ModalHeader>
               <ModalTitle className="font-bold text-[1em] leading-3">Earn Loyal Points</ModalTitle>
               <span className="text-gray-400 text-[0.6em]">Fill out the form below to start earning loyal points.</span>

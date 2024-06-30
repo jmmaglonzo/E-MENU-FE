@@ -27,7 +27,7 @@ const CardContainer = () => {
     );
 
   return (
-    <div className="grid h-[540px] grid-cols-2 gap-3 overflow-y-scroll rounded-sm bg-[#E8E9EA] px-2 py-4 no-scrollbar">
+    <div className="grid grid-cols-2 gap-3 rounded-sm px-2 py-4">
       {filteredItems?.map((product) => (
         <ProductCard key={product.id} data={product} />
       ))}
