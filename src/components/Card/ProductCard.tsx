@@ -1,3 +1,5 @@
+import { Toaster, toast } from 'sonner'
+
 import { ItemTypes } from "@/types/productCard";
 import Image from "next/image";
 import { PlusIcon } from "lucide-react";
@@ -5,14 +7,27 @@ import { Button } from "../ui/button";
 import { PiClockCountdownFill } from "react-icons/pi";
 import { FaStar } from "react-icons/fa6";
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
-import { useCart } from "@/store/cart-store";
+import { useAddCart } from '@/services/queries';
+import { AxiosError } from 'axios';
 
 interface ProductCardProps {
   data: ItemTypes;
 }
 
 const ProductCard = ({ data }: ProductCardProps) => {
-  const addCart = useCart((state) => state.addCart);
+  const { error, isError, mutate} = useAddCart();
+
+  function handleAddCart() {
+     mutate(data.id);
+  }
+
+  if (isError) {
+    const errStatus = (error as AxiosError).response?.request.status;
+    
+    if (errStatus === 401)
+      toast("You are not allowed to order!"); 
+  }
+
 
   return (
     <Card className="flex flex-col">
@@ -27,6 +42,7 @@ const ProductCard = ({ data }: ProductCardProps) => {
         />
       </CardHeader>
       <CardContent className="overflow-hidden p-0 px-3">
+        <Toaster/>
         <h2 className="my-2 truncate text-base font-semibold leading-4">
           {data.name}
         </h2>
@@ -51,7 +67,7 @@ const ProductCard = ({ data }: ProductCardProps) => {
         <Button
           variant="outline"
           className="h-7 w-7 rounded-full bg-primary p-0 text-white hover:bg-primary/90 hover:text-white"
-          onClick={() => addCart(data.id)}
+          onClick={handleAddCart}
         >
           <PlusIcon className="h-4 w-4" />
         </Button>
