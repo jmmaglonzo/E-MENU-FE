@@ -33,7 +33,7 @@ export const OrderDrawer = () => {
         <DrawerTrigger className="inline-flex w-[90%] items-center justify-center rounded-md bg-primary text-white">
           <div className="flex w-full items-center justify-between p-2.5 px-8">
             <div className="flex size-6 w-fit items-center justify-center rounded-full border border-primary-foreground p-2">
-              1
+              {items.length}
             </div>
             <span>View Orders</span>
             <span>&#8369;{productAmount}</span>
