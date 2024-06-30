@@ -19,7 +19,8 @@ const ProductCard = ({ data }: ProductCardProps) => {
   const { error, isError, mutate } = useAddCart();
 
   const setSelectedItem = useCardStore((state) => state.setSelectedItem);
-  function handleAddCart() {
+  function handleAddCart(e: React.MouseEvent) {
+    e.stopPropagation();
     mutate(data.id);
   }
 
@@ -34,7 +35,7 @@ const ProductCard = ({ data }: ProductCardProps) => {
   };
 
   return (
-    <Card className="flex flex-col" onClick={handleClick}>
+    <Card className="flex cursor-pointer flex-col" onClick={handleClick}>
       <CardHeader className="relative aspect-square h-[120px] w-full overflow-hidden rounded-tl-md rounded-tr-md md:h-[150px]">
         <Image
           fill

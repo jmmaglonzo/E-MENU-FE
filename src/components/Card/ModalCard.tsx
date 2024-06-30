@@ -20,12 +20,16 @@ const ModalCard = () => {
       className="container fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
       onClick={closeModal}
     >
-      <Card className="flex flex-col">
-        <CardHeader className="relative aspect-square h-[120px] w-[full] overflow-hidden rounded-tl-md rounded-tr-md md:h-[150px]">
+      <Card
+        className="flex w-[80%] flex-col"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <CardHeader className="relative aspect-square h-[120px] w-full overflow-hidden rounded-tl-md rounded-tr-md md:h-[150px]">
           <Image
             src={selectedItem.image}
             alt={selectedItem.name}
             fill
+            sizes="160px"
             className="object-cover"
           />
         </CardHeader>
@@ -48,10 +52,16 @@ const ModalCard = () => {
             </div>
           </div>
         </CardContent>
-        <CardFooter className="mt-auto flex items-center justify-between px-2 py-2">
+        <CardFooter className="mt-auto flex items-center justify-between gap-4 px-2 py-2">
           <span className="pl-1 text-base font-bold md:text-lg">
             ₱{selectedItem.price.toFixed(2)}
           </span>
+          <Button
+            variant={"default"}
+            className="inline-flex w-full items-center justify-center rounded-md bg-primary px-6 font-medium text-white transition active:scale-110"
+          >
+            Order Now
+          </Button>
         </CardFooter>
       </Card>
     </div>
