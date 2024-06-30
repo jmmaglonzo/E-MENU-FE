@@ -17,3 +17,9 @@ export const updateCartItems = async(cartItems: CartItem[]) => {
   const { data } = await api.post("cart/update",{cartItems});
   return data;
 }
+
+export const addCartItem = async(id: string) => {
+  const { data } = await api.post("cart/add",{id});
+
+  return data;
+}
