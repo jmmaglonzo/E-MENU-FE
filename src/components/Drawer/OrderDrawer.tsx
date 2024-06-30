@@ -27,6 +27,8 @@ export const OrderDrawer = () => {
     return amount + (price * cartItem.quantity);
   },0);
 
+  if (items.length === 0) return <></>;
+
   return (
     <div className="container fixed bottom-0 bg-white p-4">
       <Drawer>
