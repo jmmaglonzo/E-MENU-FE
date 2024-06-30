@@ -6,3 +6,10 @@ export interface CartItem {
 export interface CartData {
     items: CartItem[];
 }
+
+export interface CartItemServer {
+    id: string;
+    quantity: number;
+    cartId: string;
+    productId: string;
+}
