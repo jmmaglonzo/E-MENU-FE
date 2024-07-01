@@ -56,9 +56,12 @@ const MenuDrawer = () => {
           <AiFillTikTok className="h-[25px] w-[25px]" />
         </div>
         <DrawerFooter className="text-center text-base text-gray-500">
-          <Button className="border border-orange-300 bg-white text-orange-400 hover:text-white">
+          <Link
+            href={"/order-history"}
+            className="rounded-sm border border-primary bg-white py-1.5 text-primary hover:text-white"
+          >
             Order History
-          </Button>
+          </Link>
           <Button>Redeem Points</Button>
           <Link href="" className="hover:text-orange-400">
             Need Help?
