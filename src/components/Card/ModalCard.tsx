@@ -21,10 +21,10 @@ const ModalCard = () => {
       onClick={closeModal}
     >
       <Card
-        className="flex w-[80%] flex-col"
+        className="flex w-[90%] flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        <CardHeader className="relative aspect-square h-[120px] w-full overflow-hidden rounded-tl-md rounded-tr-md md:h-[150px]">
+        <CardHeader className="relative aspect-square h-[220px] w-full overflow-hidden rounded-tl-md rounded-tr-md md:h-[300px]">
           <Image
             src={selectedItem.image}
             alt={selectedItem.name}
@@ -35,10 +35,10 @@ const ModalCard = () => {
         </CardHeader>
         <CardContent className="overflow-hidden p-0 px-3">
           <Toaster />
-          <h2 className="my-2 truncate text-base font-semibold leading-4">
+          <h2 className="my-2 truncate text-base font-semibold leading-4 md:text-xl">
             {selectedItem.name}
           </h2>
-          <p className="text-sm leading-3 text-muted-foreground">
+          <p className="text-base leading-4 text-muted-foreground">
             {selectedItem.description}
           </p>
           <div className="mt-1 flex items-center justify-between text-sm">
@@ -53,7 +53,7 @@ const ModalCard = () => {
           </div>
         </CardContent>
         <CardFooter className="mt-auto flex items-center justify-between gap-4 px-2 py-2">
-          <span className="pl-1 text-base font-bold md:text-lg">
+          <span className="pl-1 text-xl font-bold">
             ₱{selectedItem.price.toFixed(2)}
           </span>
           <Button
