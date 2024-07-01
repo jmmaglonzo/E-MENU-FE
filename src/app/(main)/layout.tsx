@@ -1,4 +1,3 @@
-import ViewOrder from "@/components/Order/ViewOrder";
 import Navbar from "@/components/header/Navbar";
 
 export default function MainLayout({
