@@ -11,4 +11,6 @@ export interface TableTypes {
   tableNo: number;
   guests: number;
   date: string;
+  session: string;
+  status: boolean;
 }
