@@ -19,7 +19,7 @@ const KitchenNav = () => {
             href={"/kitchen"}
             className={`${pathname === "/kitchen" && "border-b-2 border-primary"}`}
           >
-            Tables
+            Table Queue
           </Link>
         </li>
         <li>
