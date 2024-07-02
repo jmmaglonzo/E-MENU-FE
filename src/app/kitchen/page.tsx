@@ -1,6 +1,7 @@
-const Kitchen = () => {
+import Table from "@/components/Kitchen/Table";
 
-  return <div>Table</div>;
+const Kitchen = () => {
+  return <Table />;
 };
 
 export default Kitchen;
