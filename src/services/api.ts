@@ -17,13 +17,14 @@ export const getCartItems = async () => {
   return items;
 };
 
-export const updateCartItems = async (cartItems: CartItem[]) => {
-  const { data } = await api.post("cart/update", { cartItems });
+export const addCartItem = async (id: string) => {
+  const { data } = await api.post("cart/add", { id });
+
   return data;
 };
 
-export const addCartItem = async (id: string) => {
-  const { data } = await api.post("cart/add", { id });
+export const subCartItem = async (id: string) => {
+  const { data } = await api.post("cart/sub", { id });
 
   return data;
 };
