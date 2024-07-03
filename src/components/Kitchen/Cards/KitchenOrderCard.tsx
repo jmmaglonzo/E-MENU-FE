@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { OrderTableTypes } from "@/types/TableTypes";
+import { OrderTableTypes } from "@/types/table";
 
 interface KitchenOrderCardProps {
   data: OrderTableTypes;

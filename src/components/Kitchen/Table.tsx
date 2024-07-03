@@ -1,6 +1,5 @@
 "use client";
 
-import { TableTypes } from "@/types/table";
 import TableCards from "./Cards/TableCards";
 import { useGetTableQueue } from "@/services/queries";
 
