@@ -13,7 +13,7 @@ const TableCards = ({ data }: TableProps) => {
   const { mutate: approve } = useApproveTableQueue();
 
   const handleClick = (session: string, type: "decline" | "approve") => {
-    type === "decline" ? decline(data.session) : approve(data.session);
+    type === "decline" ? decline(session) : approve(session);
   };
 
   return (
