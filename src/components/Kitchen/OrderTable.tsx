@@ -1,4 +1,4 @@
-import { OrderTableTypes } from "@/types/TableTypes";
+import { OrderTableTypes } from "@/types/table";
 import KitchenOrderCard from "./Cards/KitchenOrderCard";
 
 const OrderTable = () => {
