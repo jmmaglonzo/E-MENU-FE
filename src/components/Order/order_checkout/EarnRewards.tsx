@@ -35,7 +35,7 @@ const EarnRewards = () => {
             </div>
             </DrawerTrigger>
         
-        <DrawerContent className='mx-5 h-[300px]'>
+        <DrawerContent className='mx-auto h-[50%] max-w-[380px]'>
           
         {!showSuccess ? (
           <DrawerTitle>
