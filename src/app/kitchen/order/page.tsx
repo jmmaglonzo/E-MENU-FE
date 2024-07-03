@@ -1,11 +1,7 @@
-import Order from "@/components/Kitchen/KitchenOrders/Order";
+import OrderTable from "@/components/Kitchen/OrderTable";
 
 const Orders = () => {
-  return (
-    <div>
-      <Order />
-    </div>
-  );
+  return <OrderTable />;
 };
 
 export default Orders;

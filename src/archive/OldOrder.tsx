@@ -2,7 +2,7 @@
 
 import { Toaster, toast } from "sonner";
 
-const Order = () => {
+const OldOrder = () => {
   type Order = {
     id: string;
     tableNumber: number;
@@ -103,4 +103,4 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default OldOrder;
