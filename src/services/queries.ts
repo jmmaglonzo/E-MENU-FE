@@ -7,8 +7,10 @@ import {
   getCartItems,
   updateTableQueue,
   subCartItem,
+  orderItem,
 } from "./api";
 import { toast } from "sonner";
+
 export const useGetProducts = () => {
   return useQuery({
     queryKey: ["products"],
@@ -42,6 +44,13 @@ export const useSubCart = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cartItems"] });
     },
+  });
+};
+
+export const useOrderItem = () => {
+  return useMutation({
+    mutationKey: ["order"],
+    mutationFn: orderItem
   });
 };
 
