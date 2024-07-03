@@ -13,22 +13,18 @@ import { useGetProducts } from "@/services/queries";
 import { ItemTypes } from "@/types/productCard";
 
 import { useGetCartItems } from "@/services/queries";
+import getOrderTotalAmount from "@/utils/orderTotal";
 
 export const OrderDrawer = () => {
 
   const getCartItems = useGetCartItems();
   const {data} = useGetProducts();
-  
+
   const items = getCartItems.data || [];
 
   if (items.length === 0) return <></>;
 
-  const productAmount = items.reduce((amount, cartItem) => {
-    const item = data?.find((item) => item.id == cartItem.id);
-    const price = item?.price || 0;
-    return amount + price * cartItem.quantity;
-  }, 0);
-
+  const productAmount = getOrderTotalAmount();
 
   return (
     <div className="container fixed bottom-0 bg-white p-4">
