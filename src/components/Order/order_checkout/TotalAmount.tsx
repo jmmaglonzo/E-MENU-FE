@@ -2,12 +2,17 @@
 
 import getOrderTotalAmount from "@/utils/orderTotal";
 import Link from "next/link";
-import React from "react";
+import React, { MouseEventHandler } from "react";
 
+import { Button } from "@/components/ui/button";
 
-const TotalAmount = () => {
+interface TotalAmountProps {
+  handleOrder: Function
+}
+
+const TotalAmount = ({handleOrder}: TotalAmountProps) => {
   const productAmount = getOrderTotalAmount();
-  
+
   return (
     <div className="p-2">
       <div className="h-0.5 w-full bg-slate-100"></div>
@@ -17,12 +22,12 @@ const TotalAmount = () => {
         <Link href="#" className="text-base">
           Vat Included <span className="text-primary">Learn more?</span>
         </Link>
-        <Link
-          href="#"
+        <Button
+          onClick={handleOrder as MouseEventHandler}
           className="mt-2 w-full rounded-sm bg-primary py-2 text-center text-[0.8em] font-semibold text-white"
         >
           Place Order
-        </Link>
+        </Button>
         <div className="mt-4 h-0.5 w-full bg-slate-100"></div>
       </div>
     </div>
