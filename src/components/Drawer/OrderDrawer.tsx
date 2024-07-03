@@ -19,12 +19,11 @@ export const OrderDrawer = () => {
 
   const getCartItems = useGetCartItems();
   const {data} = useGetProducts();
+  const productAmount = getOrderTotalAmount();
 
   const items = getCartItems.data || [];
 
   if (items.length === 0) return <></>;
-
-  const productAmount = getOrderTotalAmount();
 
   return (
     <div className="container fixed bottom-0 bg-white p-4">
