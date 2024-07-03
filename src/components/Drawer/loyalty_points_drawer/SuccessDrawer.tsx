@@ -12,7 +12,7 @@ const SuccessDrawer: React.FC<SuccessProps> = ({ setShowSuccess, setIsOpen }) =>
       };
   return (
    
-      <div>
+      <div className='mt-[20px]'>
         <div onClick={(e: React.MouseEvent) => e.stopPropagation()} className='px-5'>
           <section className='leading-3 flex flex-col gap-y-2'>
             <span className='leading-4 font-bold'>Points Earned!</span>

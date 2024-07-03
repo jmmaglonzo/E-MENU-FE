@@ -44,7 +44,7 @@ const EarnPointsDrawer = ({isOpen, setIsOpen, setShowSuccess}: EarnPointsProps) 
        
      };
   return (
-     <div className='w-[auto] mx-1'>
+     <div className='mt-[20px] mx-1'>
       {isSubmitted ? (
         <div className="bg-opacity-10 flex flex-col items-center justify-center h-[300px] gap-y-3">
 
