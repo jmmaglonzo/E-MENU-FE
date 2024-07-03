@@ -9,10 +9,9 @@ import {
   DrawerTrigger,
 } from "../ui/drawer";
 
-import { useGetProducts } from "@/services/queries";
+import { useGetProducts, useGetCartItems } from "@/services/queries";
 import { ItemTypes } from "@/types/productCard";
 
-import { useGetCartItems } from "@/services/queries";
 import getOrderTotalAmount from "@/utils/orderTotal";
 
 export const OrderDrawer = () => {
