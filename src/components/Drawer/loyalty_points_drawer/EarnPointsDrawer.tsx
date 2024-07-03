@@ -1,7 +1,8 @@
-import { Drawer } from '@/components/ui/drawer'
+import { Drawer, DrawerClose } from '@/components/ui/drawer'
 import React, { useState } from 'react'
 import { motion } from 'framer-motion';
 import SuccessDrawer from './SuccessDrawer';
+import { IoClose } from 'react-icons/io5';
 type EarnPointsProps = {
         isOpen: boolean,
         setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -44,7 +45,8 @@ const EarnPointsDrawer = ({isOpen, setIsOpen, setShowSuccess}: EarnPointsProps) 
        
      };
   return (
-     <div className='mt-[20px] mx-1'>
+     <div className='mt-[10px]'>
+    
       {isSubmitted ? (
         <div className="bg-opacity-10 flex flex-col items-center justify-center h-[300px] gap-y-3">
 
@@ -65,10 +67,15 @@ const EarnPointsDrawer = ({isOpen, setIsOpen, setShowSuccess}: EarnPointsProps) 
         </div>
       ) : (
         <div className='flex flex-col'>
+        <div className='flex flex-row justify-between '>
         <div className='wrapper flex flex-col  gap-y-2 mx-5'>
           <span className="font-bold text-[1.2em] leading-3">Earn Loyal Points</span>
           <span className="text-gray-400 text-[0.7em]">Fill out the form below to start earning loyal points.</span>
         </div>
+        <span className='mr-4 -mt-6'>
+          <DrawerClose><IoClose size={20} /></DrawerClose>
+       </span>
+       </div>
           <form onSubmit={handleSubmit} className="space-y-5 text-[0.8em] flex flex-col p-5">
             <input
               type="text"
