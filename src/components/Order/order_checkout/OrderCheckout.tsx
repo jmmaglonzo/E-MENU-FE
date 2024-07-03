@@ -5,7 +5,12 @@ import Image from "next/image";
 import TotalAmount from "./TotalAmount";
 import EarnRewards from "./EarnRewards";
 import FooterText from "./FooterText";
-import Gcash from "/public/GCash-Logo.png";
+
+import OnlinePayment from "/public/online_payment.png";
+import CashPayment from "/public/cash_payment.png";
+  
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"; 
+
 const OrderCheckout = () => {
   return (
     <>
@@ -22,17 +27,36 @@ const OrderCheckout = () => {
         </div>
       </section>
 
-      <section className="flex flex-wrap items-center gap-x-2">
-        <Image
-          src={Gcash}
-          alt="icon-menu"
-          width={60}
-          height={50}
-          style={{ width: "auto", height: "auto" }}
-          priority
-        />
-        <span className="text-[0.7em] font-bold">Gcash (Alipay + Partner)</span>
-      </section>
+      <RadioGroup defaultValue="online">
+        <div className="flex items-center">
+          <div className="flex flex-wrap items-center gap-x-2 w-full">
+            <Image
+              src={OnlinePayment}
+              alt="online payment"
+              width={40}
+              height={30}
+              style={{ width: "auto", height: "auto" }}
+              priority
+            />
+            <span className="text-[0.7em] font-bold">Online Payment</span>
+          </div>
+          <RadioGroupItem value="online" className="justify-end"/>
+        </div>
+        <div className="flex items-center">
+          <div className="flex flex-wrap items-center gap-x-2 w-full">
+            <Image
+              src={CashPayment}
+              alt="cash payment"
+              width={40}
+              height={30}
+              style={{ width: "auto", height: "auto" }}
+              priority
+            />
+            <span className="text-[0.7em] font-bold">Cash</span>
+          </div>
+          <RadioGroupItem value="cash" className="justify-end"/>
+        </div>
+      </RadioGroup>
 
       <section>
         <TotalAmount />
