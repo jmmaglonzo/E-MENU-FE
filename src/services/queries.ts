@@ -4,7 +4,7 @@ import {
   deleteTableQueue,
   getProducts,
   getTableQueue,
-  updateCartItems,
+  getCartItems,
   updateTableQueue,
 } from "./api";
 import { toast } from "sonner";
@@ -15,17 +15,22 @@ export const useGetProducts = () => {
   });
 };
 
-export const useUpdateCartItems = () => {
-  return useMutation({
-    mutationKey: ["cart/update"],
-    mutationFn: updateCartItems,
+export const useGetCartItems = () => {
+  return useQuery({
+    queryKey: ["cartItems"],
+    queryFn: getCartItems,
   });
 };
 
 export const useAddCart = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationKey: ["cart/add"],
     mutationFn: addCartItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["cartItems"] });
+      toast.success("Item Added in Cart");
+    },
   });
 };
 
