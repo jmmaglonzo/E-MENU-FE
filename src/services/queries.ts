@@ -9,6 +9,7 @@ import {
   subCartItem,
   orderItem,
   getMyOrders,
+  getOrders,
 } from "./api";
 import { toast } from "sonner";
 
@@ -59,6 +60,13 @@ export const useGetMyOrders = () => {
   return useQuery({
     queryKey: ["my_orders"],
     queryFn: getMyOrders
+  });
+};
+
+export const useGetOrders = () => {
+  return useQuery({
+    queryKey: ["orders"],
+    queryFn: getOrders
   });
 };
 
