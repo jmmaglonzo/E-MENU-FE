@@ -4,12 +4,7 @@ import {
   deleteTableQueue,
   getProducts,
   getTableQueue,
-<<<<<<< HEAD
-  searchProducts,
-  updateCartItems,
-=======
   getCartItems,
->>>>>>> 7446f0ed00172714c6dd72abb43d209ce1f4ae34
   updateTableQueue,
   subCartItem,
   orderItem,
@@ -55,7 +50,7 @@ export const useSubCart = () => {
 export const useOrderItem = () => {
   return useMutation({
     mutationKey: ["order"],
-    mutationFn: orderItem
+    mutationFn: orderItem,
   });
 };
 
@@ -93,12 +88,5 @@ export const useApproveTableQueue = () => {
     onError: () => {
       toast.error("Something went wrong");
     },
-  });
-};
-
-export const useSearchProducts = (product: string) => {
-  return useQuery({
-    queryKey: ["searchProducts", product],
-    queryFn: searchProducts,
   });
 };

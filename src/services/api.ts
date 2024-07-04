@@ -31,17 +31,29 @@ export const subCartItem = async (id: string) => {
   return data;
 };
 
-export const orderItem = async({loyalty,name,email,contactNo,paymentMethod}: {loyalty: boolean, name?: string, email?: string, contactNo?: string, paymentMethod: "ONLINE" | "CASH"}) => {
+export const orderItem = async ({
+  loyalty,
+  name,
+  email,
+  contactNo,
+  paymentMethod,
+}: {
+  loyalty: boolean;
+  name?: string;
+  email?: string;
+  contactNo?: string;
+  paymentMethod: "ONLINE" | "CASH";
+}) => {
   const { data } = await api.post("order", {
     loyalty,
     name,
     email,
     contactNo,
-    paymentMethod
+    paymentMethod,
   });
 
   return data;
-}
+};
 
 export const getTableQueue = async () => {
   const { data } = await api.get<TableTypes[]>("table/queues");
@@ -56,11 +68,4 @@ export const deleteTableQueue = async (sessionId: string) => {
 export const updateTableQueue = async (sessionId: string) => {
   const { data } = await api.patch("table/approve", { sessionId });
   return data;
-};
-
-export const searchProducts = async ({
-  queryKey,
-}: QueryFunctionContext<[string, string | null | undefined]>) => {
-  console.log(queryKey);
-  return queryKey;
 };
