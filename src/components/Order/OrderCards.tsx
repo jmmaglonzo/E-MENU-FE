@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { OrderData } from "@/utils/orderData";
-import { useCart } from "@/store/cart-store";
+import { useAddCart, useSubCart } from "@/services/queries";
 
 interface OrderProps {
   data: OrderData;
@@ -11,8 +11,8 @@ interface OrderProps {
 
 const OrderCards = ({ data, quantity }: OrderProps) => {
 
-  const addCart = useCart((state) => state.addCart);
-  const subCart = useCart((state) => state.subCart);
+  const {mutate: addCart} = useAddCart();
+  const {mutate: subCart} = useSubCart();
 
   return (
     <div className="flex justify-between gap-1 rounded-sm p-2">

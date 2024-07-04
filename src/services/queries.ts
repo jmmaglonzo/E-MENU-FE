@@ -4,10 +4,13 @@ import {
   deleteTableQueue,
   getProducts,
   getTableQueue,
-  updateCartItems,
+  getCartItems,
   updateTableQueue,
+  subCartItem,
+  orderItem,
 } from "./api";
 import { toast } from "sonner";
+
 export const useGetProducts = () => {
   return useQuery({
     queryKey: ["products"],
@@ -15,17 +18,39 @@ export const useGetProducts = () => {
   });
 };
 
-export const useUpdateCartItems = () => {
-  return useMutation({
-    mutationKey: ["cart/update"],
-    mutationFn: updateCartItems,
+export const useGetCartItems = () => {
+  return useQuery({
+    queryKey: ["cartItems"],
+    queryFn: getCartItems,
   });
 };
 
 export const useAddCart = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationKey: ["cart/add"],
     mutationFn: addCartItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["cartItems"] });
+    },
+  });
+};
+
+export const useSubCart = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: ["cart/sub"],
+    mutationFn: subCartItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["cartItems"] });
+    },
+  });
+};
+
+export const useOrderItem = () => {
+  return useMutation({
+    mutationKey: ["order"],
+    mutationFn: orderItem
   });
 };
 
