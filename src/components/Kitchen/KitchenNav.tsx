@@ -17,7 +17,7 @@ const KitchenNav = () => {
         <li>
           <Link
             href={"/kitchen"}
-            className={`${pathname === "/kitchen" && "border-b-2 border-primary"}`}
+            className={`${pathname === "/kitchen" && "rounded-sm bg-primary px-4 py-2 font-semibold text-white"}`}
           >
             Table Queue
           </Link>
@@ -25,7 +25,7 @@ const KitchenNav = () => {
         <li>
           <Link
             href={"/kitchen/order"}
-            className={`${pathname === "/kitchen/order" && "border-b-2 border-primary"}`}
+            className={`${pathname === "/kitchen/order" && "rounded-sm bg-primary px-4 py-2 font-semibold text-white"}`}
           >
             Orders
           </Link>
@@ -33,7 +33,7 @@ const KitchenNav = () => {
         <li>
           <Link
             href={"/kitchen/assistance"}
-            className={`${pathname === "/kitchen/assistance" && "border-b-2 border-primary"}`}
+            className={`${pathname === "/kitchen/assistance" && "rounded-sm bg-primary px-4 py-2 font-semibold text-white"}`}
           >
             Assistance
           </Link>
@@ -41,7 +41,7 @@ const KitchenNav = () => {
         <li>
           <Link
             href={"/kitchen/inventory"}
-            className={`${pathname === "/kitchen/inventory" && "border-b-2 border-primary"}`}
+            className={`${pathname === "/kitchen/inventory" && "rounded-sm bg-primary px-4 py-2 font-semibold text-white"}`}
           >
             Inventory
           </Link>
@@ -49,7 +49,7 @@ const KitchenNav = () => {
         <li>
           <Link
             href={"/kitchen/admin"}
-            className={`${pathname === "/kitchen/admin" && "border-b-2 border-primary"}`}
+            className={`${pathname === "/kitchen/admin" && "rounded-sm bg-primary px-4 py-2 font-semibold text-white"}`}
           >
             Analytics
           </Link>
