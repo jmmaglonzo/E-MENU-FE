@@ -5,16 +5,30 @@ import { Badge } from "../ui/badge";
 import { formatDate } from "@/lib/utils";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"; 
 import { OrderStatus } from "@/types/myOrder";
+import { useUpdateOrderStatus } from "@/services/queries";
+import { useState } from "react";
 
 const OrderModal = () => {
   const setSelectedItem = useKitchenOrderStore((state) => state.setSelectedItem);
   const selectedItem = useKitchenOrderStore((state) => state.selectedItem);
-  console.log(selectedItem);
+  const STATUS = Object.values(OrderStatus);
+  const {mutate: updateStatus} = useUpdateOrderStatus();
+  const [selectedStatus, setSelectedStatus] = useState<OrderStatus>(selectedItem?.status as OrderStatus);
+ 
   const closeModal = () => {
     setSelectedItem(null);
   };
 
-  const STATUS = Object.values(OrderStatus);
+  const handleUpdateStatus = () => {
+    if (selectedStatus === selectedItem?.status) return;
+
+    updateStatus({
+      orderNo: selectedItem?.orderNo as number,
+      status: selectedStatus
+    });
+
+    closeModal();
+  }
 
   if (!selectedItem) return null;
 
@@ -38,9 +52,8 @@ const OrderModal = () => {
            <RadioGroup defaultValue={selectedItem.status}>
               {
                 STATUS.map((status) => {
-                  console.log(status);
                   return <div className="flex items-center gap-x-3">
-                    <RadioGroupItem value={status as string}/>
+                    <RadioGroupItem value={status as string} onClick={() => setSelectedStatus(status)}/>
                     <div className="font-bold">{String(status)}</div>
                   </div>  
                 })
@@ -48,7 +61,7 @@ const OrderModal = () => {
            </RadioGroup>
         </CardContent>
         <CardFooter className="mt-4 flex items-center justify-between gap-4 px-2 py-2">
-           <Button className="w-full">Update Status</Button>
+           <Button onClick={handleUpdateStatus} className="w-full">Update Status</Button>
         </CardFooter>
       </Card>
     </div>
