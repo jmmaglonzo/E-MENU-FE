@@ -1,16 +1,23 @@
 "use client";
 import { useState } from "react";
+import { useDebounceCallback, useDebounceValue } from "usehooks-ts";
+
+import { useSearchProducts } from "@/services/queries";
 
 const SearchBox = () => {
-  const [query, setQuery] = useState("");
+  const [searchFilter, setSearchFilter] = useState("");
+  const debouncedFilter = useDebounceCallback(setSearchFilter, 500);
+  console.log(searchFilter);
+  const { refetch } = useSearchProducts(searchFilter);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
+    debouncedFilter(e.target.value);
   };
 
   const handleSearch = () => {
     // Implement search functionality here
-    console.log("Searching for:", query);
+    refetch();
+    console.log("Searching for:", searchFilter);
   };
 
   return (
@@ -20,7 +27,7 @@ const SearchBox = () => {
           type="text"
           className="w-full flex-grow py-1.5 outline-none focus:border-orange-500"
           placeholder="Search here"
-          value={query}
+          defaultValue={searchFilter}
           onChange={handleInputChange}
         />
         <button onClick={handleSearch}>

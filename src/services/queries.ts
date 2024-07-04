@@ -4,6 +4,7 @@ import {
   deleteTableQueue,
   getProducts,
   getTableQueue,
+  searchProducts,
   updateCartItems,
   updateTableQueue,
 } from "./api";
@@ -63,5 +64,12 @@ export const useApproveTableQueue = () => {
     onError: () => {
       toast.error("Something went wrong");
     },
+  });
+};
+
+export const useSearchProducts = (product: string) => {
+  return useQuery({
+    queryKey: ["searchProducts", product],
+    queryFn: searchProducts,
   });
 };

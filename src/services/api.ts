@@ -1,7 +1,9 @@
+import { QueryFunctionContext } from "@tanstack/react-query";
+import api from "./axios";
+
 import { ItemTypes } from "@/types/productCard";
 import { CartItem, CartItemServer } from "@/types/cart";
 import { TableTypes } from "@/types/table";
-import api from "./axios";
 
 export const getProducts = async () => {
   const { data } = await api.get<ItemTypes[]>("products");
@@ -41,4 +43,11 @@ export const deleteTableQueue = async (sessionId: string) => {
 export const updateTableQueue = async (sessionId: string) => {
   const { data } = await api.patch("table/approve", { sessionId });
   return data;
+};
+
+export const searchProducts = async ({
+  queryKey,
+}: QueryFunctionContext<[string, string | null | undefined]>) => {
+  console.log(queryKey);
+  return queryKey;
 };
