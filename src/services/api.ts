@@ -3,7 +3,7 @@ import api from "./axios";
 import { ItemTypes } from "@/types/productCard";
 import { CartItemServer } from "@/types/cart";
 import { OrderTableType, TableTypes } from "@/types/table";
-import { MyOrder } from "@/types/myOrder";
+import { MyOrder, OrderStatus } from "@/types/myOrder";
 
 
 export const getProducts = async () => {
@@ -67,6 +67,12 @@ export const getOrders = async () => {
 
   return data;
 };
+
+export const updateOrderStatus = async ({orderNo, status}: {orderNo: number, status: OrderStatus}) => {
+  const { data } = await api.post<{message: string}>("order/status", {orderNo,status});
+
+  return data;
+}
 
 export const getTableQueue = async () => {
   const { data } = await api.get<TableTypes[]>("table/queues");
