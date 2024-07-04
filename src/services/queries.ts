@@ -10,6 +10,7 @@ import {
   orderItem,
   getMyOrders,
   getOrders,
+  updateOrderStatus,
 } from "./api";
 import { toast } from "sonner";
 
@@ -69,6 +70,21 @@ export const useGetOrders = () => {
     queryFn: getOrders
   });
 };
+
+export const useUpdateOrderStatus = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: ["order/status"],
+    mutationFn: updateOrderStatus,
+    onSuccess: (data: {message: string}) => {
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
+      toast.success(data.message);
+    },
+    onError: (reason: {message: string}) => {
+      toast.error(reason.message);
+    }
+  });
+}
 
 export const useGetTableQueue = () => {
   return useQuery({
