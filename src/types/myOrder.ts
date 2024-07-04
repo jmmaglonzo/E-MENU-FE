@@ -1,5 +1,12 @@
 import { ItemTypes } from "./productCard"
 
+export enum OrderStatus{
+    Pending = "Pending",
+    Ongoing = "Ongoing",
+    Completed = "Completed",
+    Cancelled = "Cancelled"
+}
+
 interface Order {
     id: number,
     sessionId: string,
@@ -8,7 +15,7 @@ interface Order {
     price: number,
     amount: number,
     product: ItemTypes,
-    status:  "Pending" | "Ongoing" | "Completed" | "Cancelled",
+    status: OrderStatus,
     transactionId: string,
     createdAt: Date
 }
