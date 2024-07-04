@@ -1,10 +1,8 @@
-export interface OrderTableTypes {
+import { MyOrder } from "./myOrder";
+
+export interface OrderTableType extends MyOrder{
+  orderNo: number;
   tableNo: number;
-  guests: number;
-  date: string;
-  orderNo: string;
-  status: string;
-  orderList: string[];
 }
 
 export interface TableTypes {
