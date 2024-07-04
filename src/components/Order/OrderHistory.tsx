@@ -14,6 +14,7 @@ import { Badge } from "../ui/badge";
 import Link from "next/link";
 import { useGetMyOrders } from "@/services/queries";
 import { MyOrder } from "@/types/myOrder";
+import { formatDate } from "@/lib/utils";
 
 const OrderHistory = () => {
   const [selectedStatus, setSelectedStatus] = useState("all");
@@ -74,9 +75,12 @@ const OrderHistory = () => {
           filteredOrders.map((order) => (
             <Card key={order.transactionId}>
               <CardHeader>
+                <div className="text-[0.7em] font-bold">
+                  Transaction ID: {order.transactionId}
+                </div>
                 <div className="flex items-center justify-between">
                   <div className="text-sm text-muted-foreground">
-                    Order placed on {order.orderDate.toString()}
+                    Order placed on {formatDate(order.orderDate.toString())}
                   </div>
                   <Badge
                     variant={
