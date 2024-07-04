@@ -1,18 +1,21 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { OrderTableTypes } from "@/types/table";
+import { formatDate } from "@/lib/utils";
+import { OrderTableType } from "@/types/table";
+import useKitchenOrderStore from "@/store/kitchenOrder-store";
 
 interface KitchenOrderCardProps {
-  data: OrderTableTypes;
+  data: OrderTableType;
 }
 
 const KitchenOrderCard = ({ data }: KitchenOrderCardProps) => {
+  const setSelectedItem = useKitchenOrderStore((state) => state.setSelectedItem);
   return (
-    <Card className="relative">
+    <Card className="relative" onClick={() => setSelectedItem(data)}>
       <CardHeader className="flex items-center justify-between">
         <CardTitle>Table {data.tableNo}</CardTitle>
         <div className="flex items-center gap-2">
-          <Badge variant="secondary">July 04 2024 10:30 AM</Badge>
+          <Badge variant="secondary">{formatDate(data.orderDate.toString())}</Badge>
         </div>
       </CardHeader>
       <CardContent>
@@ -20,13 +23,13 @@ const KitchenOrderCard = ({ data }: KitchenOrderCardProps) => {
           <div className="flex items-center justify-between gap-2">
             <p className="flex items-center gap-2 text-muted-foreground">
               Order
-              <span className="font-bold">{data.orderNo}</span>
+              <span className="font-bold">#{data.orderNo}</span>
             </p>
             <Badge variant="secondary">{data.status}</Badge>
           </div>
           <ul className="space-y-1 text-sm">
-            {data.orderList.map((order, index) => (
-              <li key={index}>{order}</li>
+            {data.orders.map((order, index) => (
+              <li key={index}>{order.quantity}x {order.product.name}</li>
             ))}
           </ul>
         </div>
