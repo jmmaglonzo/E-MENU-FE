@@ -5,16 +5,33 @@ import { Toaster } from "sonner";
 import { Button } from "../ui/button";
 import { Card, CardHeader, CardContent, CardFooter } from "../ui/card";
 import Image from "next/image";
+import { AxiosError } from "axios";
+import { toast } from "sonner";
+
+import { useAddCart } from "@/services/queries";
 
 const ModalCard = () => {
   const setSelectedItem = useCardStore((state) => state.setSelectedItem);
   const selectedItem = useCardStore((state) => state.selectedItem);
+  const { error, isError, mutate } = useAddCart();
 
   const closeModal = () => {
     setSelectedItem(null);
   };
 
   if (!selectedItem) return null;
+
+  function handleAddCart(e: React.MouseEvent) {
+    e.stopPropagation();
+    mutate(selectedItem?.id as string);
+  }
+
+  if (isError) {
+    const errStatus = (error as AxiosError).response?.request.status;
+
+    if (errStatus === 401) toast("You are not allowed to order!");
+  }
+
   return (
     <div
       className="container fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
@@ -57,6 +74,7 @@ const ModalCard = () => {
             ₱{selectedItem.price.toFixed(2)}
           </span>
           <Button
+            onClick={handleAddCart}
             variant={"default"}
             className="inline-flex w-full items-center justify-center rounded-md bg-primary px-6 font-medium text-white transition active:scale-110"
           >
