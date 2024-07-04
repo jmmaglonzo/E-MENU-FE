@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import { FaCreditCard } from "react-icons/fa";
 import Image from "next/image";
 import TotalAmount from "./TotalAmount";
@@ -18,16 +18,15 @@ import { useRouter } from "next/navigation";
 
 const OrderCheckout = () => {
   const {mutate: order, data, isSuccess} = useOrderItem();
-  const radioGroup = useRef<HTMLInputElement>(null);
+  const [paymentMethod,setPaymentMethod] = useState<"ONLINE" | "CASH">("ONLINE");
   const router = useRouter();
 
   if (isSuccess) {
-    const link = data.data.attributes.checkout_url;
+    const link = data.data && data.data.attributes.checkout_url;
     if (link) router.replace(link);
   }
 
   function handleOrder() {
-    const paymentMethod = radioGroup.current?.value as "ONLINE" | "CASH";
     order({
       loyalty: false,
       paymentMethod
@@ -49,7 +48,7 @@ const OrderCheckout = () => {
         </div>
       </section>
 
-      <RadioGroup ref={radioGroup} defaultValue="ONLINE">
+      <RadioGroup defaultValue="ONLINE">
         <div className="flex items-center">
           <div className="flex flex-wrap items-center gap-x-2 w-full">
             <Image
@@ -62,7 +61,7 @@ const OrderCheckout = () => {
             />
             <span className="text-[0.7em] font-bold">Online Payment</span>
           </div>
-          <RadioGroupItem value="ONLINE" className="justify-end"/>
+          <RadioGroupItem value="ONLINE" className="justify-end" onClick={() => setPaymentMethod("ONLINE")}/>
         </div>
         <div className="flex items-center">
           <div className="flex flex-wrap items-center gap-x-2 w-full">
@@ -76,7 +75,7 @@ const OrderCheckout = () => {
             />
             <span className="text-[0.7em] font-bold">Cash</span>
           </div>
-          <RadioGroupItem value="CASH" className="justify-end"/>
+          <RadioGroupItem value="CASH" className="justify-end" onClick={() => setPaymentMethod("CASH")}/>
         </div>
       </RadioGroup>
 
