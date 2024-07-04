@@ -6,6 +6,8 @@ import { CartItem, CartItemServer } from "@/types/cart";
 import { TableTypes } from "@/types/table";
 import { MyOrder } from "@/types/myOrder";
 
+import { MyOrder } from "@/types/myOrder";
+
 export const getProducts = async () => {
   const { data } = await api.get<ItemTypes[]>("products");
   return data;
@@ -52,6 +54,12 @@ export const orderItem = async ({
     contactNo,
     paymentMethod,
   });
+
+  return data;
+}
+
+export const getMyOrders = async () => {
+  const { data } = await api.get<MyOrder[]>("my_orders");
 
   return data;
 };
