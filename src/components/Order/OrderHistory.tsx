@@ -17,10 +17,8 @@ import { MyOrder } from "@/types/myOrder";
 
 const OrderHistory = () => {
   const [selectedStatus, setSelectedStatus] = useState("all");
-  const { data, isLoading } = useGetMyOrders();
+  const { data } = useGetMyOrders();
   
-  if (isLoading) return <></>
-
   const orders = data as MyOrder[] || [];
   
   const filteredOrders =
@@ -69,56 +67,61 @@ const OrderHistory = () => {
         </DropdownMenu>
       </div>
       <div className="flex h-dvh flex-col gap-4 overflow-y-scroll no-scrollbar">
-        {filteredOrders.map((order) => (
-          <Card key={order.transactionId}>
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div className="text-sm text-muted-foreground">
-                  Order placed on {order.orderDate.toString()}
-                </div>
-                <Badge
-                  variant={
-                    order.status === "Completed"
-                      ? "secondary"
-                      : order.status === "Ongoing"
-                        ? "outline"
-                        : "destructive"
-                  }
-                >
-                  {order.status}
-                </Badge>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="grid gap-4">
-                <div>
-                  <h3 className="text-lg font-medium">Items Ordered</h3>
-                  <ul className="grid gap-2">
-                    {order.orders.map((item, index) => (
-                      <li
-                        key={index}
-                        className="flex items-center justify-between"
-                      >
-                        <div>
-                          {item.quantity} x {item.product.name}
-                        </div>
-                        <div className="text-right">
-                          ${item.price.toFixed(2)}
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+        {
+        orders.length === 0 ?
+          <div className="font-bold container h-full flex items-center text-center">Not sure what to pick? Our dishes are waiting to impress!</div>
+          :
+          filteredOrders.map((order) => (
+            <Card key={order.transactionId}>
+              <CardHeader>
                 <div className="flex items-center justify-between">
-                  <div className="text-lg font-medium">Total</div>
-                  <div className="text-lg font-medium">
-                    ${order.total.toFixed(2)}
+                  <div className="text-sm text-muted-foreground">
+                    Order placed on {order.orderDate.toString()}
+                  </div>
+                  <Badge
+                    variant={
+                      order.status === "Completed"
+                        ? "secondary"
+                        : order.status === "Ongoing"
+                          ? "outline"
+                          : "destructive"
+                    }
+                  >
+                    {order.status}
+                  </Badge>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="grid gap-4">
+                  <div>
+                    <h3 className="text-lg font-medium">Items Ordered</h3>
+                    <ul className="grid gap-2">
+                      {order.orders.map((item, index) => (
+                        <li
+                          key={index}
+                          className="flex items-center justify-between"
+                        >
+                          <div>
+                            {item.quantity} x {item.product.name}
+                          </div>
+                          <div className="text-right">
+                            ${item.price.toFixed(2)}
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="text-lg font-medium">Total</div>
+                    <div className="text-lg font-medium">
+                      ${order.total.toFixed(2)}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+              </CardContent>
+            </Card>
+          ))
+        }
       </div>
     </div>
   );
