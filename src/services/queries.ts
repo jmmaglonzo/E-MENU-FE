@@ -8,6 +8,7 @@ import {
   updateTableQueue,
   subCartItem,
   orderItem,
+  getMyOrders,
 } from "./api";
 import { toast } from "sonner";
 
@@ -51,6 +52,13 @@ export const useOrderItem = () => {
   return useMutation({
     mutationKey: ["order"],
     mutationFn: orderItem
+  });
+};
+
+export const useGetMyOrders = () => {
+  return useQuery({
+    queryKey: ["my_orders"],
+    queryFn: getMyOrders
   });
 };
 
