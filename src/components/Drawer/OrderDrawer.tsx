@@ -9,26 +9,21 @@ import {
   DrawerTrigger,
 } from "../ui/drawer";
 
-import { useGetProducts } from "@/services/queries";
+import { useGetProducts, useGetCartItems } from "@/services/queries";
 import { ItemTypes } from "@/types/productCard";
 
-import { useGetCartItems } from "@/services/queries";
+import getOrderTotalAmount from "@/utils/orderTotal";
 
 export const OrderDrawer = () => {
 
   const getCartItems = useGetCartItems();
   const {data} = useGetProducts();
-  
+
+  const productAmount = getOrderTotalAmount();
+
   const items = getCartItems.data || [];
-
+  
   if (items.length === 0) return <></>;
-
-  const productAmount = items.reduce((amount, cartItem) => {
-    const item = data?.find((item) => item.id == cartItem.id);
-    const price = item?.price || 0;
-    return amount + price * cartItem.quantity;
-  }, 0);
-
 
   return (
     <div className="container fixed bottom-0 bg-white p-4">

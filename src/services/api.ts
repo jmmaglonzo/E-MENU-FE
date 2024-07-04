@@ -29,6 +29,18 @@ export const subCartItem = async (id: string) => {
   return data;
 };
 
+export const orderItem = async({loyalty,name,email,contactNo,paymentMethod}: {loyalty: boolean, name?: string, email?: string, contactNo?: string, paymentMethod: "ONLINE" | "CASH"}) => {
+  const { data } = await api.post("order", {
+    loyalty,
+    name,
+    email,
+    contactNo,
+    paymentMethod
+  });
+
+  return data;
+}
+
 export const getTableQueue = async () => {
   const { data } = await api.get<TableTypes[]>("table/queues");
 
