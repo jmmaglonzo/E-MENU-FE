@@ -5,13 +5,21 @@ import Loader from "../common/Loader";
 import ProductCard from "./ProductCard";
 import { useGetProducts } from "@/services/queries";
 import ModalCard from "./ModalCard";
+import { useSearchStore } from "@/store/search-store";
+
 const CardContainer = () => {
   const { data, isLoading, error } = useGetProducts();
   const selected = useMenuStore((state) => state.selected);
+  const { search } = useSearchStore();
 
-  const filteredItems = data?.filter((food) =>
-    selected === "all" ? true : food.categories.includes(selected),
-  );
+  const filteredItems =
+    search !== ""
+      ? data?.filter((product) =>
+          product.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()),
+        )
+      : data?.filter((food) =>
+          selected === "all" ? true : food.categories.includes(selected),
+        );
 
   if (isLoading)
     return (

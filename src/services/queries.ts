@@ -51,7 +51,7 @@ export const useSubCart = () => {
 export const useOrderItem = () => {
   return useMutation({
     mutationKey: ["order"],
-    mutationFn: orderItem
+    mutationFn: orderItem,
   });
 };
 
