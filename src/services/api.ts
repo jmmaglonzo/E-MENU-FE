@@ -1,7 +1,9 @@
+import { QueryFunctionContext } from "@tanstack/react-query";
+import api from "./axios";
+
 import { ItemTypes } from "@/types/productCard";
 import { CartItem, CartItemServer } from "@/types/cart";
 import { TableTypes } from "@/types/table";
-import api from "./axios";
 
 export const getProducts = async () => {
   const { data } = await api.get<ItemTypes[]>("products");
@@ -29,17 +31,29 @@ export const subCartItem = async (id: string) => {
   return data;
 };
 
-export const orderItem = async({loyalty,name,email,contactNo,paymentMethod}: {loyalty: boolean, name?: string, email?: string, contactNo?: string, paymentMethod: "ONLINE" | "CASH"}) => {
+export const orderItem = async ({
+  loyalty,
+  name,
+  email,
+  contactNo,
+  paymentMethod,
+}: {
+  loyalty: boolean;
+  name?: string;
+  email?: string;
+  contactNo?: string;
+  paymentMethod: "ONLINE" | "CASH";
+}) => {
   const { data } = await api.post("order", {
     loyalty,
     name,
     email,
     contactNo,
-    paymentMethod
+    paymentMethod,
   });
 
   return data;
-}
+};
 
 export const getTableQueue = async () => {
   const { data } = await api.get<TableTypes[]>("table/queues");
