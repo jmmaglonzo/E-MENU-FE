@@ -21,7 +21,7 @@ const OrderHistory = () => {
   
   if (isLoading) return <></>
 
-  const orders = data as MyOrder[];
+  const orders = data as MyOrder[] || [];
   
   const filteredOrders =
     selectedStatus === "all"
