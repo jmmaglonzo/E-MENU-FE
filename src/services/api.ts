@@ -19,16 +19,29 @@ export const getCartItems = async () => {
   return items;
 };
 
-export const updateCartItems = async (cartItems: CartItem[]) => {
-  const { data } = await api.post("cart/update", { cartItems });
-  return data;
-};
-
 export const addCartItem = async (id: string) => {
   const { data } = await api.post("cart/add", { id });
 
   return data;
 };
+
+export const subCartItem = async (id: string) => {
+  const { data } = await api.post("cart/sub", { id });
+
+  return data;
+};
+
+export const orderItem = async({loyalty,name,email,contactNo,paymentMethod}: {loyalty: boolean, name?: string, email?: string, contactNo?: string, paymentMethod: "ONLINE" | "CASH"}) => {
+  const { data } = await api.post("order", {
+    loyalty,
+    name,
+    email,
+    contactNo,
+    paymentMethod
+  });
+
+  return data;
+}
 
 export const getTableQueue = async () => {
   const { data } = await api.get<TableTypes[]>("table/queues");

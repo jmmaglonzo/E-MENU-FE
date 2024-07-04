@@ -1,8 +1,6 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Button } from "../ui/button";
-import { useUpdateCartItems } from "@/services/queries";
 import { CartItem } from "@/types/cart";
 import Link from "next/link";
 
@@ -14,7 +12,7 @@ interface TipSummaryProp {
 
 const TipSummary = ({ items, selectedTip, productAmount }: TipSummaryProp) => {
   const pathname = usePathname();
-  const { mutate } = useUpdateCartItems();
+
   return (
     <div className="mt-2 flex flex-col text-base text-gray-600">
       <div className="flex justify-between">
@@ -35,7 +33,7 @@ const TipSummary = ({ items, selectedTip, productAmount }: TipSummaryProp) => {
 
       <Link
         href="/checkout"
-        onClick={() => mutate(items)}
+       
         className={`mt-2 rounded-sm bg-primary py-2 text-center font-semibold text-white ${
           pathname === "/checkout" ? "active" : ""
         }`}

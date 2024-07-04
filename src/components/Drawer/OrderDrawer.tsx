@@ -8,25 +8,21 @@ import {
   DrawerContent,
   DrawerTrigger,
 } from "../ui/drawer";
-import { useCart } from "@/store/cart-store";
-import { useGetProducts } from "@/services/queries";
+
+import { useGetProducts, useGetCartItems } from "@/services/queries";
 import { ItemTypes } from "@/types/productCard";
-import { useEffect } from "react";
+
+import getOrderTotalAmount from "@/utils/orderTotal";
 
 export const OrderDrawer = () => {
-  const { items, fetchCart } = useCart();
-  const { data } = useGetProducts();
 
-  useEffect(() => {
-    fetchCart();
-  }, []);
+  const getCartItems = useGetCartItems();
+  const {data} = useGetProducts();
 
-  const productAmount = items.reduce((amount, cartItem) => {
-    const item = data?.find((item) => item.id == cartItem.id);
-    const price = item?.price || 0;
-    return amount + price * cartItem.quantity;
-  }, 0);
+  const productAmount = getOrderTotalAmount();
 
+  const items = getCartItems.data || [];
+  
   if (items.length === 0) return <></>;
 
   return (
