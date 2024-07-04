@@ -1,9 +1,8 @@
-import { QueryFunctionContext } from "@tanstack/react-query";
 import api from "./axios";
 
 import { ItemTypes } from "@/types/productCard";
-import { CartItem, CartItemServer } from "@/types/cart";
-import { TableTypes } from "@/types/table";
+import { CartItemServer } from "@/types/cart";
+import { OrderTableType, TableTypes } from "@/types/table";
 import { MyOrder } from "@/types/myOrder";
 
 
@@ -59,6 +58,12 @@ export const orderItem = async ({
 
 export const getMyOrders = async () => {
   const { data } = await api.get<MyOrder[]>("my_orders");
+
+  return data;
+};
+
+export const getOrders = async () => {
+  const { data } = await api.get<OrderTableType[]>("orders");
 
   return data;
 };
