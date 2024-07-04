@@ -12,8 +12,7 @@ const KitchenOrderCard = ({ data }: KitchenOrderCardProps) => {
       <CardHeader className="flex items-center justify-between">
         <CardTitle>Table {data.tableNo}</CardTitle>
         <div className="flex items-center gap-2">
-          <Badge variant="secondary">{data.guests} Guests</Badge>
-          <div className="text-sm text-muted-foreground">{data.date}</div>
+          <Badge variant="secondary">July 04 2024 10:30 AM</Badge>
         </div>
       </CardHeader>
       <CardContent>
