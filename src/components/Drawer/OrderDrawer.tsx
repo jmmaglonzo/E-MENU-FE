@@ -15,14 +15,13 @@ import { ItemTypes } from "@/types/productCard";
 import getOrderTotalAmount from "@/utils/orderTotal";
 
 export const OrderDrawer = () => {
-
   const getCartItems = useGetCartItems();
-  const {data} = useGetProducts();
+  const { data } = useGetProducts();
 
   const productAmount = getOrderTotalAmount();
 
   const items = getCartItems.data || [];
-  
+
   if (items.length === 0) return <></>;
 
   return (
