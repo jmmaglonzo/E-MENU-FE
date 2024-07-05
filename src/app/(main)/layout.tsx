@@ -1,4 +1,5 @@
 import Navbar from "@/components/header/Navbar";
+import { Toaster } from "sonner";
 
 export default function MainLayout({
   children,
@@ -11,6 +12,7 @@ export default function MainLayout({
         <Navbar />
       </header>
       {children}
+      <Toaster visibleToasts={1} position="top-center" richColors />
     </>
   );
 }
