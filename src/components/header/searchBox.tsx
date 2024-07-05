@@ -4,16 +4,13 @@ import { useDebounceCallback } from "usehooks-ts";
 import { useSearchStore } from "@/store/search-store";
 
 const SearchBox = () => {
-  const { search, setSearch } = useSearchStore();
+  const search = useSearchStore((state) => state.search);
+  const setSearch = useSearchStore((state) => state.setSearch);
 
   const debouncedFilter = useDebounceCallback(setSearch, 500);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     debouncedFilter(e.target.value);
-  };
-
-  const handleSearch = () => {
-    console.log("Searching for:", search);
   };
 
   return (
@@ -26,7 +23,7 @@ const SearchBox = () => {
           defaultValue={search}
           onChange={handleInputChange}
         />
-        <button onClick={handleSearch}>
+        <button>
           <svg
             className="h-5 w-5 text-gray-500"
             fill="none"
