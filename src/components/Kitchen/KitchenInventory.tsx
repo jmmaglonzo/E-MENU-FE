@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { HiOutlinePencilAlt, HiOutlineTrash } from "react-icons/hi";
 import { FaFilter, FaSort, FaSearch } from "react-icons/fa";
-import Modal from "react-modal";
 
 interface Item {
   name: string;
@@ -75,58 +74,6 @@ const KitchenInventory: React.FC = () => {
       </div>
 
       {/* Add Item Modal */}
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={() => setIsModalOpen(false)}
-        contentLabel="Add New Item"
-        className="fixed inset-0 flex items-center justify-center"
-        overlayClassName="fixed inset-0 bg-black bg-opacity-50"
-      >
-        <div className="rounded-lg bg-white p-6">
-          <h2 className="mb-4 text-xl">Add New Item</h2>
-          <div className="flex flex-col space-y-2">
-            <input
-              type="text"
-              placeholder="Item name"
-              className="w-full rounded border p-2"
-              value={newItem.name}
-              onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
-            />
-            <input
-              type="number"
-              placeholder="Quantity"
-              className="w-full rounded border p-2"
-              value={newItem.quantity}
-              onChange={(e) =>
-                setNewItem({ ...newItem, quantity: parseInt(e.target.value) })
-              }
-            />
-            <input
-              type="text"
-              placeholder="Category"
-              className="w-full rounded border p-2"
-              value={newItem.category}
-              onChange={(e) =>
-                setNewItem({ ...newItem, category: e.target.value })
-              }
-            />
-          </div>
-          <div className="mt-4 flex justify-end space-x-2">
-            <button
-              className="rounded border p-2"
-              onClick={() => setIsModalOpen(false)}
-            >
-              Cancel
-            </button>
-            <button
-              className="rounded bg-orange-500 p-2 text-white"
-              onClick={handleAddItem}
-            >
-              Add Item
-            </button>
-          </div>
-        </div>
-      </Modal>
 
       <table className="w-full border">
         <thead>
