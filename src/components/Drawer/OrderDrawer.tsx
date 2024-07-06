@@ -6,6 +6,7 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
+  DrawerHeader,
   DrawerTrigger,
 } from "../ui/drawer";
 
@@ -25,7 +26,9 @@ export const OrderDrawer = () => {
   if (items.length === 0) return <></>;
 
   return (
-    <div className="container fixed bottom-0 bg-white p-4">
+    <div
+      className={`container fixed bottom-0 bg-white p-4 duration-300 ${items.length === 0 ? "invisible opacity-0" : "visible opacity-100"}`}
+    >
       <Drawer>
         <DrawerTrigger className="inline-flex w-[90%] items-center justify-center rounded-md bg-primary text-white">
           <div className="flex w-full items-center justify-between p-2.5 px-8">
@@ -37,12 +40,14 @@ export const OrderDrawer = () => {
           </div>
         </DrawerTrigger>
         <DrawerContent className="container h-dvh">
-          <ViewOrder
-            items={items}
-            data={data as ItemTypes[]}
-            productAmount={productAmount}
-          />
-          <DrawerClose className="absolute left-8 top-[32px]">
+          <DrawerHeader>
+            <ViewOrder
+              items={items}
+              data={data as ItemTypes[]}
+              productAmount={productAmount}
+            />
+          </DrawerHeader>
+          <DrawerClose className="absolute left-4 top-[46px]">
             <ChevronLeft size={24} />
           </DrawerClose>
         </DrawerContent>
