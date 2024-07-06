@@ -11,8 +11,24 @@ import {
   getMyOrders,
   getOrders,
   updateOrderStatus,
+  confirmRegister,
 } from "./api";
 import { toast } from "sonner";
+import { useSearchParams } from "next/navigation";
+
+export const useConfirmRegister = () => {
+  const searchParams = useSearchParams();
+  const tableNo = searchParams.get("tableNo");
+  const sessionId = searchParams.get("sessionId");
+
+  return useQuery({
+    queryKey: [`confirm_register`],
+    queryFn: () => {
+      if (!tableNo || !sessionId) return {message: "goods"};
+      return confirmRegister(tableNo as string,sessionId as string)
+    }
+  });
+}
 
 export const useGetProducts = () => {
   return useQuery({

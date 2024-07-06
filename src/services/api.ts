@@ -5,6 +5,11 @@ import { CartItemServer } from "@/types/cart";
 import { OrderTableType, TableTypes } from "@/types/table";
 import { MyOrder, OrderStatus } from "@/types/myOrder";
 
+export const confirmRegister = async (tableNo: string, sessionId: string) => {
+  const { data } = await api.get(`confirm_register?tableNo=${Number(tableNo)}&sessionId=${sessionId}`);
+
+  return Object.assign(data, {cleanURL: true});
+}
 
 export const getProducts = async () => {
   const { data } = await api.get<ItemTypes[]>("products");
