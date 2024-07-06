@@ -58,7 +58,7 @@ export const useOrderItem = () => {
 export const useGetMyOrders = () => {
   return useQuery({
     queryKey: ["my_orders"],
-    queryFn: getMyOrders
+    queryFn: getMyOrders,
   });
 };
 
@@ -76,7 +76,7 @@ export const useDeclineTableQueue = () => {
     mutationFn: deleteTableQueue,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tableQueue"] });
-      toast.success("Table successfully declined.");
+      toast.success("Success");
     },
     onError: () => {
       toast.error("Something went wrong");
@@ -91,7 +91,7 @@ export const useApproveTableQueue = () => {
     mutationFn: updateTableQueue,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tableQueue"] });
-      toast.success("Table successfully approved.");
+      toast.success("Success");
     },
     onError: () => {
       toast.error("Something went wrong");

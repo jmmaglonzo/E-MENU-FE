@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { formatDate } from "@/lib/utils";
 import { useApproveTableQueue, useDeclineTableQueue } from "@/services/queries";
 import { TableTypes } from "@/types/table";
 
@@ -23,25 +24,36 @@ const TableCards = ({ data }: TableProps) => {
       <CardHeader className="flex items-center justify-between">
         <CardTitle>Table {data.tableNo}</CardTitle>
         <div className="flex items-center gap-2">
-          <Badge variant="secondary">July 04 2024 10:30 AM</Badge>
-          <div className="text-sm text-muted-foreground">{data.date}</div>
+          <Badge variant="secondary">{formatDate(data.createdAt)}</Badge>
         </div>
       </CardHeader>
-      <CardContent className="flex justify-between gap-4 font-bold">
-        <Button
-          variant="outline"
-          className="w-full bg-red-600 text-white"
-          onClick={() => handleClick(data.session, "decline")}
-        >
-          Declined
-        </Button>
-        <Button
-          variant="outline"
-          className="w-full bg-green-500 text-white"
-          onClick={() => handleClick(data.session, "approve")}
-        >
-          Approved
-        </Button>
+      <CardContent className="flex flex-col items-center justify-between gap-4 font-bold md:flex-row">
+        {data.status === false ? (
+          <>
+            <Button
+              variant="outline"
+              className="w-full bg-red-600 text-white"
+              onClick={() => handleClick(data.session, "decline")}
+            >
+              Decline
+            </Button>
+            <Button
+              variant="outline"
+              className="w-full bg-green-500 text-white"
+              onClick={() => handleClick(data.session, "approve")}
+            >
+              Approve
+            </Button>
+          </>
+        ) : (
+          <Button
+            variant="outline"
+            className="w-full bg-primary text-white"
+            onClick={() => handleClick(data.session, "decline")}
+          >
+            Completed
+          </Button>
+        )}
       </CardContent>
     </Card>
   );
