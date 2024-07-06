@@ -1,3 +1,4 @@
+import { Key } from "react";
 import dummyImg from "/public/dummyImg.jpg";
 import { StaticImageData } from "next/image";
 
@@ -10,6 +11,7 @@ interface OrderData1 {
 }
 
 export interface OrderData {
+  product_id: Key | null | undefined;
   id: string;
   name: string;
   description: string;
