@@ -1,15 +1,13 @@
 "use client";
 
 import OrderCards from "@/components/Order/OrderCards";
-import TipCard from "@/components/Order/TipCard";
-import TipSelector from "@/components/Order/TipSelector";
 import TipSummary from "@/components/Order/TipSummary";
 import { OrderData } from "@/utils/orderData";
 import Link from "next/link";
 import OrderNav from "./OrderNav";
 import { ItemTypes } from "@/types/productCard";
 import { CartItem } from "@/types/cart";
-import { useState } from "react";
+import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 
 interface ViewOrderProp {
   productAmount: number;
@@ -18,12 +16,12 @@ interface ViewOrderProp {
 }
 
 const ViewOrder = ({ productAmount, items, data }: ViewOrderProp) => {
-  const [selectedTip, setSelectedTip] = useState<number>(20);
-
   return (
-    <section className="container p-0">
-      <OrderNav />
-      <div className="flex h-[290px] flex-col gap-2 overflow-y-scroll no-scrollbar">
+    <>
+      <DialogTitle>
+        <OrderNav />
+      </DialogTitle>
+      <DialogDescription className="flex h-[350px] flex-col gap-2 overflow-y-scroll no-scrollbar">
         {items.map(({ id, quantity }) => {
           const item = data?.find((item) => item.id == id);
 
@@ -41,23 +39,17 @@ const ViewOrder = ({ productAmount, items, data }: ViewOrderProp) => {
             <OrderCards key={item.id} data={orderItem} quantity={quantity} />
           );
         })}
-      </div>
-      <div className="text-center">
-        <Link href="/" className="text-base font-semibold text-primary">
+      </DialogDescription>
+      <div className="my-1.5 w-full text-center">
+        <Link
+          href="/"
+          className="inline-block w-full rounded-sm bg-[#fff3e6] px-6 py-1.5 text-base font-medium text-[#ff8500]"
+        >
           Add more items
         </Link>
       </div>
-      <TipCard />
-      <TipSelector
-        selectedTip={selectedTip as number}
-        setSelectedTip={setSelectedTip}
-      />
-      <TipSummary
-        items={items}
-        selectedTip={selectedTip}
-        productAmount={productAmount}
-      />
-    </section>
+      <TipSummary items={items} productAmount={productAmount} />
+    </>
   );
 };
 
