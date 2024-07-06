@@ -8,19 +8,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "plus.unsplash.com"
-      },
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com"
-      },
-      {
-        protocol: "https",
-        hostname: "www.budgetbytes.com"
-      },
-      {
-        protocol: "https",
-        hostname: "i2.wp.com"
+        hostname: "img.freepik.com",
       },
     ],
   },
