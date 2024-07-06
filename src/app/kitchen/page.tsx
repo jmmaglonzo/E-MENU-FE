@@ -1,7 +1,11 @@
 import Table from "@/components/Kitchen/Table";
 
 const Kitchen = () => {
-  return <Table />;
+  return (
+  <>
+  <Table />
+  </>
+);
 };
 
 export default Kitchen;

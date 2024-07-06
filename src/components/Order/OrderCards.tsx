@@ -10,27 +10,29 @@ interface OrderProps {
 }
 
 const OrderCards = ({ data, quantity }: OrderProps) => {
-
-  const {mutate: addCart} = useAddCart();
-  const {mutate: subCart} = useSubCart();
+  const { mutate: addCart } = useAddCart();
+  const { mutate: subCart } = useSubCart();
 
   return (
-    <div className="flex justify-between gap-1 rounded-sm p-2">
+    <section className="flex justify-between gap-1 rounded-sm p-2">
       <div className="relative aspect-square h-[72px] w-[72px] shrink-0 overflow-hidden rounded-md">
         <Image
           src={data.image}
-          alt="DummyImage"
+          alt={data.name}
           fill
           className="object-cover"
           sizes="(min-width: 500px) 78px, calc(18.89vw - 13px)"
         />
       </div>
       <div className="ml-1 flex flex-col">
-        <div className="text-sm font-semibold md:text-base">{data.name}</div>
-        <p className="text-xs md:text-sm">{data.description}</p>
+        <p className="text-sm font-semibold md:text-base">{data.name}</p>
+        <p className="text-xs text-gray-600 md:text-sm">{data.description}</p>
 
         <div className="flex w-[70px] items-center gap-2">
-          <button className="text-xl text-primary" onClick={() => subCart(data.id)}>
+          <button
+            className="text-xl text-primary"
+            onClick={() => subCart(data.id)}
+          >
             -
           </button>
           <input
@@ -39,7 +41,10 @@ const OrderCards = ({ data, quantity }: OrderProps) => {
             value={quantity}
             readOnly
           />
-          <button className="text-xl text-primary" onClick={() => addCart(data.id)}>
+          <button
+            className="text-xl text-primary"
+            onClick={() => addCart(data.id)}
+          >
             +
           </button>
         </div>
@@ -48,7 +53,7 @@ const OrderCards = ({ data, quantity }: OrderProps) => {
         &#8369;
         {data.price * quantity}
       </span>
-    </div>
+    </section>
   );
 };
 

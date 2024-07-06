@@ -6,7 +6,7 @@ import Link from "next/link";
 const OrderNav = () => {
   const pathname = usePathname();
   return (
-    <nav className="container flex flex-col items-center gap-4 py-2 text-center">
+    <nav className="container flex flex-col items-center gap-4 px-1.5 py-2 text-center">
       <div className="flex w-full items-center">
         {pathname === "/checkout" && (
           <Link href="/">
@@ -21,7 +21,7 @@ const OrderNav = () => {
         <div className="w-1/2 rounded-lg bg-primary"></div>
         <div
           className={`w-1/2 rounded-lg ${
-            pathname === "/checkout" ? "bg-primary" : "bg-gray-400"
+            pathname === "/checkout" ? "bg-primary" : "bg-gray-300"
           }`}
         ></div>
       </div>

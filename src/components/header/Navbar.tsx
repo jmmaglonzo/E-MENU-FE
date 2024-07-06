@@ -19,11 +19,7 @@ const Navbar = () => {
 
       if (cleanURL) route.replace("/");
     }
-  }, [
-    confirmRegister.status,
-    route,
-    confirmRegister.isSuccess,
-  ]);
+  }, [confirmRegister.status, route, confirmRegister.isSuccess]);
 
   return (
     <>
