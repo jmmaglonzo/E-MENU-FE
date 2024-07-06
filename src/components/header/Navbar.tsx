@@ -14,12 +14,17 @@ const Navbar = () => {
   const confirmRegister = useConfirmRegister();
 
   useEffect(() => {
-      if (confirmRegister.isSuccess) {
-        const cleanURL = confirmRegister.data.cleanURL;
+    if (confirmRegister.isSuccess) {
+      const cleanURL = confirmRegister.data.cleanURL;
 
-        if (cleanURL) route.replace("/");
-      }
-  },[confirmRegister.status]);
+      if (cleanURL) route.replace("/");
+    }
+  }, [
+    confirmRegister.status,
+    confirmRegister.data.cleanURL,
+    route,
+    confirmRegister.isSuccess,
+  ]);
 
   return (
     <>
