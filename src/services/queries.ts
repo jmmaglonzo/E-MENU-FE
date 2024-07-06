@@ -23,9 +23,9 @@ export const useConfirmRegister = () => {
 
   return useQuery({
     queryKey: [`confirm_register`],
-    queryFn: () => {
+    queryFn: async () => {
       if (!tableNo || !sessionId) return {message: "goods"};
-      return confirmRegister(tableNo as string,sessionId as string)
+      return await confirmRegister(tableNo as string,sessionId as string);
     }
   });
 }
