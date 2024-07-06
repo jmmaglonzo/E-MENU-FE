@@ -27,6 +27,7 @@ const ProductCard = ({ data }: ProductCardProps) => {
   if (isError) {
     const errStatus = (error as AxiosError).response?.request.status;
 
+    if (errStatus === 404) toast("Go visit our restaurant!");
     if (errStatus === 401) toast("You are not allowed to order!");
   }
 

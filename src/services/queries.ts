@@ -9,8 +9,26 @@ import {
   subCartItem,
   orderItem,
   getMyOrders,
+  getOrders,
+  updateOrderStatus,
+  confirmRegister,
 } from "./api";
 import { toast } from "sonner";
+import { useSearchParams } from "next/navigation";
+
+export const useConfirmRegister = () => {
+  const searchParams = useSearchParams();
+  const tableNo = searchParams.get("tableNo");
+  const sessionId = searchParams.get("sessionId");
+
+  return useQuery({
+    queryKey: [`confirm_register`],
+    queryFn: () => {
+      if (!tableNo || !sessionId) return {message: "goods"};
+      return confirmRegister(tableNo as string,sessionId as string)
+    }
+  });
+}
 
 export const useGetProducts = () => {
   return useQuery({
@@ -58,9 +76,31 @@ export const useOrderItem = () => {
 export const useGetMyOrders = () => {
   return useQuery({
     queryKey: ["my_orders"],
-    queryFn: getMyOrders
+    queryFn: getMyOrders,
   });
 };
+
+export const useGetOrders = () => {
+  return useQuery({
+    queryKey: ["orders"],
+    queryFn: getOrders
+  });
+};
+
+export const useUpdateOrderStatus = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: ["order/status"],
+    mutationFn: updateOrderStatus,
+    onSuccess: (data: {message: string}) => {
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
+      toast.success(data.message);
+    },
+    onError: (reason: {message: string}) => {
+      toast.error(reason.message);
+    }
+  });
+}
 
 export const useGetTableQueue = () => {
   return useQuery({
@@ -76,7 +116,7 @@ export const useDeclineTableQueue = () => {
     mutationFn: deleteTableQueue,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tableQueue"] });
-      toast.success("Table successfully declined.");
+      toast.success("Success");
     },
     onError: () => {
       toast.error("Something went wrong");
@@ -91,7 +131,7 @@ export const useApproveTableQueue = () => {
     mutationFn: updateTableQueue,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tableQueue"] });
-      toast.success("Table successfully approved.");
+      toast.success("Success");
     },
     onError: () => {
       toast.error("Something went wrong");
