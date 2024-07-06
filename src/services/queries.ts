@@ -9,8 +9,26 @@ import {
   subCartItem,
   orderItem,
   getMyOrders,
+  getOrders,
+  updateOrderStatus,
+  confirmRegister,
 } from "./api";
 import { toast } from "sonner";
+import { useSearchParams } from "next/navigation";
+
+export const useConfirmRegister = () => {
+  const searchParams = useSearchParams();
+  const tableNo = searchParams.get("tableNo");
+  const sessionId = searchParams.get("sessionId");
+
+  return useQuery({
+    queryKey: [`confirm_register`],
+    queryFn: async () => {
+      if (!tableNo || !sessionId) return {message: "goods"};
+      return await confirmRegister(tableNo as string,sessionId as string);
+    }
+  });
+}
 
 export const useGetProducts = () => {
   return useQuery({
@@ -61,6 +79,28 @@ export const useGetMyOrders = () => {
     queryFn: getMyOrders,
   });
 };
+
+export const useGetOrders = () => {
+  return useQuery({
+    queryKey: ["orders"],
+    queryFn: getOrders
+  });
+};
+
+export const useUpdateOrderStatus = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: ["order/status"],
+    mutationFn: updateOrderStatus,
+    onSuccess: (data: {message: string}) => {
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
+      toast.success(data.message);
+    },
+    onError: (reason: {message: string}) => {
+      toast.error(reason.message);
+    }
+  });
+}
 
 export const useGetTableQueue = () => {
   return useQuery({

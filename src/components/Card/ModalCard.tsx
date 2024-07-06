@@ -51,7 +51,6 @@ const ModalCard = () => {
           />
         </CardHeader>
         <CardContent className="overflow-hidden p-0 px-3">
-          <Toaster />
           <h2 className="my-2 truncate text-base font-semibold leading-4 md:text-xl">
             {selectedItem.name}
           </h2>

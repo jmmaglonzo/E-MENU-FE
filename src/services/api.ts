@@ -1,11 +1,15 @@
-import { QueryFunctionContext } from "@tanstack/react-query";
 import api from "./axios";
 
 import { ItemTypes } from "@/types/productCard";
-import { CartItem, CartItemServer } from "@/types/cart";
-import { TableTypes } from "@/types/table";
-import { MyOrder } from "@/types/myOrder";
+import { CartItemServer } from "@/types/cart";
+import { OrderTableType, TableTypes } from "@/types/table";
+import { MyOrder, OrderStatus } from "@/types/myOrder";
 
+export const confirmRegister = async (tableNo: string, sessionId: string) => {
+  const { data } = await api.get(`confirm_register?tableNo=${Number(tableNo)}&sessionId=${sessionId}`);
+
+  return Object.assign(data, {cleanURL: true});
+}
 
 export const getProducts = async () => {
   const { data } = await api.get<ItemTypes[]>("products");
@@ -57,12 +61,23 @@ export const orderItem = async ({
   return data;
 }
 
-
 export const getMyOrders = async () => {
   const { data } = await api.get<MyOrder[]>("my_orders");
 
   return data;
 };
+
+export const getOrders = async () => {
+  const { data } = await api.get<OrderTableType[]>("orders");
+
+  return data;
+};
+
+export const updateOrderStatus = async ({orderNo, status}: {orderNo: number, status: OrderStatus}) => {
+  const { data } = await api.post<{message: string}>("order/status", {orderNo,status});
+
+  return data;
+}
 
 export const getTableQueue = async () => {
   const { data } = await api.get<TableTypes[]>("table/queues");
