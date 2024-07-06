@@ -21,7 +21,7 @@ const Navbar = () => {
     }
   }, [
     confirmRegister.status,
-    confirmRegister.data.cleanURL,
+    confirmRegister.data?.cleanURL,
     route,
     confirmRegister.isSuccess,
   ]);
