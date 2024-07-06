@@ -10,7 +10,7 @@ const OrderSummaryItems: React.FC = () => {
       {dummyData.map((item: dummyDataProps) => (
         <div key={item.id} className="flex justify-center gap-5 border border-gray-200 p-4 rounded-lg">
          
-          <div className="relative w-44 h-24">
+          <div className="relative w-[180px] h-[90px]">
             <Image
              src={item.image}
              alt={item.name}
