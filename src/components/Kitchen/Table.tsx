@@ -1,25 +1,18 @@
 "use client";
 
-import TableCards from "./Cards/TableCards";
 import { useGetTableQueue } from "@/services/queries";
+import TableLayout from "./TableLayout";
 
 const Table = () => {
   const { data } = useGetTableQueue();
 
-  if (
-    data?.length === 0 ||
-    data?.filter((table) => table.status === false).length === 0
-  ) {
-    return (
-      <h1 className="mt-10 flex items-center justify-center text-xl text-muted-foreground">
-        No table queues
-      </h1>
-    );
-  }
+  const approvedTableList = data?.filter((table) => table.status === true);
+  const pendingTableList = data?.filter((table) => table.status === false);
 
   return (
-    <main className="grid grid-cols-4 gap-4">
-      {data?.map((table, index) => <TableCards key={index} data={table} />)}
+    <main className="grid min-h-screen grid-cols-2 gap-4">
+      <TableLayout data={pendingTableList} headerText="Pending" />
+      <TableLayout data={approvedTableList} headerText="Approved" />
     </main>
   );
 };

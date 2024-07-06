@@ -8,7 +8,7 @@ export interface OrderTableType extends MyOrder{
 export interface TableTypes {
   tableNo: number;
   guests: number;
-  date: string;
+  createdAt: string;
   session: string;
   status: boolean;
 }
