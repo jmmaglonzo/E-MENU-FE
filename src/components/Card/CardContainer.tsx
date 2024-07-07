@@ -1,7 +1,6 @@
 "use client";
 import { useMenuStore } from "@/store/menuTab-store";
 import ErrorPage from "../common/ErrorPage";
-import Loader from "../common/Loader";
 import ProductCard from "./ProductCard";
 import { useGetProducts } from "@/services/queries";
 import ModalCard from "./ModalCard";
@@ -9,7 +8,7 @@ import { useSearchStore } from "@/store/search-store";
 import NoResults from "../common/NoResults";
 
 const CardContainer = () => {
-  const { data, isLoading, error } = useGetProducts();
+  const { data, error } = useGetProducts();
   const selected = useMenuStore((state) => state.selected);
   const search = useSearchStore((state) => state.search);
   const filteredItems =
@@ -20,13 +19,6 @@ const CardContainer = () => {
       : data?.filter((food) =>
           selected === "all" ? true : food.categories.includes(selected),
         );
-
-  if (isLoading)
-    return (
-      <div className="container mt-36 flex h-dvh justify-center">
-        <Loader />
-      </div>
-    );
 
   if (error)
     return (
