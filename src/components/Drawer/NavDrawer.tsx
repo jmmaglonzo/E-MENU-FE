@@ -32,12 +32,8 @@ const NavDrawer = () => {
           <DrawerDescription className="mb-4">
             Scan this QR code to start adding items.
           </DrawerDescription>
-
           <QRCode value={uuidv4()} className="w-full" />
         </DrawerHeader>
-        <DrawerFooter className="w-full">
-          <Button>Start Ordering</Button>
-        </DrawerFooter>
       </DrawerContent>
     </Drawer>
   );
