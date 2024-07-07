@@ -23,6 +23,7 @@ const SearchBox = () => {
           defaultValue={search}
           onChange={handleInputChange}
         />
+
         <button>
           <svg
             className="h-5 w-5 text-gray-500"
