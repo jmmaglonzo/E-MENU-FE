@@ -21,8 +21,6 @@ const ProductCard = ({ data }: ProductCardProps) => {
   function handleAddCart(e: React.MouseEvent) {
     e.stopPropagation();
     mutate(data.id);
-
-    toast("Item successfully added to your order!");
   }
 
   if (isError) {

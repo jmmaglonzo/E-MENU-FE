@@ -24,13 +24,12 @@ const ModalCard = () => {
   function handleAddCart(e: React.MouseEvent) {
     e.stopPropagation();
     mutate(selectedItem?.id as string);
-
-    toast("Item successfully added to your order!");
   }
 
   if (isError) {
     const errStatus = (error as AxiosError).response?.request.status;
 
+    if (errStatus === 404) toast("Go visit our restaurant!");
     if (errStatus === 401) toast("You are not allowed to order!");
   }
 
