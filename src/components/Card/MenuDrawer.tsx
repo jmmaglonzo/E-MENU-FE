@@ -11,12 +11,12 @@ import {
   DrawerDescription,
   DrawerFooter,
   DrawerHeader,
-  DrawerImage,
   DrawerTitle,
   DrawerTrigger,
 } from "../ui/drawer";
 import Link from "next/link";
-
+import restaurantLogo from "/public/restaurant_logo.png";
+import Image from "next/image";
 const MenuDrawer = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
@@ -30,9 +30,9 @@ const MenuDrawer = () => {
           onClick={() => setIsOpen(!isOpen)}
         />
         <DrawerHeader className="flex flex-col items-center justify-center">
-          <div className="h-[100px] w-[100px] rounded-full">
-            <DrawerImage
-              src="/restaurant_logo.png"
+          <div className="relative h-[100px] w-[100px] rounded-full">
+            <Image
+              src={restaurantLogo}
               alt="Restaurant Logo"
               className="rounded-full"
             />
