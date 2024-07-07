@@ -47,7 +47,7 @@ export const faq = [
       "Absolutely! We value your feedback. You can provide feedback directly through the digital menu or by contacting our customer service.",
   },
   {
-    value: "item-8",
+    value: "item-9",
     question: "How can I contact customer support?",
     answer:
       "You can contact our customer support team via email at bytesmenu@example.com or by phone at 123-456-7890. Our support team is available during business hours to assist you with any questions or concerns.",
