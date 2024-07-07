@@ -10,13 +10,21 @@ import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import { useAddCart } from "@/services/queries";
 import { AxiosError } from "axios";
 import useCardStore from "@/store/productCard-store";
+import { useEffect } from "react";
 interface ProductCardProps {
   data: ItemTypes;
 }
 
 const ProductCard = ({ data }: ProductCardProps) => {
   const { error, isError, mutate } = useAddCart();
+  useEffect(() => {
+    if (isError) {
+      const errStatus = (error as AxiosError).response?.request.status;
 
+      if (errStatus === 404) toast("Go visit our restaurant!");
+      if (errStatus === 401) toast("You are not allowed to order!");
+    }
+  }, [error, isError]);
   const setSelectedItem = useCardStore((state) => state.setSelectedItem);
   function handleAddCart(e: React.MouseEvent) {
     e.stopPropagation();

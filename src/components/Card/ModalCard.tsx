@@ -9,11 +9,21 @@ import { AxiosError } from "axios";
 import { toast } from "sonner";
 
 import { useAddCart } from "@/services/queries";
+import { useEffect } from "react";
 
 const ModalCard = () => {
   const setSelectedItem = useCardStore((state) => state.setSelectedItem);
   const selectedItem = useCardStore((state) => state.selectedItem);
   const { error, isError, mutate } = useAddCart();
+
+  useEffect(() => {
+    if (isError) {
+      const errStatus = (error as AxiosError).response?.request.status;
+
+      if (errStatus === 404) toast("Go visit our restaurant!");
+      if (errStatus === 401) toast("You are not allowed to order!");
+    }
+  }, [error, isError]);
 
   const closeModal = () => {
     setSelectedItem(null);
@@ -24,13 +34,6 @@ const ModalCard = () => {
   function handleAddCart(e: React.MouseEvent) {
     e.stopPropagation();
     mutate(selectedItem?.id as string);
-  }
-
-  if (isError) {
-    const errStatus = (error as AxiosError).response?.request.status;
-
-    if (errStatus === 404) toast("Go visit our restaurant!");
-    if (errStatus === 401) toast("You are not allowed to order!");
   }
 
   return (
