@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import TotalAmount from "@/utils/orderTotal";
+import LoadingButton from "@/components/common/LoadingButton";
 
 const OrderCheckout = () => {
   const [paymentMethod, setPaymentMethod] = useState<"ONLINE" | "CASH">(
@@ -84,6 +85,7 @@ const OrderCheckout = () => {
             </div>
             <RadioGroupItem value="ONLINE" className="justify-end" />
           </div>
+
           <div className="flex items-center">
             <div className="flex w-full flex-wrap items-center gap-x-2">
               <Image
@@ -110,12 +112,17 @@ const OrderCheckout = () => {
               <span className="text-[1.8em] font-bold">
                 ₱{productAmount.toFixed(2)}
               </span>
-              <Button
-                type="submit"
-                className="mt-2 w-full rounded-sm bg-primary py-2 text-center text-[0.8em] font-semibold text-white"
-              >
-                {isPending ? "Loading ..." : " Place Order"}
-              </Button>
+
+              {isPending ? (
+                <LoadingButton />
+              ) : (
+                <Button
+                  type="submit"
+                  className="mt-2 w-full rounded-sm bg-primary py-2 text-center text-[0.8em] font-semibold text-white"
+                >
+                  Place Order
+                </Button>
+              )}
               <div className="mt-4 h-0.5 w-full bg-slate-100"></div>
             </div>
           </div>
