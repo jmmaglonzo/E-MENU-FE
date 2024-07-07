@@ -59,12 +59,12 @@ const MenuDrawer = () => {
         <DrawerFooter className="text-center text-base text-gray-500">
           <Link
             href={"/order-history"}
-            className="rounded-sm border border-primary bg-white py-1.5 text-primary hover:text-white"
+            className="rounded-sm border border-primary bg-white py-1.5 text-primary transition active:scale-110"
           >
             Order History
           </Link>
-          <Button>Redeem Points</Button>
-          <Link href="/faq" className="hover:text-orange-400">
+          <Button className="transition active:scale-110">Redeem Points</Button>
+          <Link href="/faq" className="hover:text-primary">
             Need Help?
           </Link>
         </DrawerFooter>
