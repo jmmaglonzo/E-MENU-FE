@@ -26,7 +26,7 @@ const OrderCards = ({ data, quantity }: OrderProps) => {
         />
       </div>
       <div className="ml-1 flex flex-col">
-        <DrawerDescription className="text-sm font-semibold md:text-base">
+        <DrawerDescription className="text-sm font-semibold text-black md:text-base">
           {data.name}
         </DrawerDescription>
         <DrawerDescription className="text-xs text-gray-600 md:text-sm">
