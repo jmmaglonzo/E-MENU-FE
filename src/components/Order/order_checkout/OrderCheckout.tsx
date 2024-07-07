@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { FaCreditCard } from "react-icons/fa";
 import Image from "next/image";
 import EarnRewards from "./EarnRewards";
-import OnlinePayment from "/public/online_payment.png";
-import CashPayment from "/public/cash_payment.png";
+import OnlinePayment from "/public/credit-card.png";
+import CashPayment from "/public/wallet.png";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useOrderItem } from "@/services/queries";
 import { useRouter } from "next/navigation";
@@ -71,31 +71,33 @@ const OrderCheckout = () => {
             setPaymentMethod(value as "ONLINE" | "CASH")
           }
         >
-          <div className="flex items-center">
-            <div className="flex w-full flex-wrap items-center gap-x-2">
-              <Image
-                src={OnlinePayment}
-                alt="online payment"
-                width={40}
-                height={30}
-                style={{ width: "auto", height: "auto" }}
-                priority
-              />
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="relative flex h-[20px] w-[20px] flex-wrap items-center gap-x-2">
+                <Image
+                  src={OnlinePayment}
+                  alt="online payment"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
               <span className="text-[0.7em] font-bold">Online Payment</span>
             </div>
             <RadioGroupItem value="ONLINE" className="justify-end" />
           </div>
 
-          <div className="flex items-center">
-            <div className="flex w-full flex-wrap items-center gap-x-2">
-              <Image
-                src={CashPayment}
-                alt="cash payment"
-                width={40}
-                height={30}
-                style={{ width: "auto", height: "auto" }}
-                priority
-              />
+          <div className="mt-2 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="relative flex h-[20px] w-[20px] flex-wrap items-center gap-x-2">
+                <Image
+                  src={CashPayment}
+                  alt="cash payment"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
               <span className="text-[0.7em] font-bold">Cash</span>
             </div>
             <RadioGroupItem value="CASH" className="justify-end" />
@@ -155,6 +157,7 @@ const OrderCheckout = () => {
                 <div className="mt-4 flex items-center gap-2">
                   <FormControl>
                     <Checkbox
+                      className="rounded-sm"
                       checked={field.value}
                       onCheckedChange={field.onChange}
                     />
