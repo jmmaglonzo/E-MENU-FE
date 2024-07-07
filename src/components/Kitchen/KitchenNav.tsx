@@ -1,19 +1,26 @@
 "use client";
 
 import Image from "next/image";
-import menuLogo from "/public/emenu-logo-dark.png";
+import digibite from "/public/DigiBiteLogo.png";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 const KitchenNav = () => {
   const pathname = usePathname();
   return (
     <nav className="kitchen-container mx-auto flex items-center justify-between">
-      <div className="relative h-[50px] w-[200px]">
-        <Image src={menuLogo} alt="Menu Logo" fill className="object-contain" />
+      <div className="flex items-center gap-4">
+        <Link href="/" className="relative h-[50px] w-[200px]">
+          <Image
+            src={digibite}
+            alt="Menu Logo"
+            fill
+            className="object-contain"
+          />
+        </Link>
+        <h1 className="text-3xl font-bold">Kitchen Dashboard</h1>
       </div>
-      <h1 className="mt-2 font-bold">Kitchen Dashboard</h1>
 
-      <ul className="mt-2 flex flex-1 items-center justify-center gap-6 font-medium">
+      <ul className="flex flex-1 items-center justify-center gap-6 font-medium">
         <li>
           <Link
             href={"/kitchen"}

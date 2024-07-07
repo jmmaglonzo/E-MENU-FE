@@ -9,7 +9,6 @@ import { FaStar } from "react-icons/fa6";
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import { useAddCart } from "@/services/queries";
 import { AxiosError } from "axios";
-
 import useCardStore from "@/store/productCard-store";
 interface ProductCardProps {
   data: ItemTypes;

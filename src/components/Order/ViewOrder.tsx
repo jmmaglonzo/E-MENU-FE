@@ -3,10 +3,9 @@
 import OrderCards from "@/components/Order/OrderCards";
 import TipSummary from "@/components/Order/TipSummary";
 import { OrderData } from "@/utils/orderData";
-import Link from "next/link";
-import OrderNav from "./OrderNav";
 import { ItemTypes } from "@/types/productCard";
 import { CartItem } from "@/types/cart";
+import { DrawerClose } from "../ui/drawer";
 
 interface ViewOrderProp {
   productAmount: number;
@@ -37,12 +36,9 @@ const ViewOrder = ({ productAmount, items, data }: ViewOrderProp) => {
         })}
       </div>
       <div className="my-1.5 w-full text-center">
-        <Link
-          href="/"
-          className="inline-block w-full rounded-sm bg-[#fff3e6] px-6 py-1.5 text-base font-medium text-[#ff8500]"
-        >
+        <DrawerClose className="inline-block w-full rounded-sm bg-[#fff3e6] px-6 py-1.5 text-base font-medium text-[#ff8500]">
           Add more items
-        </Link>
+        </DrawerClose>
       </div>
       <TipSummary items={items} productAmount={productAmount} />
     </>
