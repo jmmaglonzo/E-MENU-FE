@@ -8,7 +8,7 @@ import NavDrawer from "../Drawer/NavDrawer";
 import { useRouter } from "next/navigation";
 import { useConfirmRegister } from "@/services/queries";
 import { useEffect } from "react";
-
+import digibiteLogo from "/public/DigiBiteLogo.png";
 const Navbar = () => {
   const route = useRouter();
   const confirmRegister = useConfirmRegister();
@@ -23,13 +23,13 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="container mt-5 flex items-center justify-between">
+      <nav className="container mt-2 flex items-center justify-between">
         <div className="cursor-pointer">
           <MenuDrawer />
         </div>
-        <div className="relative h-[40px] w-[160px]">
+        <div className="relative h-[40px] w-[120px]">
           <Image
-            src={menuLogo}
+            src={digibiteLogo}
             priority
             alt="icon-menu"
             fill

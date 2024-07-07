@@ -1,49 +1,43 @@
+/* HTML: <div class="loader"></div> */
 .loader {
-  --size: 150px;
-  width: var(--size);
-  height: var(--size);
+  --r1: 154%;
+  --r2: 68.5%;
+  width: 100px;
+  aspect-ratio: 1;
   border-radius: 50%;
-  border: calc(var(--size) * 0.1) solid #d1914b;
-  box-sizing: border-box;
-  --c: no-repeat radial-gradient(farthest-side, #d64123 94%, #0000);
-  --b: no-repeat radial-gradient(farthest-side, #000 94%, #0000);
-  background:
-    var(--c) calc(var(--size) * 0.1375) calc(var(--size) * 0.1875),
-    var(--b) calc(var(--size) * 0.075) calc(var(--size) * 0.1875),
-    var(--c) calc(var(--size) * 0.4375) calc(var(--size) * 0.2875),
-    var(--b) calc(var(--size) * 0.3625) calc(var(--size) * 0.1875),
-    var(--c) calc(var(--size) * 0.1375) calc(var(--size) * 0.575),
-    var(--b) calc(var(--size) * 0.1375) calc(var(--size) * 0.425),
-    var(--c) calc(var(--size) * 0.45) 0px,
-    var(--b) calc(var(--size) * 0.625) calc(var(--size) * 0.3875),
-    var(--c) calc(var(--size) * 0.5875) calc(var(--size) * 0.5375),
-    var(--b) calc(var(--size) * 0.3875) calc(var(--size) * 0.6),
-    #f6d353;
-  background-size:
-    calc(var(--size) * 0.1875) calc(var(--size) * 0.1875),
-    calc(var(--size) * 0.075) calc(var(--size) * 0.075);
-  animation: l4 3s infinite;
+  background: radial-gradient(
+      var(--r1) var(--r2) at top,
+      #0000 79.5%,
+      #ff8500 80%
+    ),
+    radial-gradient(var(--r1) var(--r2) at bottom, #ff8500 79.5%, #0000 80%),
+    radial-gradient(var(--r1) var(--r2) at top, #0000 79.5%, #ff8500 80%),
+    #eeeeee;
+  background-size: 50.5% 220%;
+  background-position:
+    -100% 0%,
+    0% 0%,
+    100% 0%;
+  background-repeat: no-repeat;
+  animation: l9 2s infinite linear;
 }
-@keyframes l4 {
-  0% {
-    -webkit-mask: conic-gradient(#0000 0, #000 0);
+@keyframes l9 {
+  33% {
+    background-position:
+      0% 33%,
+      100% 33%,
+      200% 33%;
   }
-  16.67% {
-    -webkit-mask: conic-gradient(#0000 60deg, #000 0);
-  }
-  33.33% {
-    -webkit-mask: conic-gradient(#0000 120deg, #000 0);
-  }
-  50% {
-    -webkit-mask: conic-gradient(#0000 180deg, #000 0);
-  }
-  66.67% {
-    -webkit-mask: conic-gradient(#0000 240deg, #000 0);
-  }
-  83.33% {
-    -webkit-mask: conic-gradient(#0000 300deg, #000 0);
+  66% {
+    background-position:
+      -100% 66%,
+      0% 66%,
+      100% 66%;
   }
   100% {
-    -webkit-mask: conic-gradient(#0000 360deg, #000 0);
+    background-position:
+      0% 100%,
+      100% 100%,
+      200% 100%;
   }
 }

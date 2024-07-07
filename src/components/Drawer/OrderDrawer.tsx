@@ -1,5 +1,4 @@
 "use client";
-
 import { ChevronLeft } from "lucide-react";
 import ViewOrder from "../Order/ViewOrder";
 import {
@@ -7,18 +6,16 @@ import {
   DrawerClose,
   DrawerContent,
   DrawerHeader,
+  DrawerTitle,
   DrawerTrigger,
 } from "../ui/drawer";
-
 import { useGetProducts, useGetCartItems } from "@/services/queries";
 import { ItemTypes } from "@/types/productCard";
-
 import getOrderTotalAmount from "@/utils/orderTotal";
 
 export const OrderDrawer = () => {
   const getCartItems = useGetCartItems();
   const { data } = useGetProducts();
-
   const productAmount = getOrderTotalAmount();
 
   const items = getCartItems.data || [];
@@ -40,14 +37,19 @@ export const OrderDrawer = () => {
           </div>
         </DrawerTrigger>
         <DrawerContent className="container h-dvh">
-          <DrawerHeader>
-            <ViewOrder
-              items={items}
-              data={data as ItemTypes[]}
-              productAmount={productAmount}
-            />
+          <DrawerHeader className="my-4 flex flex-col items-center justify-center gap-6 p-0">
+            <DrawerTitle>Order Summary</DrawerTitle>
+            <div className="flex h-1.5 w-full gap-4">
+              <div className="w-1/2 rounded-lg bg-primary"></div>
+              <div className={`w-1/2 rounded-lg bg-slate-300`}></div>
+            </div>
           </DrawerHeader>
-          <DrawerClose className="absolute left-4 top-[46px]">
+          <ViewOrder
+            items={items}
+            data={data as ItemTypes[]}
+            productAmount={productAmount}
+          />
+          <DrawerClose className="absolute left-4 top-[36px]">
             <ChevronLeft size={24} />
           </DrawerClose>
         </DrawerContent>

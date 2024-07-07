@@ -11,12 +11,12 @@ import {
   DrawerDescription,
   DrawerFooter,
   DrawerHeader,
-  DrawerImage,
   DrawerTitle,
   DrawerTrigger,
 } from "../ui/drawer";
 import Link from "next/link";
-
+import restaurantLogo from "/public/restaurant_logo.png";
+import Image from "next/image";
 const MenuDrawer = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
@@ -30,9 +30,9 @@ const MenuDrawer = () => {
           onClick={() => setIsOpen(!isOpen)}
         />
         <DrawerHeader className="flex flex-col items-center justify-center">
-          <div className="h-[100px] w-[100px] rounded-full">
-            <DrawerImage
-              src="/restaurant_logo.png"
+          <div className="relative h-[100px] w-[100px] rounded-full">
+            <Image
+              src={restaurantLogo}
               alt="Restaurant Logo"
               className="rounded-full"
             />
@@ -50,7 +50,7 @@ const MenuDrawer = () => {
             experience that brings the flavors of italy to your table.
           </DrawerDescription>
         </DrawerHeader>
-        
+
         <div className="flex cursor-pointer items-center justify-center gap-x-2">
           <IoLogoFacebook className="h-[25px] w-[25px]" />
           <FaSquareInstagram className="h-[25px] w-[25px]" />
@@ -59,12 +59,12 @@ const MenuDrawer = () => {
         <DrawerFooter className="text-center text-base text-gray-500">
           <Link
             href={"/order-history"}
-            className="rounded-sm border border-primary bg-white py-1.5 text-primary hover:text-white"
+            className="rounded-sm border border-primary bg-white py-1.5 text-primary transition active:scale-110"
           >
             Order History
           </Link>
-          <Button>Redeem Points</Button>
-          <Link href="" className="hover:text-orange-400">
+          <Button className="transition active:scale-110">Redeem Points</Button>
+          <Link href="/faq" className="hover:text-primary">
             Need Help?
           </Link>
         </DrawerFooter>

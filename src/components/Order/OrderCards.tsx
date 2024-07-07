@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { OrderData } from "@/utils/orderData";
 import { useAddCart, useSubCart } from "@/services/queries";
+import { DrawerDescription } from "../ui/drawer";
 
 interface OrderProps {
   data: OrderData;
@@ -25,8 +26,12 @@ const OrderCards = ({ data, quantity }: OrderProps) => {
         />
       </div>
       <div className="ml-1 flex flex-col">
-        <p className="text-sm font-semibold md:text-base">{data.name}</p>
-        <p className="text-xs text-gray-600 md:text-sm">{data.description}</p>
+        <DrawerDescription className="text-sm font-semibold text-black md:text-base">
+          {data.name}
+        </DrawerDescription>
+        <DrawerDescription className="text-xs text-gray-600 md:text-sm">
+          {data.description}
+        </DrawerDescription>
 
         <div className="flex w-[70px] items-center gap-2">
           <button

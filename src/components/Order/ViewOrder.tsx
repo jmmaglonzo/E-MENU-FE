@@ -3,11 +3,9 @@
 import OrderCards from "@/components/Order/OrderCards";
 import TipSummary from "@/components/Order/TipSummary";
 import { OrderData } from "@/utils/orderData";
-import Link from "next/link";
-import OrderNav from "./OrderNav";
 import { ItemTypes } from "@/types/productCard";
 import { CartItem } from "@/types/cart";
-import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
+import { DrawerClose } from "../ui/drawer";
 
 interface ViewOrderProp {
   productAmount: number;
@@ -18,10 +16,7 @@ interface ViewOrderProp {
 const ViewOrder = ({ productAmount, items, data }: ViewOrderProp) => {
   return (
     <>
-      <DialogTitle>
-        <OrderNav />
-      </DialogTitle>
-      <DialogDescription className="flex h-[350px] flex-col gap-2 overflow-y-scroll no-scrollbar">
+      <div className="flex h-[400px] flex-col gap-2 overflow-y-scroll no-scrollbar">
         {items.map(({ id, quantity }) => {
           const item = data?.find((item) => item.id == id);
 
@@ -39,14 +34,11 @@ const ViewOrder = ({ productAmount, items, data }: ViewOrderProp) => {
             <OrderCards key={item.id} data={orderItem} quantity={quantity} />
           );
         })}
-      </DialogDescription>
+      </div>
       <div className="my-1.5 w-full text-center">
-        <Link
-          href="/"
-          className="inline-block w-full rounded-sm bg-[#fff3e6] px-6 py-1.5 text-base font-medium text-[#ff8500]"
-        >
+        <DrawerClose className="inline-block w-full rounded-sm bg-[#fff3e6] px-6 py-1.5 text-base font-medium text-[#ff8500]">
           Add more items
-        </Link>
+        </DrawerClose>
       </div>
       <TipSummary items={items} productAmount={productAmount} />
     </>
