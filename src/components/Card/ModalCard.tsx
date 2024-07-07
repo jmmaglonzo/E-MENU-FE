@@ -24,6 +24,8 @@ const ModalCard = () => {
   function handleAddCart(e: React.MouseEvent) {
     e.stopPropagation();
     mutate(selectedItem?.id as string);
+
+    toast("Item successfully added to your order!");
   }
 
   if (isError) {
@@ -41,7 +43,7 @@ const ModalCard = () => {
         className="flex w-[90%] flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        <CardHeader className="relative aspect-square h-[220px] w-full overflow-hidden rounded-tl-md rounded-tr-md md:h-[300px]">
+        <CardHeader className="relative aspect-square h-[150px] w-full overflow-hidden rounded-tl-md rounded-tr-md md:h-[220px]">
           <Image
             src={selectedItem.image}
             alt={selectedItem.name}
