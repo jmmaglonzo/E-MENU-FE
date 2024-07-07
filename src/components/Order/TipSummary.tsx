@@ -11,9 +11,8 @@ interface TipSummaryProp {
 
 const TipSummary = ({ productAmount }: TipSummaryProp) => {
   const pathname = usePathname();
-
   return (
-    <div className="mt-4 flex flex-col text-base text-gray-600">
+    <div className="mt-auto flex flex-col text-base text-gray-600">
       <div className="flex justify-between">
         <span>Subtotal</span>
         <span>&#8369;{productAmount}</span>
