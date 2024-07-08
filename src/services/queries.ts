@@ -15,7 +15,7 @@ import {
   loginUser,
 } from "./api";
 import { toast } from "sonner";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export const useConfirmRegister = () => {
   const searchParams = useSearchParams();
@@ -141,11 +141,14 @@ export const useApproveTableQueue = () => {
 };
 
 export const useLogin = () => {
+  const router = useRouter();
   return useMutation({
     mutationKey: ["login"],
     mutationFn: loginUser,
     onSuccess: () => {
       toast.success("Logged in");
+      router.push("/kitchen");
+      router.refresh();
     },
     onError: () => {
       toast.error("Something went wrong");
