@@ -11,8 +11,8 @@ import Link from "next/link";
 const Faq = () => {
   return (
     <section className="container py-4 text-center">
-      <h2 className="text-3xl font-bold">Frequently Asked Questions</h2>
-      <div className="relative flex items-center justify-center">
+      <h2 className="mb-2 text-3xl font-bold">Frequently Asked Questions</h2>
+      <div className="relative mb-2 flex items-center justify-center">
         <Link
           href="/"
           className="absolute left-0 rounded-sm bg-primary px-3 py-1 text-sm font-semibold text-white transition active:scale-110"
@@ -30,8 +30,8 @@ const Faq = () => {
       </div>
       <Accordion type="single" collapsible className="">
         {faq.map((item) => (
-          <AccordionItem value={item.value} key={item.value}>
-            <AccordionTrigger className="text-start hover:no-underline">
+          <AccordionItem value={item.value} key={item.value} className="px-2">
+            <AccordionTrigger className="white text-start text-xl hover:no-underline">
               {item.question}
             </AccordionTrigger>
             <AccordionContent className="text-base">
