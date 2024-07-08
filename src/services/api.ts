@@ -5,6 +5,13 @@ import { CartItemServer } from "@/types/cart";
 import { OrderTableType, TableTypes } from "@/types/table";
 import { MyOrder, OrderStatus } from "@/types/myOrder";
 
+export const getMyTableStatus = async () => {
+  const { data } = await api.get('/my_status');
+
+  return data;
+}
+
+
 export const confirmRegister = async (tableNo: string, sessionId: string) => {
   const { data } = await api.get(`confirm_register?tableNo=${Number(tableNo)}&sessionId=${sessionId}`);
 
