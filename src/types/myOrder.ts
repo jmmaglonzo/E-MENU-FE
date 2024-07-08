@@ -26,5 +26,5 @@ export interface MyOrder {
     orders: Order[],
     orderDate: Date,
     total: number,
-    status:  "Pending" | "Ongoing" | "Completed" | "Cancelled",
+    status:  OrderStatus
 }
