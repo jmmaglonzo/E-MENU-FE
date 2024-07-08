@@ -5,6 +5,7 @@ import { CartItemServer } from "@/types/cart";
 import { OrderTableType, TableTypes } from "@/types/table";
 import { MyOrder, OrderStatus } from "@/types/myOrder";
 import { LoginType } from "@/types/login";
+import { setCookie } from "cookies-next";
 
 export const getMyTableStatus = async () => {
   const { data } = await api.get('/my_status');
@@ -114,6 +115,7 @@ export const updateTableQueue = async (sessionId: string) => {
 };
 
 export const loginUser = async ({ email, password }: LoginType) => {
-  const { data } = await api.post("login", { email, password });
+  const { data } = await api.post("auth/login", { email, password });
+  setCookie("_user_session", data.sessionId);
   return data;
 };
