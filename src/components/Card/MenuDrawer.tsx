@@ -63,7 +63,12 @@ const MenuDrawer = () => {
           >
             Order History
           </Link>
-          <Button className="transition active:scale-110">Redeem Points</Button>
+          <Link
+            href={"/redeem-points"}
+            className="rounded-sm bg-primary py-1.5 text-white transition active:scale-110"
+          >
+            Redeem Points
+          </Link>
           <Link href="/faq" className="hover:text-primary">
             Need Help?
           </Link>
