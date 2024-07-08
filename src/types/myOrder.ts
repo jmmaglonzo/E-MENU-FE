@@ -1,11 +1,11 @@
 import { ItemTypes } from "./productCard"
 
 export enum OrderStatus{
-    Pending = "Pending",
-    Ongoing = "Ongoing",
-    Completed = "Completed",
-    Serve = "Serve",
-    Cancelled = "Cancelled"
+    PENDING = "PENDING",
+    ONGOING = "ONGOING",
+    COMPLETED = "COMPLETED",
+    SERVE = "SERVE",
+    CANCELLED = "CANCELLED"
 }
 
 interface Order {
