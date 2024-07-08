@@ -4,6 +4,7 @@ import { ItemTypes } from "@/types/productCard";
 import { CartItemServer } from "@/types/cart";
 import { OrderTableType, TableTypes } from "@/types/table";
 import { MyOrder, OrderStatus } from "@/types/myOrder";
+import { LoginType } from "@/types/login";
 
 export const getMyTableStatus = async () => {
   const { data } = await api.get('/my_status');
@@ -13,10 +14,12 @@ export const getMyTableStatus = async () => {
 
 
 export const confirmRegister = async (tableNo: string, sessionId: string) => {
-  const { data } = await api.get(`confirm_register?tableNo=${Number(tableNo)}&sessionId=${sessionId}`);
+  const { data } = await api.get(
+    `confirm_register?tableNo=${Number(tableNo)}&sessionId=${sessionId}`,
+  );
 
-  return Object.assign(data, {cleanURL: true});
-}
+  return Object.assign(data, { cleanURL: true });
+};
 
 export const getProducts = async () => {
   const { data } = await api.get<ItemTypes[]>("products");
@@ -66,7 +69,7 @@ export const orderItem = async ({
   });
 
   return data;
-}
+};
 
 export const getMyOrders = async () => {
   const { data } = await api.get<MyOrder[]>("my_orders");
@@ -80,11 +83,20 @@ export const getOrders = async () => {
   return data;
 };
 
-export const updateOrderStatus = async ({orderNo, status}: {orderNo: number, status: OrderStatus}) => {
-  const { data } = await api.post<{message: string}>("order/status", {orderNo,status});
+export const updateOrderStatus = async ({
+  orderNo,
+  status,
+}: {
+  orderNo: number;
+  status: OrderStatus;
+}) => {
+  const { data } = await api.post<{ message: string }>("order/status", {
+    orderNo,
+    status,
+  });
 
   return data;
-}
+};
 
 export const getTableQueue = async () => {
   const { data } = await api.get<TableTypes[]>("table/queues");
@@ -98,5 +110,10 @@ export const deleteTableQueue = async (sessionId: string) => {
 
 export const updateTableQueue = async (sessionId: string) => {
   const { data } = await api.patch("table/approve", { sessionId });
+  return data;
+};
+
+export const loginUser = async ({ email, password }: LoginType) => {
+  const { data } = await api.post("login", { email, password });
   return data;
 };

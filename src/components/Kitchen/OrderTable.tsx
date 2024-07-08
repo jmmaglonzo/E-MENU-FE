@@ -10,7 +10,7 @@ import { capitalize } from "@/lib/utils";
 
 const OrderTable = () => {
   const { data, isSuccess } = useGetOrders();
-  const orders = data as OrderTableType[] || [];
+  const orders = (data as OrderTableType[]) || [];
   
   const filters = ["PENDING","ONGOING","SERVED"] as const;
   type Filters = typeof filters;
@@ -64,11 +64,11 @@ const OrderTable = () => {
       <div className="h-[0.08rem] bg-gray-200">
       </div>
       <div className="grid grid-cols-4 gap-4">
-        {filteredOrder.map((order,index) => (
+        {filteredOrder.map((order) => (
           <KitchenOrderCard key={order.orderNo} data={order} />
         ))}
       </div>
-      <OrderModal/>
+      <OrderModal />
     </main>
   );
 };
