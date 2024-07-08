@@ -31,6 +31,7 @@ const OrderCheckout = () => {
     "ONLINE",
   );
   const router = useRouter();
+
   const { mutate: order, data, isSuccess, isPending } = useOrderItem();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -41,6 +42,9 @@ const OrderCheckout = () => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
+    if (paymentMethod === "CASH") {
+      router.push("/checkout/cash-payment");
+    }
     order({
       loyalty: false,
       paymentMethod,
