@@ -4,7 +4,7 @@ export enum OrderStatus{
     PENDING = "PENDING",
     ONGOING = "ONGOING",
     COMPLETED = "COMPLETED",
-    SERVE = "SERVE",
+    SERVED = "SERVED",
     CANCELLED = "CANCELLED"
 }
 
