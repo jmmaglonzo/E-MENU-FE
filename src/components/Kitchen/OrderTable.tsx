@@ -7,15 +7,10 @@ import OrderModal from "./OrderModal";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { useState } from "react";
 import { capitalize } from "@/lib/utils";
-import { OrderStatus } from "@/types/myOrder";
-
-
 
 const OrderTable = () => {
   const { data, isSuccess } = useGetOrders();
   const orders = data as OrderTableType[] || [];
-
-
   
   const filters = ["PENDING","ONGOING","SERVED"] as const;
   type Filters = typeof filters;
@@ -33,7 +28,8 @@ const OrderTable = () => {
     else ordersByStatus[order.status] = [order];
   }
 
-  const filteredOrders = orders.filter(order => selectedFilter === null || order.status === selectedFilter);
+  const filteredOrder = selectedFilter ? ordersByStatus[selectedFilter]: orders;
+
   return (
     <main className="flex flex-col justify-between gap-8">
       <div className="flex gap-3">
@@ -58,7 +54,7 @@ const OrderTable = () => {
               </CardHeader>
               <CardContent className="text-5xl font-semibold">
                 <div className="py-2">
-                  {5}
+                  {ordersByStatus[filter] ? ordersByStatus[filter].length: 0}
                 </div>
               </CardContent>
             </Card>
@@ -68,7 +64,7 @@ const OrderTable = () => {
       <div className="h-[0.08rem] bg-gray-200">
       </div>
       <div className="grid grid-cols-4 gap-4">
-        {filteredOrders.map((order,index) => (
+        {filteredOrder.map((order,index) => (
           <KitchenOrderCard key={order.orderNo} data={order} />
         ))}
       </div>
