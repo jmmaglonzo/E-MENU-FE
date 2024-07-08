@@ -17,11 +17,22 @@ import {
 import Link from "next/link";
 import restaurantLogo from "/public/restaurant_logo.png";
 import Image from "next/image";
-const MenuDrawer = () => {
+import { MouseEvent } from "react";
+
+interface MenuDrawerProp { 
+  isDisabled: boolean;
+}
+
+const MenuDrawer = ({isDisabled}: MenuDrawerProp) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  function handleClick(event: MouseEvent) {
+    if (isDisabled) event.preventDefault();
+  }
+
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
-      <DrawerTrigger>
+      <DrawerTrigger onClick={handleClick}>
         <RxHamburgerMenu size={20} />
       </DrawerTrigger>
       <DrawerContent className="mx-auto mt-10 max-w-[380px]">

@@ -14,7 +14,7 @@ import { Badge } from "../ui/badge";
 import Link from "next/link";
 import { useGetMyOrders } from "@/services/queries";
 import { MyOrder } from "@/types/myOrder";
-import { formatDate } from "@/lib/utils";
+import { capitalize, formatDate } from "@/lib/utils";
 
 const OrderHistory = () => {
   const [selectedStatus, setSelectedStatus] = useState("all");
@@ -84,14 +84,14 @@ const OrderHistory = () => {
                   </div>
                   <Badge
                     variant={
-                      order.status === "Completed"
+                      order.status === "COMPLETED"
                         ? "secondary"
-                        : order.status === "Ongoing"
+                        : order.status === "ONGOING"
                           ? "outline"
                           : "destructive"
                     }
                   >
-                    {order.status}
+                    {capitalize (order.status)}
                   </Badge>
                 </div>
               </CardHeader>
