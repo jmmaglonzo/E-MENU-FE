@@ -18,11 +18,12 @@ const SearchBox = () => {
       <div className="mx-auto mt-2 flex w-full items-center rounded-md border-2 px-4 focus-within:border-orange-500">
         <input
           type="text"
-          className="w-full flex-grow py-1.5 outline-none focus:border-orange-500"
+          className="w-full flex-grow py-1.5 outline-none placeholder:text-base focus:border-orange-500"
           placeholder="Search here"
           defaultValue={search}
           onChange={handleInputChange}
         />
+
         <button>
           <svg
             className="h-5 w-5 text-gray-500"
