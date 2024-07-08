@@ -16,3 +16,7 @@ export function formatDate(date: string) {
 
   return `${month} ${day}, ${year} ${time}`;
 }
+
+export function capitalize(string: string) {
+  return string[0].toUpperCase() + string.slice(1).toLowerCase();
+}

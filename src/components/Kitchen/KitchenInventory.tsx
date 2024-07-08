@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { HiOutlinePencilAlt, HiOutlineTrash } from "react-icons/hi";
 import { FaFilter, FaSort, FaSearch } from "react-icons/fa";
+import { Modal } from "../ui/modal";
+import KitchenModal from "./KitchenModal/KitchenModal";
 
 interface Item {
   name: string;
@@ -65,12 +67,14 @@ const KitchenInventory: React.FC = () => {
             <span>Sort by</span>
           </button>
         </div>
+       
         <button
           className="rounded bg-orange-500 p-2 text-white"
           onClick={() => setIsModalOpen(true)}
         >
           + Add New Item
         </button>
+        <KitchenModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
       </div>
 
       {/* Add Item Modal */}
