@@ -1,9 +1,11 @@
-import ViewOrderCheckout from "@/components/Order/order_checkout/ViewOrderCheckout";
+import OrderCheckout from "@/components/Order/order_checkout/OrderCheckout";
+import OrderNav from "@/components/Order/OrderNav";
 
 const page = () => {
   return (
     <section className="container">
-      <ViewOrderCheckout />
+      <OrderNav />
+      <OrderCheckout />
     </section>
   );
 };
