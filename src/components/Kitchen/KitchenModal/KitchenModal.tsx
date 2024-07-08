@@ -1,4 +1,6 @@
 import { Modal, ModalContainer, ModalContent, ModalHeader, ModalTitle } from '@/components/ui/modal';
+import { useMenuStore } from '@/store/menuTab-store';
+import KitchenCategory from '@/utils/kitchen_category_modal';
 import React, { useState } from 'react';
 import { MdOutlineFileUpload } from "react-icons/md";
 
@@ -9,6 +11,8 @@ type KitchenModalProps = {
 
 const KitchenModal = ({ isModalOpen, setIsModalOpen }: KitchenModalProps) => {
     const [fileName, setFileName] = useState<string>('');
+    const selected = useMenuStore((state) => state.selected);
+    const setSelected = useMenuStore((state) => state.setSelected);
 
     const handleFileChange = (event:any) => {
       const file = event.target.files[0];
@@ -56,7 +60,32 @@ const KitchenModal = ({ isModalOpen, setIsModalOpen }: KitchenModalProps) => {
                 </div>
                 {/*Category Items*/}
                     <div className='mt-5'>
+                      <div>
                         <h2 className="text-xl font-bold mb-4">Category</h2>
+                      </div>
+
+                    <div className=' text-[0.8em] gap-2 flex items-center overflow-x-scroll whitespace-nowrap py-1 no-scrollbar'>
+                    {KitchenCategory.map((c) => (
+                      <button
+                          key={c.value}
+                          className={`${selected === c.value ? "bg-primary text-white" : "text-muted-foreground"}
+                           flex items-center gap-2 rounded-[5px] px-4 py-1 font-medium shadow-sm bg-gray-200`}
+                          onClick={() => setSelected(c.value)}
+                        >
+                          {c.label}
+                        </button>
+                      ))}
+                    </div>
+
+                    <div className='mt-2'>
+                      <textarea
+                      placeholder='Description'
+                       className='p-3 w-full h-[200px]  border border-gray-200
+                      rounded-[5px] resize-none'>
+
+                      </textarea>
+                    </div>
+
                     </div>
                 <div className='flex justify-end'>
                 <button className="  mt-4 bg-orange-500 text-white p-2 rounded" onClick={() => setIsModalOpen(false)}>
