@@ -8,7 +8,7 @@ import {
 } from "../ui/card";
 import useKitchenOrderStore from "@/store/kitchenOrder-store";
 import { Badge } from "../ui/badge";
-import { formatDate } from "@/lib/utils";
+import { formatDate, capitalize } from "@/lib/utils";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { OrderStatus } from "@/types/myOrder";
 import { useUpdateOrderStatus } from "@/services/queries";
@@ -68,13 +68,13 @@ const OrderModal = () => {
               return (
                 <div
                   className="flex items-center gap-x-3"
-                  key={selectedItem.orderNo}
+                  key={status}
                 >
                   <RadioGroupItem
                     value={status as string}
                     onClick={() => setSelectedStatus(status)}
                   />
-                  <div className="font-bold">{String(status)}</div>
+                  <div className="font-bold">{capitalize(String(status))}</div>
                 </div>
               );
             })}
