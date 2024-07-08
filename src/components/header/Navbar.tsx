@@ -49,7 +49,7 @@ const Navbar = () => {
     <>
       <nav className="container mt-2 flex items-center justify-between">
         <div className="cursor-pointer">
-          {isTableApproved && <MenuDrawer />}
+          <MenuDrawer isDisabled={!isTableApproved}/>
         </div>
         <div className="relative h-[40px] w-[120px]">
           <Image
@@ -61,7 +61,7 @@ const Navbar = () => {
             className="object-contain"
           />
         </div>
-        {isTableApproved ? <NavDrawer />: <div></div>}  
+          <NavDrawer isDisabled={!isTableApproved} />
       </nav>
       <SearchBox />
       <MenuTab />
