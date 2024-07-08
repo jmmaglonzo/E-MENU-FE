@@ -12,6 +12,7 @@ import {
   getOrders,
   updateOrderStatus,
   confirmRegister,
+  loginUser,
 } from "./api";
 import { toast } from "sonner";
 import { useSearchParams } from "next/navigation";
@@ -132,6 +133,19 @@ export const useApproveTableQueue = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tableQueue"] });
       toast.success("Success");
+    },
+    onError: () => {
+      toast.error("Something went wrong");
+    },
+  });
+};
+
+export const useLogin = () => {
+  return useMutation({
+    mutationKey: ["login"],
+    mutationFn: loginUser,
+    onSuccess: () => {
+      toast.success("Logged in");
     },
     onError: () => {
       toast.error("Something went wrong");

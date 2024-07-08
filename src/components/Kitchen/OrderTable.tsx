@@ -7,16 +7,16 @@ import OrderModal from "./OrderModal";
 
 const OrderTable = () => {
   const { data } = useGetOrders();
-  const orders = data as OrderTableType[] || [];
+  const orders = (data as OrderTableType[]) || [];
 
   return (
     <main>
       <div className="grid grid-cols-4 gap-4">
-        {orders.map((order) => (
-          <KitchenOrderCard key={order.orderNo} data={order} />
+        {orders.map((order, index) => (
+          <KitchenOrderCard key={index} data={order} />
         ))}
       </div>
-      <OrderModal/>
+      <OrderModal />
     </main>
   );
 };
