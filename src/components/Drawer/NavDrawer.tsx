@@ -27,7 +27,7 @@ const NavDrawer = ({isDisabled}: NavDrawerProp) => {
 
   return (
     <Drawer>
-      <DrawerTrigger onClick={handleClick}>
+      <DrawerTrigger onClick={handleClick} className={isDisabled? "opacity-50" :""}>
         <FaUserGroup size={20} />
       </DrawerTrigger>
       <DrawerContent className="mx-auto flex max-w-[350px] items-center">
