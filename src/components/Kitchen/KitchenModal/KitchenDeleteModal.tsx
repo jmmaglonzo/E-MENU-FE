@@ -6,7 +6,6 @@ type KitchenDeleteModalProps = {
     setDeleteItemModal:React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-
 const KitchenDeleteModal = ({deleteItemModal, setDeleteItemModal}: KitchenDeleteModalProps) => {
     const handleCloseModal = () =>{
         setDeleteItemModal(false);
