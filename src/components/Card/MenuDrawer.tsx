@@ -32,7 +32,7 @@ const MenuDrawer = ({isDisabled}: MenuDrawerProp) => {
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
-      <DrawerTrigger onClick={handleClick}>
+      <DrawerTrigger onClick={handleClick}  className={isDisabled? "opacity-50" :""}>
         <RxHamburgerMenu size={20} />
       </DrawerTrigger>
       <DrawerContent className="mx-auto mt-10 max-w-[380px]">
