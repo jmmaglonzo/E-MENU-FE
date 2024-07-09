@@ -19,11 +19,11 @@ import restaurantLogo from "/public/restaurant_logo.png";
 import Image from "next/image";
 import { MouseEvent } from "react";
 
-interface MenuDrawerProp { 
+interface MenuDrawerProp {
   isDisabled: boolean;
 }
 
-const MenuDrawer = ({isDisabled}: MenuDrawerProp) => {
+const MenuDrawer = ({ isDisabled }: MenuDrawerProp) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   function handleClick(event: MouseEvent) {
@@ -32,7 +32,10 @@ const MenuDrawer = ({isDisabled}: MenuDrawerProp) => {
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
-      <DrawerTrigger onClick={handleClick}  className={isDisabled? "opacity-50" :""}>
+      <DrawerTrigger
+        onClick={handleClick}
+        className={isDisabled ? "opacity-50" : ""}
+      >
         <RxHamburgerMenu size={20} />
       </DrawerTrigger>
       <DrawerContent className="mx-auto mt-10 max-w-[380px]">
@@ -75,7 +78,7 @@ const MenuDrawer = ({isDisabled}: MenuDrawerProp) => {
             Order History
           </Link>
           <Link
-            href={"/redeem-points"}
+            href={"/redeem"}
             className="rounded-sm bg-primary py-1.5 text-white transition active:scale-110"
           >
             Redeem Points
