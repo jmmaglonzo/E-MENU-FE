@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
-import cloche from '../../../../public/cloche.png'
+import cloche from '../../../../../public/cloche.png'
 import OrderSummaryItems from './OrderSummaryItems'
 
 const OrderSummary = () => {
