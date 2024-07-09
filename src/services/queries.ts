@@ -12,6 +12,7 @@ import {
   getOrders,
   updateOrderStatus,
   confirmRegister,
+  loginUser,
   getMyTableStatus,
 } from "./api";
 import { toast } from "sonner";
@@ -33,11 +34,11 @@ export const useConfirmRegister = () => {
   return useQuery({
     queryKey: [`confirm_register`],
     queryFn: async () => {
-      if (!tableNo || !sessionId) return {message: "goods"};
-      return await confirmRegister(tableNo as string,sessionId as string);
-    }
+      if (!tableNo || !sessionId) return { message: "goods" };
+      return await confirmRegister(tableNo as string, sessionId as string);
+    },
   });
-}
+};
 
 export const useGetProducts = () => {
   return useQuery({
@@ -92,7 +93,7 @@ export const useGetMyOrders = () => {
 export const useGetOrders = () => {
   return useQuery({
     queryKey: ["orders"],
-    queryFn: getOrders
+    queryFn: getOrders,
   });
 };
 
@@ -101,15 +102,15 @@ export const useUpdateOrderStatus = () => {
   return useMutation({
     mutationKey: ["order/status"],
     mutationFn: updateOrderStatus,
-    onSuccess: (data: {message: string}) => {
+    onSuccess: (data: { message: string }) => {
       queryClient.invalidateQueries({ queryKey: ["orders"] });
       toast.success(data.message);
     },
-    onError: (reason: {message: string}) => {
+    onError: (reason: { message: string }) => {
       toast.error(reason.message);
-    }
+    },
   });
-}
+};
 
 export const useGetTableQueue = () => {
   return useQuery({
@@ -141,6 +142,19 @@ export const useApproveTableQueue = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tableQueue"] });
       toast.success("Success");
+    },
+    onError: () => {
+      toast.error("Something went wrong");
+    },
+  });
+};
+
+export const useLogin = () => {
+  return useMutation({
+    mutationKey: ["login"],
+    mutationFn: loginUser,
+    onSuccess: () => {
+      toast.success("Logged in");
     },
     onError: () => {
       toast.error("Something went wrong");

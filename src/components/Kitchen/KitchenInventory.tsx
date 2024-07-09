@@ -4,6 +4,8 @@ import { HiOutlinePencilAlt, HiOutlineTrash } from "react-icons/hi";
 import { FaFilter, FaSort, FaSearch } from "react-icons/fa";
 import { Modal } from "../ui/modal";
 import KitchenModal from "./KitchenModal/KitchenModal";
+import EditModal from "./KitchenModal/EditModal";
+import KitchenDeleteModal from "./KitchenModal/KitchenDeleteModal";
 
 interface Item {
   name: string;
@@ -33,6 +35,8 @@ const KitchenInventory: React.FC = () => {
     category: "",
   });
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [editModalOpen, setIsEditModalOpen] = useState<boolean>(false);
+  const [deleteItemModal, setDeleteItemModal] = useState<boolean>(false);
 
   const filteredItems = items.filter((item) =>
     item.name.toLowerCase().includes(search.toLowerCase()),
@@ -75,6 +79,8 @@ const KitchenInventory: React.FC = () => {
           + Add New Item
         </button>
         <KitchenModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+        <EditModal editModalOpen={editModalOpen} setIsEditModalOpen={setIsEditModalOpen} />
+        <KitchenDeleteModal deleteItemModal={deleteItemModal} setDeleteItemModal={setDeleteItemModal} />
       </div>
 
       {/* Add Item Modal */}
@@ -95,15 +101,21 @@ const KitchenInventory: React.FC = () => {
               <td className="p-2">{item.quantity}</td>
               <td className="p-2">{item.category}</td>
               <td className="p-2">
-                <button className="mr-2">
+                <button
+                onClick={() => setIsEditModalOpen(true)}
+                className="mr-2">
                   <HiOutlinePencilAlt className="mr-2" />
                 </button>
-                <button className="text-red-600">
+               
+                <button
+                onClick={() => setDeleteItemModal(true)}
+                className="text-red-600">
                   <HiOutlineTrash />
                 </button>
               </td>
             </tr>
           ))}
+         
         </tbody>
       </table>
     </div>

@@ -14,15 +14,23 @@ const KitchenModal = ({ isModalOpen, setIsModalOpen }: KitchenModalProps) => {
     const selected = useMenuStore((state) => state.selected);
     const setSelected = useMenuStore((state) => state.setSelected);
 
+    const handleCloseModal = () => {
+
+      setIsModalOpen(false);
+    }
     const handleFileChange = (event:any) => {
       const file = event.target.files[0];
       setFileName(file ? file.name : '');
     };
     return (
-        <>
+        <div>
           {isModalOpen && (
-            <Modal className="text-[0.7em] fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-              <div className="bg-white p-5 rounded shadow-lg w-full max-w-3xl">
+            <Modal
+            onClick={handleCloseModal}
+             className="text-[0.7em] fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+              <div 
+              onClick={(e: React.MouseEvent) => e.stopPropagation()}
+                className="bg-white p-5 rounded shadow-lg w-full max-w-3xl">
                 <h2 className="text-xl font-bold mb-4">Add New Item</h2>
                 <div className="grid grid-cols-3 gap-4">
                   <input
@@ -88,14 +96,20 @@ const KitchenModal = ({ isModalOpen, setIsModalOpen }: KitchenModalProps) => {
 
                     </div>
                 <div className='flex justify-end'>
+
+                <button className="  mt-4 text-black p-2 rounded" onClick={() => setIsModalOpen(false)}>
+                  Cancel
+                </button>
+
                 <button className="  mt-4 bg-orange-500 text-white p-2 rounded" onClick={() => setIsModalOpen(false)}>
                   Add Item
                 </button>
+
                 </div>
               </div>
             </Modal>
           )}
-        </>
+        </div>
       );
     };
 
