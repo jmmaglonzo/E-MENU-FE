@@ -18,21 +18,6 @@ const Navbar = () => {
 
   const isTableApproved = myTableStatus.isSuccess && myTableStatus.data.status;
 
-  if (myTableStatus.isError) {
-    const errStatus = (myTableStatus.error as AxiosError).response?.request.status;
-
-    switch (errStatus) {
-      case 400: 
-        toast("Go Visit Our Restaurant!");
-        break;
-      case 404:
-        toast("Your Session Expired");
-        break;
-      default:
-        toast("There might be a problem in our server");
-    }
-  }
-
   useEffect(() => {
     if (confirmRegister.isSuccess) {
       const cleanURL = confirmRegister.data.cleanURL;
