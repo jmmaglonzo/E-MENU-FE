@@ -47,11 +47,10 @@ const TableCards = ({ data }: TableProps) => {
           </>
         ) : (
           <Button
-            variant="outline"
-            className="w-full bg-primary text-white"
+            className="w-full bg-red-600 text-white hover:bg-red-600/90"
             onClick={() => handleClick(data.session, "decline")}
           >
-            Completed
+            Cancel
           </Button>
         )}
       </CardContent>
