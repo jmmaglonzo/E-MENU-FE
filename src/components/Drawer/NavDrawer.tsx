@@ -7,18 +7,27 @@ import {
   DrawerClose,
   DrawerContent,
   DrawerDescription,
-  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
 } from "../ui/drawer";
-import { Button } from "../ui/button";
 import { IoClose } from "react-icons/io5";
+import { MouseEvent } from "react";
 
-const NavDrawer = () => {
+interface NavDrawerProp {
+  isDisabled: boolean;
+}
+
+const NavDrawer = ({isDisabled}: NavDrawerProp) => {
+
+  function handleClick(event: MouseEvent) {
+    if (isDisabled)
+      event.preventDefault();
+  }
+
   return (
     <Drawer>
-      <DrawerTrigger>
+      <DrawerTrigger onClick={handleClick} className={isDisabled? "opacity-50" :""}>
         <FaUserGroup size={20} />
       </DrawerTrigger>
       <DrawerContent className="mx-auto flex max-w-[350px] items-center">

@@ -13,9 +13,21 @@ import {
   updateOrderStatus,
   confirmRegister,
   loginUser,
+  getMyTableStatus,
 } from "./api";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
+<<<<<<< HEAD
+=======
+
+export const useGetMyTableStatus = () => {
+  return useQuery({
+    queryKey: [`/my_status`],
+    queryFn: getMyTableStatus,
+    retry: 0
+  });
+}
+>>>>>>> 8d3ee509e9096ee0b8e2d503690a591d3e3b1948
 
 export const useConfirmRegister = () => {
   const searchParams = useSearchParams();
