@@ -12,7 +12,10 @@ export default function MainLayout({
     <>
       <header className="container relative">
         <div className="flex flex-col items-center justify-between space-y-4 p-0 py-2 text-center">
-          <Link href="/" className="absolute left-0 top-9">
+          <Link
+            href={pathname === "/redeem/rewards" ? "/redeem" : "/"}
+            className="absolute left-0 top-6"
+          >
             <ChevronLeft className="h-7 w-7 text-muted-foreground" />
           </Link>
           <span className="text-2xl font-bold">
