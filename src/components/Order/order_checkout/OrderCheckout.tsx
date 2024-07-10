@@ -128,7 +128,7 @@ const OrderCheckout = () => {
         </section>
 
         <footer>
-          <div className="flex items-center justify-center leading-3">
+          <div className="mt-10 flex items-center justify-center leading-3">
             <span className="text-base text-gray-800">
               I hereby give Chef Morgan Restaurant the permission to share my
               customer data with the Restaurant, and if applicable, their
@@ -173,7 +173,7 @@ const OrderCheckout = () => {
             )}
           />
         </footer>
-        <div className="mt-auto">
+        <div className="mt-24">
           {isPending ? (
             <LoadingButton />
           ) : (
