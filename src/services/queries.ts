@@ -1,4 +1,9 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+} from "@tanstack/react-query";
 import {
   addCartItem,
   deleteTableQueue,
@@ -22,9 +27,9 @@ export const useGetMyTableStatus = () => {
   return useQuery({
     queryKey: [`/my_status`],
     queryFn: getMyTableStatus,
-    retry: 0
+    retry: 0,
   });
-}
+};
 
 export const useConfirmRegister = () => {
   const searchParams = useSearchParams();
@@ -35,8 +40,11 @@ export const useConfirmRegister = () => {
     queryKey: [`confirm_register`],
     queryFn: async () => {
       if (!tableNo || !sessionId) return { message: "goods" };
+
       return await confirmRegister(tableNo as string, sessionId as string);
     },
+    //This query will not run until tableNo and sessionId is present
+    enabled: !!tableNo && !!sessionId,
   });
 };
 
@@ -116,6 +124,8 @@ export const useGetTableQueue = () => {
   return useQuery({
     queryKey: ["tableQueue"],
     queryFn: getTableQueue,
+    refetchInterval: 5 * 1000,
+    staleTime: 60 * 1000,
   });
 };
 

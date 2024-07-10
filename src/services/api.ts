@@ -8,17 +8,16 @@ import { LoginType } from "@/types/login";
 import { setCookie } from "cookies-next";
 
 export const getMyTableStatus = async () => {
-  const { data } = await api.get('/my_status');
+  const { data } = await api.get("/my_status");
 
   return data;
-}
-
+};
 
 export const confirmRegister = async (tableNo: string, sessionId: string) => {
   const { data } = await api.get(
     `confirm_register?tableNo=${Number(tableNo)}&sessionId=${sessionId}`,
   );
-
+  setCookie("_table_session", sessionId);
   return Object.assign(data, { cleanURL: true });
 };
 
