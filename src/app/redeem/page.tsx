@@ -28,11 +28,14 @@ const RedeemPoints = () => {
     console.log(data);
   };
   return (
-    <section className="flex h-dvh flex-col justify-center space-y-4">
-      <div className="relative">
-        <Image src={gift} alt="Gift" />
+    <section className="flex flex-col">
+      <div className="relative h-[270px] w-full">
+        <Image src={gift} alt="Gift" fill className="object-cover" />
       </div>
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="mt-32 flex flex-col gap-4"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <p className="text-center text-muted-foreground">
           Enter your email to check your loyalty points balance and redeem
           rewards.
