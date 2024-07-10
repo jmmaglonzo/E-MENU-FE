@@ -52,7 +52,10 @@ const Navbar = () => {
               className="object-contain"
             />
           </div>
-          <span className="text-sm text-muted-foreground">{cookie}</span>
+          <div className="flex gap-x-1">
+            <span className="text-sm text-muted-foreground">ID:</span>
+            <span className="text-sm text-muted-foreground">{cookie}</span>
+          </div>
         </div>
 
         <NavDrawer isDisabled={!isTableApproved} />
