@@ -6,22 +6,18 @@ import { OrderTableType, TableTypes } from "@/types/table";
 import { MyOrder, OrderStatus } from "@/types/myOrder";
 import { LoginType } from "@/types/login";
 import { setCookie } from "cookies-next";
-<<<<<<< HEAD
-=======
 
 export const getMyTableStatus = async () => {
-  const { data } = await api.get('/my_status');
+  const { data } = await api.get("/my_status");
 
   return data;
-}
-
->>>>>>> 8d3ee509e9096ee0b8e2d503690a591d3e3b1948
+};
 
 export const confirmRegister = async (tableNo: string, sessionId: string) => {
   const { data } = await api.get(
     `confirm_register?tableNo=${Number(tableNo)}&sessionId=${sessionId}`,
   );
-
+  setCookie("_table_session", sessionId);
   return Object.assign(data, { cleanURL: true });
 };
 

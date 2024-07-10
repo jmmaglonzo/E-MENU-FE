@@ -1,4 +1,9 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+} from "@tanstack/react-query";
 import {
   addCartItem,
   deleteTableQueue,
@@ -17,17 +22,14 @@ import {
 } from "./api";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
-<<<<<<< HEAD
-=======
 
 export const useGetMyTableStatus = () => {
   return useQuery({
     queryKey: [`/my_status`],
     queryFn: getMyTableStatus,
-    retry: 0
+    retry: 0,
   });
-}
->>>>>>> 8d3ee509e9096ee0b8e2d503690a591d3e3b1948
+};
 
 export const useConfirmRegister = () => {
   const searchParams = useSearchParams();
@@ -38,8 +40,11 @@ export const useConfirmRegister = () => {
     queryKey: [`confirm_register`],
     queryFn: async () => {
       if (!tableNo || !sessionId) return { message: "goods" };
+
       return await confirmRegister(tableNo as string, sessionId as string);
     },
+    //This query will not run until tableNo and sessionId is present
+    enabled: !!tableNo && !!sessionId,
   });
 };
 
@@ -119,6 +124,8 @@ export const useGetTableQueue = () => {
   return useQuery({
     queryKey: ["tableQueue"],
     queryFn: getTableQueue,
+    refetchInterval: 5 * 1000,
+    staleTime: 60 * 1000,
   });
 };
 
