@@ -1,81 +1,74 @@
 import PointsHistory from "@/components/RedeemPoints/PointsHistoryDrawer";
 import RedeemDrawer from "@/components/RedeemPoints/RedeemDrawer";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
-  GiftIcon,
-  WalletIcon,
-  ActivityIcon,
-  MailIcon,
-  ChevronLeft,
-} from "lucide-react";
+  Card,
+  CardHeader,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import { WalletIcon, ActivityIcon } from "lucide-react";
 import Link from "next/link";
-
+import { FaGift } from "react-icons/fa";
 const Rewards = () => {
   return (
     <Card className="relative border-0 p-3">
+      <CardHeader className="mb-4 flex items-center justify-center p-0">
+        <div className="flex w-1/2 items-center justify-center gap-4 rounded-sm bg-primary py-4 text-3xl font-bold text-white">
+          <span>5000</span>
+        </div>
+      </CardHeader>
       <CardContent>
-        <p className="mb-4 text-center text-base text-muted-foreground">
+        <p className="mb-4 text-center text-lg text-muted-foreground">
           Manage your accumulated loyalty points and redeem them for exciting
           rewards.
         </p>
-        <div className="space-y-8">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted">
-                <GiftIcon className="h-6 w-6 text-muted-foreground" />
-              </div>
-              <div>
-                <p className="text-lg font-medium">Redeem Rewards</p>
-                <p className="text-sm text-muted-foreground">
-                  Browse and redeem your points
-                </p>
-              </div>
+
+        <div className="flex flex-col items-center justify-between gap-6">
+          <div className="flex items-center justify-between gap-6">
+            <FaGift size={45} className="" />
+            <div className="flex flex-col">
+              <span className="whitespace-nowrap text-lg font-bold">
+                Redeem Rewards
+              </span>
+              <p className="text-sm text-muted-foreground">
+                Browse and redeem your points
+              </p>
             </div>
             <RedeemDrawer />
           </div>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted">
-                <WalletIcon className="h-6 w-6 text-muted-foreground" />
-              </div>
-              <div>
-                <p className="text-lg font-medium">Points Balance</p>
-                <p className="text-sm text-muted-foreground">
-                  View your current points
-                </p>
-              </div>
+          <div className="flex items-center justify-between gap-6">
+            <WalletIcon size={45} className="" />
+            <div className="flex flex-col">
+              <span className="text-lg font-bold">Points Balance</span>
+              <p className="text-sm text-muted-foreground">
+                View your point earning history
+              </p>
             </div>
-            <div className="text-right">
-              <p className="text-lg font-medium">5000 Points</p>
-              <p className="whitespace-nowrap text-sm text-muted-foreground">
+            <div className="flex flex-col gap-2 text-right">
+              <span className="font-bold">5000</span>
+              <p className="text-sm text-muted-foreground">
                 Earned from purchases
               </p>
             </div>
           </div>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted">
-                <ActivityIcon className="h-6 w-6 text-muted-foreground" />
-              </div>
-              <div>
-                <p className="font-medium">Point History</p>
-                <p className="text-sm text-muted-foreground">
-                  View your point earning history
-                </p>
-              </div>
+          <div className="flex items-center justify-between gap-6">
+            <ActivityIcon size={45} className="" />
+            <div className="flex flex-col">
+              <span className="text-lg font-bold">Points History</span>
+              <p className="text-sm text-muted-foreground">
+                View your point earning history
+              </p>
             </div>
             <PointsHistory />
           </div>
         </div>
-        <p className="mt-4 text-base text-muted-foreground">
+      </CardContent>
+      <CardFooter>
+        <p className="mt-4 text-lg text-muted-foreground">
           Earn points by making purchases on our digital menu. Earn 1 point for
           every $1 spent, and get bonus points for purchasing specific items.
         </p>
-      </CardContent>
+      </CardFooter>
     </Card>
   );
 };
