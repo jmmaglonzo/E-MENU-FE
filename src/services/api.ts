@@ -131,3 +131,24 @@ export const logoutUser = async () => {
   const response = await api.get("auth/logout");
   return response;
 };
+
+export const requestAssistance = async () => {
+  const { data } = await api.get("assistance/request");
+
+  return data;
+};
+
+export const getAssistanceRequests = async () => {
+  const { data } = await api.get<TableTypes[]>("assistance/requests");
+
+  return data;
+};
+
+export const deleteAssistanceRequest = async (sessionId: string) => {
+  await api.delete(`assistance/decline/${sessionId}`);
+};
+
+export const updateAssistanceRequest = async (sessionId: string) => {
+  const { data } = await api.patch("assistance/approve", { sessionId });
+  return data;
+};
