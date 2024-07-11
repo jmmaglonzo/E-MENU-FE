@@ -30,7 +30,13 @@ const KitchenOrderCard = ({ data }: KitchenOrderCardProps) => {
               Order
               <span className="font-bold">#{data.orderNo}</span>
             </p>
-            <Badge variant="secondary">{capitalize(data.status)}</Badge>
+            <Badge variant={
+              data.status === "COMPLETED"
+                ? "secondary"
+                : data.status === "ONGOING"
+                  ? "outline"
+                  : "destructive"
+            }>{capitalize(data.status)}</Badge>
           </div>
           <ul className="space-y-1 text-sm">
             {data.orders.map((order, index) => (

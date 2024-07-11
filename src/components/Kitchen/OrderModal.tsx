@@ -52,7 +52,13 @@ const OrderModal = () => {
         onClick={(e) => e.stopPropagation()}
       >
         <CardHeader className="relative flex aspect-square h-full max-h-[120px] w-full items-center overflow-hidden rounded-tl-md rounded-tr-md">
-          <Badge className="absolute right-0" variant="secondary">
+          <Badge className="absolute right-0" variant={
+              selectedItem.status === "COMPLETED"
+                ? "secondary"
+                : selectedItem.status === "ONGOING"
+                  ? "outline"
+                  : "destructive"
+            }>
             {selectedItem.status}
           </Badge>
           <CardTitle>Table {selectedItem.tableNo}</CardTitle>
