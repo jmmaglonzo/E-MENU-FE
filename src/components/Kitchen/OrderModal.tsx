@@ -8,7 +8,7 @@ import {
 } from "../ui/card";
 import useKitchenOrderStore from "@/store/kitchenOrder-store";
 import { Badge } from "../ui/badge";
-import { formatDate, capitalize } from "@/lib/utils";
+import { formatDate, capitalize, getStatusColor } from "@/lib/utils";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { OrderStatus } from "@/types/myOrder";
 import { useUpdateOrderStatus } from "@/services/queries";
@@ -39,9 +39,9 @@ const OrderModal = () => {
 
     closeModal();
   };
-
+  
   if (!selectedItem) return null;
-
+  
   return (
     <div
       className="fixed inset-0 z-50 flex w-full items-center justify-center bg-black bg-opacity-50"
@@ -52,13 +52,7 @@ const OrderModal = () => {
         onClick={(e) => e.stopPropagation()}
       >
         <CardHeader className="relative flex aspect-square h-full max-h-[120px] w-full items-center overflow-hidden rounded-tl-md rounded-tr-md">
-          <Badge className="absolute right-0" variant={
-              selectedItem.status === "COMPLETED"
-                ? "secondary"
-                : selectedItem.status === "ONGOING"
-                  ? "outline"
-                  : "destructive"
-            }>
+          <Badge className={`absolute right-0 ${getStatusColor(selectedItem.status)}`}>
             {capitalize(selectedItem.status === "ONGOING" ? "In-progress": selectedItem.status)}
           </Badge>
           <CardTitle>Table {selectedItem.tableNo}</CardTitle>

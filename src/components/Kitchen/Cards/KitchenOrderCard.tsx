@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { formatDate, capitalize } from "@/lib/utils";
+import { formatDate, capitalize, getStatusColor } from "@/lib/utils";
 import { OrderTableType } from "@/types/table";
 import useKitchenOrderStore from "@/store/kitchenOrder-store";
 
@@ -29,13 +29,7 @@ const KitchenOrderCard = ({ data }: KitchenOrderCardProps) => {
               Order
               <span className="font-bold">#{data.orderNo}</span>
             </p>
-            <Badge variant={
-              data.status === "COMPLETED"
-                ? "secondary"
-                : data.status === "ONGOING"
-                  ? "outline"
-                  : "destructive"
-            }>{capitalize(data.status === "ONGOING" ? "In-progress": data.status)}</Badge>
+            <Badge className={`${getStatusColor(data.status)}`}>{capitalize(data.status === "ONGOING" ? "In-progress": data.status)}</Badge>
           </div>
           <ul className="space-y-1 text-sm">
             {data.orders.map((order, index) => (
