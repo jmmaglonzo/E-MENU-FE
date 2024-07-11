@@ -59,7 +59,7 @@ const OrderModal = () => {
                   ? "outline"
                   : "destructive"
             }>
-            {selectedItem.status}
+            {capitalize(selectedItem.status === "ONGOING" ? "In Progress": selectedItem.status)}
           </Badge>
           <CardTitle>Table {selectedItem.tableNo}</CardTitle>
           <div className="flex items-center gap-2">
