@@ -1,8 +1,9 @@
+"use client";
+
 import {
   useQuery,
   useMutation,
   useQueryClient,
-  QueryClient,
 } from "@tanstack/react-query";
 import {
   addCartItem,
@@ -85,9 +86,15 @@ export const useSubCart = () => {
 };
 
 export const useOrderItem = () => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
   return useMutation({
     mutationKey: ["order"],
     mutationFn: orderItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["my_orders"] });
+      router.push("/order_waiting/order_summary");
+    },
   });
 };
 
