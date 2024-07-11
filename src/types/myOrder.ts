@@ -8,6 +8,10 @@ export enum OrderStatus{
     CANCELLED = "CANCELLED"
 }
 
+enum PaymentMethod {
+    CASH = "CASH",
+    ONLINE = "ONLINE"
+}
 export interface Order {
     id: number,
     sessionId: string,
@@ -27,4 +31,9 @@ export interface MyOrder {
     orderDate: Date,
     total: number,
     status:  OrderStatus
+}
+
+export interface MyLatestOrder extends MyOrder{
+    paymentMethod: PaymentMethod,
+    checkoutURL?: string
 }
