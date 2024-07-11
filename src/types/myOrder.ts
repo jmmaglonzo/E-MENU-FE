@@ -8,7 +8,7 @@ export enum OrderStatus{
     CANCELLED = "CANCELLED"
 }
 
-interface Order {
+export interface Order {
     id: number,
     sessionId: string,
     tableNo: number,
