@@ -3,9 +3,20 @@
 import Image from "next/image";
 import digibite from "/public/DigiBiteLogo.png";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { Button } from "../ui/button";
+import { logoutUser } from "@/services/api";
+
 const KitchenNav = () => {
   const pathname = usePathname();
+  const router = useRouter();
+
+  async function handleLogout() {
+    const request = await logoutUser();
+
+    if (request.status === 200) router.refresh();
+  }
+
   return (
     <nav className="kitchen-container mx-auto flex items-center justify-between">
       <div className="flex items-center gap-4">
@@ -62,6 +73,9 @@ const KitchenNav = () => {
           </Link>
         </li>
       </ul>
+      <div onClick={handleLogout}>
+        <Button>Log Out</Button>
+      </div>
     </nav>
   );
 };
