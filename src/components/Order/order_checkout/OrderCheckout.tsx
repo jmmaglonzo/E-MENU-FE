@@ -1,8 +1,7 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FaCreditCard } from "react-icons/fa";
 import Image from "next/image";
-import EarnRewards from "./EarnRewards";
 import OnlinePayment from "/public/credit-card.png";
 import CashPayment from "/public/wallet.png";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -32,7 +31,7 @@ const OrderCheckout = () => {
   );
   const router = useRouter();
 
-  const { mutate: order, data, isSuccess, isPending } = useOrderItem();
+  const { mutate: order, isPending } = useOrderItem();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -41,21 +40,14 @@ const OrderCheckout = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    if (paymentMethod === "CASH") {
-      router.push("/checkout/cash-payment");
-    }
+  const onSubmit = () => {
     order({
       loyalty: false,
       paymentMethod,
     });
-  };
 
-  useEffect(() => {
-    if (isSuccess && data?.data?.attributes?.checkout_url) {
-      router.replace(data.data.attributes.checkout_url);
-    }
-  }, [isSuccess, data, router]);
+    router.push("/order_waiting");
+  };
 
   const productAmount = TotalAmount();
 
