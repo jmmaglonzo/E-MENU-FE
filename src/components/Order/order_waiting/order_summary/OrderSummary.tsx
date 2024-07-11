@@ -8,11 +8,21 @@ import { Button } from '@/components/ui/button';
 import { useGetMyLatestOrder } from '@/services/queries';
 import Loader from '@/components/common/Loader';
 import { MyOrder } from '@/types/myOrder';
+import { useRouter } from 'next/navigation';
 
 const OrderSummary = () => {
   const { data, isPending, isSuccess } = useGetMyLatestOrder();
+  const router = useRouter();
   
   const myLatestOrder = (isSuccess ? data: []) as MyOrder;
+  let status = "PENDING";
+  if (isSuccess) {
+    if (data.status === "CANCELLED") return router.replace("/");
+    status = data.status;
+  }
+
+  let textStatus = "pending";
+  textStatus = status === "ONGOING" ? "being prepared": status === "SERVED"? "ready to be served": textStatus;
 
   return (
    <div className='container flex flex-col h-dvh'>
@@ -33,7 +43,7 @@ const OrderSummary = () => {
       />
         </div>
 
-        <h2 className='font-bold'>Your order is pending</h2>
+        <h2 className='font-bold'>Your order is {textStatus}</h2>
         <span className='text-sm text-gray-500'>Please wait while we process your order.</span>
         
     </header>
