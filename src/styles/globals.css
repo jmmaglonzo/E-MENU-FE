@@ -64,6 +64,10 @@
   padding: 10px 1rem;
 }
 
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* For Webkit browsers (Chrome, Safari) */
 .custom-scrollbar::-webkit-scrollbar {
   width: 12px;
