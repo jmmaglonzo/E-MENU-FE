@@ -11,7 +11,7 @@ import Loader from "@/components/common/Loader";
 
 const OrderTable = () => {
   const { data, isSuccess } = useGetOrders();
-  const orders = (data as OrderTableType[]) || [];
+  const orders = (data as OrderTableType[]);
 
   const filters = ["PENDING", "ONGOING", "SERVED","COMPLETED","CANCELLED"] as const;
   type Filters = typeof filters;
@@ -31,9 +31,9 @@ const OrderTable = () => {
     else ordersByStatus[order.status] = [order];
   }
 
-  const filteredOrder = selectedFilter && orders.length > 0
+  const filteredOrder = (selectedFilter
     ? ordersByStatus[selectedFilter]
-    : orders;
+    : orders) || [];
 
   return (
     <main className="flex flex-col justify-between gap-8">
