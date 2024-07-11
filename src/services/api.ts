@@ -118,3 +118,9 @@ export const loginUser = async ({ email, password }: LoginType) => {
   setCookie("_user_session", data.sessionId);
   return data;
 };
+
+
+export const logoutUser = async () => {
+  const response = await api.get("auth/logout");
+  return response;
+};
