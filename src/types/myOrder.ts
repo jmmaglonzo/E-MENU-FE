@@ -22,11 +22,13 @@ export interface Order {
     product: ItemTypes,
     status: OrderStatus,
     transactionId: string,
+    orderNo: number,
     createdAt: Date
 }
 
 export interface MyOrder {
     transactionId: string,
+    orderNo: number,
     orders: Order[],
     orderDate: Date,
     total: number,
