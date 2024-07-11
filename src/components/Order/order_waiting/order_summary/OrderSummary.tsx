@@ -1,11 +1,13 @@
 import Image from 'next/image'
 import React from 'react'
 import cloche from '@/../public/let-them-cook.gif';
-import OrderSummaryItems from './OrderSummaryItems'
+import OrderSummaryItems from './OrderSummaryItems';
+import { Button } from '@/components/ui/button';
 
 const OrderSummary = () => {
   return (
-   <>
+   <div className='container flex flex-col h-dvh'>
+
     <div className='text-center m-5 font-bold text-[0.9em]'>
         <h1>Order Summary</h1>
     </div>
@@ -27,10 +29,14 @@ const OrderSummary = () => {
         
     </header>
 
-    <main>
-        <OrderSummaryItems  />
+    <main className='flex-1'>
+      <OrderSummaryItems />
     </main>
-   </>
+
+    <div className='mb-4'>
+        <Button className='w-full'>Need Assistance</Button>
+    </div>
+   </div>
   )
 }
 
