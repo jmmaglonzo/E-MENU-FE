@@ -18,6 +18,10 @@ const OrderSummary = () => {
   let status = "PENDING";
   if (isSuccess) {
     if (data.status === "CANCELLED") return router.replace("/");
+    if (data.status === "COMPLETED") {
+      if (data.paymentMethod === "CASH") return router.replace("/checkout/cash-payment");
+      else return router.replace(data.checkoutURL as string);
+    }
     status = data.status;
   }
 
