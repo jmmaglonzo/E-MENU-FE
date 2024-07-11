@@ -5,14 +5,14 @@ import React from 'react'
 import cloche from '@/../public/let-them-cook.gif';
 import OrderSummaryItems from './OrderSummaryItems';
 import { Button } from '@/components/ui/button';
-import { useGetMyOrders } from '@/services/queries';
+import { useGetMyLatestOrder } from '@/services/queries';
 import Loader from '@/components/common/Loader';
 import { MyOrder } from '@/types/myOrder';
 
 const OrderSummary = () => {
-  const { data, isPending, isSuccess } = useGetMyOrders();
+  const { data, isPending, isSuccess } = useGetMyLatestOrder();
   
-  const myLatestOrder = (isSuccess ? data[data.length - 1]: []) as MyOrder;
+  const myLatestOrder = (isSuccess ? data: []) as MyOrder;
 
   return (
    <div className='container flex flex-col h-dvh'>
