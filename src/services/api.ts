@@ -6,6 +6,7 @@ import { OrderTableType, TableTypes } from "@/types/table";
 import { MyLatestOrder, MyOrder, OrderStatus } from "@/types/myOrder";
 import { LoginType } from "@/types/login";
 import { setCookie } from "cookies-next";
+import { AssistanceRequest } from "@/types/assistance";
 
 export const getMyTableStatus = async () => {
   const { data } = await api.get("/my_status");
@@ -139,7 +140,7 @@ export const requestAssistance = async () => {
 };
 
 export const getAssistanceRequests = async () => {
-  const { data } = await api.get<TableTypes[]>("assistance/requests");
+  const { data } = await api.get<AssistanceRequest[]>("assistance/requests");
 
   return data;
 };
