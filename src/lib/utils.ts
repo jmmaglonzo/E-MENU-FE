@@ -24,11 +24,11 @@ export function capitalize(string: string) {
 
 export function getStatusColor(status: OrderStatus) {
   const COLORS = {
-    "PENDING": "gray",
-    "ONGOING": "black",
-    "SERVED": "orange",
-    "COMPLETED": "green",
-    "CANCELLED": "red"
+    "PENDING": "bg-gray-500",
+    "ONGOING": "bg-gray-900 text-white",
+    "SERVED": "bg-orange-500 text-white",
+    "COMPLETED": "bg-green-500 text-white",
+    "CANCELLED": "bg-red-500 text-white"
   };
 
   return COLORS[status];
