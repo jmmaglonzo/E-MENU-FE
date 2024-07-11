@@ -35,7 +35,7 @@ const KitchenOrderCard = ({ data }: KitchenOrderCardProps) => {
                 : data.status === "ONGOING"
                   ? "outline"
                   : "destructive"
-            }>{capitalize(data.status)}</Badge>
+            }>{capitalize(data.status === "ONGOING" ? "In Progress": data.status)}</Badge>
           </div>
           <ul className="space-y-1 text-sm">
             {data.orders.map((order, index) => (

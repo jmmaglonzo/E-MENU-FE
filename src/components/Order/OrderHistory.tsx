@@ -91,7 +91,7 @@ const OrderHistory = () => {
                           : "destructive"
                     }
                   >
-                    {capitalize (order.status)}
+                    {capitalize(order.status === "ONGOING" ? "In Progress": order.status)}
                   </Badge>
                 </div>
               </CardHeader>
