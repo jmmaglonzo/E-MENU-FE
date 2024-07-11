@@ -59,7 +59,7 @@ const OrderModal = () => {
                   ? "outline"
                   : "destructive"
             }>
-            {capitalize(selectedItem.status === "ONGOING" ? "In Progress": selectedItem.status)}
+            {capitalize(selectedItem.status === "ONGOING" ? "In-progress": selectedItem.status)}
           </Badge>
           <CardTitle>Table {selectedItem.tableNo}</CardTitle>
           <div className="flex items-center gap-2">
@@ -80,7 +80,7 @@ const OrderModal = () => {
                     value={status as string}
                     onClick={() => setSelectedStatus(status)}
                   />
-                  <div className="font-bold">{capitalize(String(status))}</div>
+                  <div className="font-bold">{capitalize(String(status === "ONGOING" ? "In-progress": status ))}</div>
                 </div>
               );
             })}
