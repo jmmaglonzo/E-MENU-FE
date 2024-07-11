@@ -7,6 +7,7 @@ import OrderModal from "./OrderModal";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { useState } from "react";
 import { capitalize } from "@/lib/utils";
+import Loader from "@/components/common/Loader";
 
 const OrderTable = () => {
   const { data, isSuccess } = useGetOrders();
@@ -17,7 +18,10 @@ const OrderTable = () => {
   type Filter = Filters[number];
   const [selectedFilter, setSelectedFilter] = useState<Filter | null>("PENDING");
 
-  if (!isSuccess) return <></>;
+  if (!isSuccess)
+   return <div className="container flex justify-center mt-64">
+      <Loader />
+  </div> 
 
   const ordersByStatus: Record<string, OrderTableType[]> = {};
 
