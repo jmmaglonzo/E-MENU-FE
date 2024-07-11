@@ -1,5 +1,6 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+import { OrderStatus } from "@/types/myOrder";
 
 const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
@@ -20,3 +21,15 @@ export function formatDate(date: string) {
 export function capitalize(string: string) {
   return string[0].toUpperCase() + string.slice(1).toLowerCase();
 }
+
+export function getStatusColor(status: OrderStatus) {
+  const COLORS = {
+    "PENDING": "gray",
+    "ONGOING": "black",
+    "SERVED": "orange",
+    "COMPLETED": "green",
+    "CANCELLED": "red"
+  };
+
+  return COLORS[status];
+} 
