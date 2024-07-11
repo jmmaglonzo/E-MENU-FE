@@ -127,7 +127,7 @@ export const useUpdateOrderStatus = () => {
     mutationKey: ["order/status"],
     mutationFn: updateOrderStatus,
     onSuccess: (data: { message: string }) => {
-      queryClient.invalidateQueries({ queryKey: ["orders","my_orders"] });
+      queryClient.invalidateQueries({ queryKey: ["orders","my_orders","my_latest_order"] });
       toast.success(data.message);
     },
     onError: (reason: { message: string }) => {
