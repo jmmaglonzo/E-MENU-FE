@@ -22,7 +22,7 @@ const OrderWaiting = () => {
             className="object-contain"
           />
         </div>
-        <h1 className='font-bold'>Your order is being prepared</h1>
+        <h1 className='font-bold'>Your order is pending</h1>
         <span className='text-sm text-gray-500'>Please wait while we process your order.</span>
       </main>
 
