@@ -7,14 +7,14 @@ import OrderSummaryItems from './OrderSummaryItems';
 import { Button } from '@/components/ui/button';
 import { useGetMyLatestOrder } from '@/services/queries';
 import Loader from '@/components/common/Loader';
-import { MyOrder } from '@/types/myOrder';
+import { MyLatestOrder } from '@/types/myOrder';
 import { useRouter } from 'next/navigation';
 
 const OrderSummary = () => {
   const { data, isPending, isSuccess } = useGetMyLatestOrder();
   const router = useRouter();
   
-  const myLatestOrder = (isSuccess ? data: []) as MyOrder;
+  const myLatestOrder = (isSuccess ? data: []) as MyLatestOrder;
   let status = "PENDING";
   if (isSuccess) {
     if (data.status === "CANCELLED") return router.replace("/");
