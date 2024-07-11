@@ -31,7 +31,7 @@ const OrderTable = () => {
     else ordersByStatus[order.status] = [order];
   }
 
-  const filteredOrder = selectedFilter
+  const filteredOrder = selectedFilter && orders.length > 0
     ? ordersByStatus[selectedFilter]
     : orders;
 
@@ -72,9 +72,16 @@ const OrderTable = () => {
       </div>
       <div className="h-[0.08rem] bg-gray-200"></div>
       <div className="grid grid-cols-4 gap-4">
-        {filteredOrder.map((order) => (
-          <KitchenOrderCard key={order.orderNo} data={order} />
-        ))}
+        {
+          filteredOrder.length > 0 ?
+          filteredOrder.map((order) => (
+            <KitchenOrderCard key={order.orderNo} data={order} />
+          ))
+          :
+          <div>
+            There are no orders.
+          </div>
+        }
       </div>
       <OrderModal />
     </main>
