@@ -13,6 +13,7 @@ import {
 } from "../ui/drawer";
 import { IoClose } from "react-icons/io5";
 import { MouseEvent } from "react";
+import { getCookie } from "cookies-next";
 
 interface NavDrawerProp {
   isDisabled: boolean;
@@ -24,6 +25,8 @@ const NavDrawer = ({isDisabled}: NavDrawerProp) => {
     if (isDisabled)
       event.preventDefault();
   }
+
+  const cookie = getCookie("_table_session");
 
   return (
     <Drawer>
@@ -41,7 +44,7 @@ const NavDrawer = ({isDisabled}: NavDrawerProp) => {
           <DrawerDescription className="mb-4">
             Scan this QR code to start adding items.
           </DrawerDescription>
-          <QRCode value={uuidv4()} className="w-full" />
+          <QRCode value={process.env.NEXT_PUBLIC_API_BASE_URL + "/group/" + cookie} className="w-full" />
         </DrawerHeader>
       </DrawerContent>
     </Drawer>
