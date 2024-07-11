@@ -20,6 +20,7 @@ import {
   confirmRegister,
   loginUser,
   getMyTableStatus,
+  getMyLatestOrder,
 } from "./api";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -104,6 +105,14 @@ export const useGetMyOrders = () => {
     queryFn: getMyOrders,
   });
 };
+
+export const useGetMyLatestOrder = () => {
+  return useQuery({
+    queryKey: ["my_latest_order"],
+    queryFn: getMyLatestOrder,
+  });
+};
+
 
 export const useGetOrders = () => {
   return useQuery({
