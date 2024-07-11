@@ -77,11 +77,18 @@ export const getMyOrders = async () => {
   return data;
 };
 
+export const getMyLatestOrder = async () => {
+  const { data } = await api.get<MyOrder>("my_latest_order");
+
+  return data;
+};
+
 export const getOrders = async () => {
   const { data } = await api.get<OrderTableType[]>("orders");
 
   return data;
 };
+
 
 export const updateOrderStatus = async ({
   orderNo,
