@@ -61,8 +61,11 @@ const OrderCheckout = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <section className="mt-6 flex flex-wrap justify-between md:mt-4">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-col gap-4"
+      >
+        <section className="flex flex-wrap justify-between md:mt-4">
           <div className="mb-3 flex items-center gap-x-2">
             <FaCreditCard className="text-orange-500" />
             <div className="text-[0.7em] font-semibold">Payment Method</div>
@@ -115,28 +118,17 @@ const OrderCheckout = () => {
               <span className="text-[0.7em] font-bold">
                 Total Amount to Pay
               </span>
-              <span className="text-[1.8em] font-bold">
+              <span className="text-5xl font-bold">
                 ₱{productAmount.toFixed(2)}
               </span>
 
-              {isPending ? (
-                <LoadingButton />
-              ) : (
-                <Button
-                  type="submit"
-                  className="mt-2 w-full rounded-sm bg-primary py-2 text-center text-[0.8em] font-semibold text-white"
-                >
-                  Place Order
-                </Button>
-              )}
               <div className="mt-4 h-0.5 w-full bg-slate-100"></div>
             </div>
           </div>
-          <EarnRewards />
         </section>
 
         <footer>
-          <div className="flex items-center justify-center leading-3">
+          <div className="mt-10 flex items-center justify-center leading-3">
             <span className="text-base text-gray-800">
               I hereby give Chef Morgan Restaurant the permission to share my
               customer data with the Restaurant, and if applicable, their
@@ -181,6 +173,18 @@ const OrderCheckout = () => {
             )}
           />
         </footer>
+        <div className="mt-24">
+          {isPending ? (
+            <LoadingButton />
+          ) : (
+            <Button
+              type="submit"
+              className="w-full rounded-sm bg-primary py-2 text-center text-[0.8em] font-semibold text-white"
+            >
+              Place Order
+            </Button>
+          )}
+        </div>
       </form>
     </Form>
   );

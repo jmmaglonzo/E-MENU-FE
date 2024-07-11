@@ -1,4 +1,9 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+} from "@tanstack/react-query";
 import {
   addCartItem,
   deleteTableQueue,
@@ -16,15 +21,15 @@ import {
   getMyTableStatus,
 } from "./api";
 import { toast } from "sonner";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export const useGetMyTableStatus = () => {
   return useQuery({
     queryKey: [`/my_status`],
     queryFn: getMyTableStatus,
-    retry: 0
+    retry: 0,
   });
-}
+};
 
 export const useConfirmRegister = () => {
   const searchParams = useSearchParams();
@@ -35,8 +40,11 @@ export const useConfirmRegister = () => {
     queryKey: [`confirm_register`],
     queryFn: async () => {
       if (!tableNo || !sessionId) return { message: "goods" };
+
       return await confirmRegister(tableNo as string, sessionId as string);
     },
+    //This query will not run until tableNo and sessionId is present
+    enabled: !!tableNo && !!sessionId,
   });
 };
 
@@ -116,6 +124,8 @@ export const useGetTableQueue = () => {
   return useQuery({
     queryKey: ["tableQueue"],
     queryFn: getTableQueue,
+    refetchInterval: 5 * 1000,
+    staleTime: 60 * 1000,
   });
 };
 
@@ -150,11 +160,14 @@ export const useApproveTableQueue = () => {
 };
 
 export const useLogin = () => {
+  const router = useRouter();
   return useMutation({
     mutationKey: ["login"],
     mutationFn: loginUser,
     onSuccess: () => {
       toast.success("Logged in");
+      router.push("/kitchen");
+      router.refresh();
     },
     onError: () => {
       toast.error("Something went wrong");

@@ -37,15 +37,15 @@ const CashCheckout = () => {
 
       <div className="mt-8 flex flex-col items-center space-y-8 text-gray-500">
         <div className="flex justify-center">
-          <QRCode value="https://example.com" size={200} />
+          <QRCode value="https://example.com" size={300} />
         </div>
         <span>Show this QR code to the cashier</span>
       </div>
       <Link
         href="/"
-        className="mt-16 inline-block w-full rounded-md bg-primary py-2 text-center text-white"
+        className="mt-8 inline-block w-full rounded-md bg-primary py-2 text-center text-white"
       >
-        Confirm Cash Payment
+        Go back to Home
       </Link>
     </section>
   );
