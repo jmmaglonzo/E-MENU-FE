@@ -15,7 +15,7 @@ const OrderTable = () => {
   const filters = ["PENDING", "ONGOING", "SERVED","COMPLETED","CANCELLED"] as const;
   type Filters = typeof filters;
   type Filter = Filters[number];
-  const [selectedFilter, setSelectedFilter] = useState<Filter | null>(null);
+  const [selectedFilter, setSelectedFilter] = useState<Filter | null>("PENDING");
 
   if (!isSuccess) return <></>;
 
