@@ -9,12 +9,11 @@ interface KitchenOrderCardProps {
 }
 
 const KitchenOrderCard = ({ data }: KitchenOrderCardProps) => {
-  console.log(data);
   const setSelectedItem = useKitchenOrderStore(
     (state) => state.setSelectedItem,
   );
   return (
-    <Card className="relative" onClick={() => setSelectedItem(data)}>
+    <Card className="relative cursor-pointer" onClick={() => setSelectedItem(data)}>
       <CardHeader className="flex items-center justify-between">
         <CardTitle>Table {data.tableNo}</CardTitle>
         <div className="flex items-center gap-2">
