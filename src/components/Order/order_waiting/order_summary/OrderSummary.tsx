@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
-import cloche from '../../../../../public/cloche.png'
+import cloche from '@/../public/let-them-cook.gif';
 import OrderSummaryItems from './OrderSummaryItems'
 
 const OrderSummary = () => {
@@ -11,7 +11,7 @@ const OrderSummary = () => {
     </div>
 
     <header className="relative flex items-center flex-col mt-2">
-        <div className=' relative w-24 h-24'>
+        <div className=' relative w-32 h-32'>
         <Image
         src={cloche}
         alt="cloche-icon"
