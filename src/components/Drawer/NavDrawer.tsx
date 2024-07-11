@@ -1,5 +1,4 @@
 import QRCode from "react-qr-code";
-import { v4 as uuidv4 } from "uuid";
 import { FaUserGroup } from "react-icons/fa6";
 
 import {
