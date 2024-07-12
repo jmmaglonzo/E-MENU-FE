@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { formatDate, capitalize } from "@/lib/utils";
+import { formatDate, capitalize, getStatusColor } from "@/lib/utils";
 import { OrderTableType } from "@/types/table";
 import useKitchenOrderStore from "@/store/kitchenOrder-store";
 
@@ -9,12 +9,11 @@ interface KitchenOrderCardProps {
 }
 
 const KitchenOrderCard = ({ data }: KitchenOrderCardProps) => {
-  console.log(data);
   const setSelectedItem = useKitchenOrderStore(
     (state) => state.setSelectedItem,
   );
   return (
-    <Card className="relative" onClick={() => setSelectedItem(data)}>
+    <Card className="relative cursor-pointer" onClick={() => setSelectedItem(data)}>
       <CardHeader className="flex items-center justify-between">
         <CardTitle>Table {data.tableNo}</CardTitle>
         <div className="flex items-center gap-2">
@@ -30,7 +29,7 @@ const KitchenOrderCard = ({ data }: KitchenOrderCardProps) => {
               Order
               <span className="font-bold">#{data.orderNo}</span>
             </p>
-            <Badge variant="secondary">{capitalize(data.status)}</Badge>
+            <Badge className={`${getStatusColor(data.status)}`}>{capitalize(data.status === "ONGOING" ? "In-progress": data.status)}</Badge>
           </div>
           <ul className="space-y-1 text-sm">
             {data.orders.map((order, index) => (

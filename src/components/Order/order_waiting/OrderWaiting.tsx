@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
-import cloche from '../../../../public/cloche.png'
+import cloche from '@/../public/let-them-cook.gif'
 import { Button } from '@/components/ui/button'
 
 const OrderWaiting = () => {
@@ -13,17 +13,16 @@ const OrderWaiting = () => {
       </div>
 
       <main className="flex-grow flex flex-col items-center justify-center">
-        <div className='relative w-24 h-24'>
+        <div className='relative w-32 h-32'>
           <Image
             src={cloche}
             alt="cloche-icon"
             priority
-            sizes="100px"
             fill
             className="object-contain"
           />
         </div>
-        <h1 className='font-bold'>Your order is being prepared</h1>
+        <h1 className='font-bold'>Your order is pending</h1>
         <span className='text-sm text-gray-500'>Please wait while we process your order.</span>
       </main>
 

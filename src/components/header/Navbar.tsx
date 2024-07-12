@@ -8,14 +8,10 @@ import { useRouter } from "next/navigation";
 import {
   useConfirmRegister,
   useGetMyTableStatus,
-  useGetTableQueue,
 } from "@/services/queries";
 import { useEffect } from "react";
 import digibiteLogo from "/public/DigiBiteLogo.png";
-import { toast } from "sonner";
-import { AxiosError } from "axios";
 import { getCookie } from "cookies-next";
-import { useQueryClient } from "@tanstack/react-query";
 
 const Navbar = () => {
   const route = useRouter();
@@ -34,7 +30,6 @@ const Navbar = () => {
     }
   }, [confirmRegister.status, route, confirmRegister.isSuccess]);
 
-  console.log(cookie);
   return (
     <>
       <nav className="container mt-2 flex items-center justify-between">
@@ -52,10 +47,14 @@ const Navbar = () => {
               className="object-contain"
             />
           </div>
+<<<<<<< HEAD
           <div className="flex gap-x-1">
             <span className="text-sm text-muted-foreground">ID:</span>
             <span className="text-sm text-muted-foreground">{cookie}</span>
           </div>
+=======
+          <span className="text-[12px] text-muted-foreground">ID: {cookie}</span>
+>>>>>>> ae41a345f2640389ba485d7875cf580401c989ba
         </div>
 
         <NavDrawer isDisabled={!isTableApproved} />

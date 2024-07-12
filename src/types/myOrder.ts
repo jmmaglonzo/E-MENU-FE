@@ -3,12 +3,16 @@ import { ItemTypes } from "./productCard"
 export enum OrderStatus{
     PENDING = "PENDING",
     ONGOING = "ONGOING",
-    COMPLETED = "COMPLETED",
     SERVED = "SERVED",
+    COMPLETED = "COMPLETED",
     CANCELLED = "CANCELLED"
 }
 
-interface Order {
+enum PaymentMethod {
+    CASH = "CASH",
+    ONLINE = "ONLINE"
+}
+export interface Order {
     id: number,
     sessionId: string,
     tableNo: number,
@@ -18,13 +22,20 @@ interface Order {
     product: ItemTypes,
     status: OrderStatus,
     transactionId: string,
+    orderNo: number,
     createdAt: Date
 }
 
 export interface MyOrder {
     transactionId: string,
+    orderNo: number,
     orders: Order[],
     orderDate: Date,
     total: number,
     status:  OrderStatus
+}
+
+export interface MyLatestOrder extends MyOrder{
+    paymentMethod: PaymentMethod,
+    checkoutURL?: string
 }

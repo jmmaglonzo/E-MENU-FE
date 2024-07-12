@@ -26,6 +26,7 @@ const TableCards = ({ data }: TableProps) => {
         <div className="flex items-center gap-2">
           <Badge variant="secondary">{formatDate(data.createdAt)}</Badge>
         </div>
+        <div className="text-md">{data.session}</div>
       </CardHeader>
       <CardContent className="flex flex-col items-center justify-between gap-4 font-bold md:flex-row">
         {data.status === false ? (

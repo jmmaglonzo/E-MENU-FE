@@ -3,7 +3,7 @@ import api from "./axios";
 import { ItemTypes } from "@/types/productCard";
 import { CartItemServer } from "@/types/cart";
 import { OrderTableType, TableTypes } from "@/types/table";
-import { MyOrder, OrderStatus } from "@/types/myOrder";
+import { MyLatestOrder, MyOrder, OrderStatus } from "@/types/myOrder";
 import { LoginType } from "@/types/login";
 import { setCookie } from "cookies-next";
 
@@ -77,11 +77,18 @@ export const getMyOrders = async () => {
   return data;
 };
 
+export const getMyLatestOrder = async () => {
+  const { data } = await api.get<MyLatestOrder>("my_latest_order");
+
+  return data;
+};
+
 export const getOrders = async () => {
   const { data } = await api.get<OrderTableType[]>("orders");
 
   return data;
 };
+
 
 export const updateOrderStatus = async ({
   orderNo,
@@ -117,4 +124,10 @@ export const loginUser = async ({ email, password }: LoginType) => {
   const { data } = await api.post("auth/login", { email, password });
   setCookie("_user_session", data.sessionId);
   return data;
+};
+
+
+export const logoutUser = async () => {
+  const response = await api.get("auth/logout");
+  return response;
 };
