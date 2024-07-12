@@ -1,7 +1,8 @@
-import React from "react";
+import React from "react"
+import AssistanceTable from "@/components/Kitchen/AssistanceTable";
 
 const Assistance = () => {
-  return <div>Assistance</div>;
+  return <div><AssistanceTable/></div>;
 };
 
 export default Assistance;
