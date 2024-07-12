@@ -90,7 +90,6 @@ export const getOrders = async () => {
   return data;
 };
 
-
 export const updateOrderStatus = async ({
   orderNo,
   status,

@@ -117,7 +117,6 @@ export const useGetMyLatestOrder = () => {
   });
 };
 
-
 export const useGetOrders = () => {
   return useQuery({
     queryKey: ["orders"],
@@ -131,7 +130,7 @@ export const useUpdateOrderStatus = () => {
     mutationKey: ["order/status"],
     mutationFn: updateOrderStatus,
     onSuccess: (data: { message: string }) => {
-      queryClient.invalidateQueries({ queryKey: ["orders","my_orders","my_latest_order"] });
+      queryClient.invalidateQueries({ queryKey: ["my_latest_order","orders","my_orders"] });
       toast.success(data.message);
     },
     onError: (reason: { message: string }) => {
