@@ -201,7 +201,7 @@ export const useRequestAssistance = () => {
   });
 };
 
-export const useAssistanceRequests = () => {
+export const useGetAssistanceRequests = () => {
   return useQuery({
     queryKey: ["assistanceRequests"],
     queryFn: getAssistanceRequests,
