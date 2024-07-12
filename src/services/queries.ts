@@ -21,6 +21,10 @@ import {
   loginUser,
   getMyTableStatus,
   getMyLatestOrder,
+  getAssistanceRequests,
+  deleteAssistanceRequest,
+  updateAssistanceRequest,
+  requestAssistance,
 } from "./api";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -113,7 +117,6 @@ export const useGetMyLatestOrder = () => {
   });
 };
 
-
 export const useGetOrders = () => {
   return useQuery({
     queryKey: ["orders"],
@@ -127,7 +130,7 @@ export const useUpdateOrderStatus = () => {
     mutationKey: ["order/status"],
     mutationFn: updateOrderStatus,
     onSuccess: (data: { message: string }) => {
-      queryClient.invalidateQueries({ queryKey: ["orders","my_orders","my_latest_order"] });
+      queryClient.invalidateQueries({ queryKey: ["my_latest_order","orders","my_orders"] });
       toast.success(data.message);
     },
     onError: (reason: { message: string }) => {
@@ -184,6 +187,60 @@ export const useLogin = () => {
       toast.success("Logged in");
       router.push("/kitchen");
       router.refresh();
+    },
+    onError: () => {
+      toast.error("Something went wrong");
+    },
+  });
+};
+
+export const useRequestAssistance = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: ["requestAssistance"],
+    mutationFn: requestAssistance,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["assistanceRequests"] });
+      toast.success("Assistance Requested.");
+    },
+    onError: () => {
+      toast.error("Something went wrong");
+    },
+  });
+};
+
+export const useGetAssistanceRequests = () => {
+  return useQuery({
+    queryKey: ["assistanceRequests"],
+    queryFn: getAssistanceRequests,
+    refetchInterval: 5 * 1000,
+    staleTime: 60 * 1000,
+  });
+};
+
+export const useDeclineAssistanceRequest = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: ["assistance/requests"],
+    mutationFn: deleteAssistanceRequest,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["assistanceRequests"] });
+      toast.success("Success");
+    },
+    onError: () => {
+      toast.error("Something went wrong");
+    },
+  });
+};
+
+export const useApproveAssistanceRequest = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: ["assistance/requests"],
+    mutationFn: updateAssistanceRequest,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["assistanceRequests"] });
+      toast.success("Success");
     },
     onError: () => {
       toast.error("Something went wrong");

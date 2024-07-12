@@ -6,6 +6,7 @@ import { OrderTableType, TableTypes } from "@/types/table";
 import { MyLatestOrder, MyOrder, OrderStatus } from "@/types/myOrder";
 import { LoginType } from "@/types/login";
 import { setCookie } from "cookies-next";
+import { AssistanceRequest } from "@/types/assistance";
 
 export const getMyTableStatus = async () => {
   const { data } = await api.get("/my_status");
@@ -89,7 +90,6 @@ export const getOrders = async () => {
   return data;
 };
 
-
 export const updateOrderStatus = async ({
   orderNo,
   status,
@@ -130,4 +130,25 @@ export const loginUser = async ({ email, password }: LoginType) => {
 export const logoutUser = async () => {
   const response = await api.get("auth/logout");
   return response;
+};
+
+export const requestAssistance = async () => {
+  const { data } = await api.get("assistance/request");
+
+  return data;
+};
+
+export const getAssistanceRequests = async () => {
+  const { data } = await api.get<AssistanceRequest[]>("assistance/requests");
+
+  return data;
+};
+
+export const deleteAssistanceRequest = async (sessionId: string) => {
+  await api.delete(`assistance/decline/${sessionId}`);
+};
+
+export const updateAssistanceRequest = async (sessionId: string) => {
+  const { data } = await api.patch("assistance/approve", { sessionId });
+  return data;
 };

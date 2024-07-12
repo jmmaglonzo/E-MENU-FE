@@ -28,8 +28,8 @@ const OrderSummaryItems = ({data}: OrderSummaryItemsProp) => {
               <p className="text-gray-600 text-[0.6em] font-bold mb-2"><span className='text-primary'>Quantity: </span>
               {item.quantity}
               </p>
-            </div>
-            <p className="text-gray-800 font-semibold text-[0.7em]">&#8369;{item.price}</p>
+            </div>  
+            <p className="text-gray-800 font-semibold text-[0.7em]">&#8369;{item.price.toFixed(2)}</p>
           </div>
         ))}
         
@@ -37,7 +37,7 @@ const OrderSummaryItems = ({data}: OrderSummaryItemsProp) => {
       <div className="mt-2 flex flex-col text-base text-gray-600 px-3">
         <div className="flex justify-between">
           <span>Total</span>
-          <span>&#8369;{(231).toFixed(2)}</span>
+          <span>&#8369;{(data.total).toFixed(2)}</span>
         </div>
       </div>
     </div>
