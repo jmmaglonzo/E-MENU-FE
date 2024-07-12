@@ -195,9 +195,9 @@ export const useLogin = () => {
 };
 
 export const useRequestAssistance = () => {
-  return useQuery({
-    queryKey: ["requestAssistance"],
-    queryFn: requestAssistance
+  return useMutation({
+    mutationKey: ["requestAssistance"],
+    mutationFn: requestAssistance
   });
 };
 
