@@ -5,7 +5,7 @@ import React from 'react'
 import cloche from '@/../public/let-them-cook.gif';
 import OrderSummaryItems from './OrderSummaryItems';
 import { Button } from '@/components/ui/button';
-import { useGetMyLatestOrder } from '@/services/queries';
+import { useGetMyLatestOrder, useRequestAssistance } from '@/services/queries';
 import Loader from '@/components/common/Loader';
 import { MyLatestOrder } from '@/types/myOrder';
 import { useRouter } from 'next/navigation';
@@ -13,6 +13,12 @@ import { useRouter } from 'next/navigation';
 const OrderSummary = () => {
   const { data, isPending, isSuccess } = useGetMyLatestOrder();
   const router = useRouter();
+
+  const {mutate: requestAssitance} = useRequestAssistance();
+
+  function handleRequestAssitance() {
+    requestAssitance();
+  }
   
   const myLatestOrder = (isSuccess ? data: []) as MyLatestOrder;
   let status = "PENDING";
@@ -64,7 +70,7 @@ const OrderSummary = () => {
     </main>
 
     <div className='mb-4'>
-        <Button className='w-full'>Need Assistance</Button>
+        <Button className='w-full' onClick={handleRequestAssitance}>Need Assistance</Button>
     </div>
    </div>
   )
