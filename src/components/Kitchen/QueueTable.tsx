@@ -33,7 +33,8 @@ const QueueTable = () => {
       finalChoice="Complete"
       mutateRight={mutateRight}
       mutateLeft={mutateLeft}
-      emptyText="No table queues."
+      leftEmptyText="No table queues."
+      rightEmptyText="No approved table queues."
     />
   );
 };
