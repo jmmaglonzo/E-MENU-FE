@@ -195,9 +195,17 @@ export const useLogin = () => {
 };
 
 export const useRequestAssistance = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationKey: ["requestAssistance"],
-    mutationFn: requestAssistance
+    mutationFn: requestAssistance,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["assistanceRequests"] });
+      toast.success("Assistance Requested.");
+    },
+    onError: () => {
+      toast.error("Something went wrong");
+    },
   });
 };
 
