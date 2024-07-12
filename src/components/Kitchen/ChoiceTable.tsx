@@ -12,7 +12,8 @@ interface ChoiceTableProps {
     leftStatus: boolean;
     leftHeader: string;
     rightHeader: string;
-    emptyText: string;
+    leftEmptyText: string;
+    rightEmptyText: string;
     leftChoice: string;
     rightChoice: string
     finalChoice: string;
@@ -20,7 +21,7 @@ interface ChoiceTableProps {
     mutateRight: UseMutationResult<void, Error, string, unknown>;
 }
 
-const ChoiceTable = ({ data, getSession, getStatus, leftStatus, leftHeader, rightHeader, emptyText, leftChoice, rightChoice, finalChoice, mutateLeft, mutateRight }: ChoiceTableProps) => {
+const ChoiceTable = ({ data, getSession, getStatus, leftStatus, leftHeader, rightHeader, leftEmptyText, rightEmptyText, leftChoice, rightChoice, finalChoice, mutateLeft, mutateRight }: ChoiceTableProps) => {
   const [leftList,rightList]= (data as TableTypes[] | AssistanceRequest[]).reduce(([left,right]: Array<any[]>, item) => {
     getStatus(item) === leftStatus ? left.push(item): right.push(item);
     return [left,right];
@@ -30,8 +31,8 @@ const ChoiceTable = ({ data, getSession, getStatus, leftStatus, leftHeader, righ
 
   return (
     <main className="grid min-h-screen grid-cols-2 gap-4">
-      <TableLayout data={leftList} getSession={getSession} getStatus={getStatus} leftStatus={leftStatus} headerText={leftHeader} emptyText={emptyText} leftChoice={leftChoice} rightChoice={rightChoice} finalChoice={finalChoice} mutateLeft={mutateLeft} mutateRight={mutateRight}/>
-      <TableLayout data={rightList} getSession={getSession} getStatus={getStatus} leftStatus={leftStatus} headerText={rightHeader} emptyText={emptyText} leftChoice={leftChoice} rightChoice={rightChoice} finalChoice={finalChoice} mutateLeft={mutateLeft} mutateRight={mutateRight}/>
+      <TableLayout data={leftList} emptyText={leftEmptyText} getSession={getSession} getStatus={getStatus} leftStatus={leftStatus} headerText={leftHeader} leftChoice={leftChoice} rightChoice={rightChoice} finalChoice={finalChoice} mutateLeft={mutateLeft} mutateRight={mutateRight}/>
+      <TableLayout data={rightList} emptyText={rightEmptyText} getSession={getSession} getStatus={getStatus} leftStatus={leftStatus} headerText={rightHeader} leftChoice={leftChoice} rightChoice={rightChoice} finalChoice={finalChoice} mutateLeft={mutateLeft} mutateRight={mutateRight}/>
     </main>
   );
 };
