@@ -1,8 +1,9 @@
+"use client";
+
 import {
   useQuery,
   useMutation,
   useQueryClient,
-  QueryClient,
 } from "@tanstack/react-query";
 import {
   addCartItem,
@@ -19,6 +20,7 @@ import {
   confirmRegister,
   loginUser,
   getMyTableStatus,
+  getMyLatestOrder,
 } from "./api";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -85,9 +87,15 @@ export const useSubCart = () => {
 };
 
 export const useOrderItem = () => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
   return useMutation({
     mutationKey: ["order"],
     mutationFn: orderItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["my_orders"] });
+      router.push("/order_waiting/order_summary");
+    },
   });
 };
 
@@ -97,6 +105,14 @@ export const useGetMyOrders = () => {
     queryFn: getMyOrders,
   });
 };
+
+export const useGetMyLatestOrder = () => {
+  return useQuery({
+    queryKey: ["my_latest_order"],
+    queryFn: getMyLatestOrder,
+  });
+};
+
 
 export const useGetOrders = () => {
   return useQuery({
@@ -111,7 +127,7 @@ export const useUpdateOrderStatus = () => {
     mutationKey: ["order/status"],
     mutationFn: updateOrderStatus,
     onSuccess: (data: { message: string }) => {
-      queryClient.invalidateQueries({ queryKey: ["orders"] });
+      queryClient.invalidateQueries({ queryKey: ["orders","my_orders","my_latest_order"] });
       toast.success(data.message);
     },
     onError: (reason: { message: string }) => {
