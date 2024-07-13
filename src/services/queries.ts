@@ -23,6 +23,7 @@ import {
   requestAssistance,
   sendEmailOTP,
   verifyEmailOTP,
+  getMyTotalLoyalties,
 } from "./api";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -277,3 +278,9 @@ export const useVerifyEmailOTP = () => {
   });
 };
 
+export const useGetMyTotalLoyalties = () => {
+  return useQuery({
+    queryKey: ["myTotalLoyalties"],
+    queryFn: getMyTotalLoyalties,
+  });
+};
