@@ -11,8 +11,8 @@ interface OrderProps {
 }
 
 const OrderCards = ({ data, quantity }: OrderProps) => {
-  const { mutate: addCart } = useAddCart();
-  const { mutate: subCart } = useSubCart();
+  const { mutate: addCart, isPending: addPending } = useAddCart();
+  const { mutate: subCart, isPending: subPending } = useSubCart();
 
   return (
     <section className="flex justify-between gap-1 rounded-sm p-2">
@@ -37,6 +37,7 @@ const OrderCards = ({ data, quantity }: OrderProps) => {
           <button
             className="text-xl text-primary"
             onClick={() => subCart(data.id)}
+            disabled={subPending}
           >
             -
           </button>
@@ -49,6 +50,7 @@ const OrderCards = ({ data, quantity }: OrderProps) => {
           <button
             className="text-xl text-primary"
             onClick={() => addCart(data.id)}
+            disabled={addPending}
           >
             +
           </button>
