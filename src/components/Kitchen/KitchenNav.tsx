@@ -18,7 +18,7 @@ const KitchenNav = () => {
   }
 
   return (
-    <nav className="kitchen-container mx-auto flex items-center justify-between">
+    <nav className="container mx-auto flex items-center justify-between">
       <div className="flex items-center gap-4">
         <Link href="/" className="relative h-[50px] w-[200px]">
           <Image
@@ -61,7 +61,7 @@ const KitchenNav = () => {
             href={"/kitchen/inventory"}
             className={`${pathname === "/kitchen/inventory" && "rounded-sm bg-primary px-4 py-2 font-semibold text-white"}`}
           >
-            Inventory
+            Products
           </Link>
         </li>
         <li>
