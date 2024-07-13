@@ -17,8 +17,9 @@ export const cartItemRoutes = [
   "/order_waiting",
   "/order_waiting/order_summary",
   "/checkout",
-  "/redeem/rewards",
 ];
+
+export const loyaltyRewardRoutes = ["/redeem/rewards"];
 
 /**
  * An array of protected routes
@@ -40,3 +41,4 @@ export const apiAuthPrefix = "/api";
  */
 export const DEFAULT_LOGIN_REDIRECT = "/kitchen";
 export const DEFAULT_CUSTOMER_REDIRECT = "/";
+export const DEFAULT_LOYALTY_REDIRECT = "/redeem";
