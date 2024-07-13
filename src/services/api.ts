@@ -152,3 +152,8 @@ export const updateAssistanceRequest = async (sessionId: string) => {
   const { data } = await api.patch("assistance/approve", { sessionId });
   return data;
 };
+
+export const sendEmailOTP = async (email: string) => {
+  const { data } = await api.post("loyalty/login", { email });
+  return data;
+}
