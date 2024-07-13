@@ -7,6 +7,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import Link from "next/link";
 import gift from "/public/gifts.png";
 import Image from "next/image";
+
 const formSchema = z.object({
   email: z.string().email({
     message: "Please enter a valid email",
@@ -50,12 +51,11 @@ const RedeemPoints = () => {
           <span className="text-base text-red-500">{errors.email.message}</span>
         )}
 
-        <Link
-          href="/redeem/rewards"
-          className="inline-block w-full rounded-sm bg-primary py-2 text-center font-semibold text-white"
-        >
-          Access Reward Points
-        </Link>
+        <Button 
+            className="inline-block w-full rounded-sm bg-primary py-2 text-center font-semibold text-white"
+          >
+            Access Reward Points
+        </Button>
       </form>
     </section>
   );
