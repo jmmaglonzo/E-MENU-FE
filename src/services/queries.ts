@@ -22,6 +22,7 @@ import {
   updateAssistanceRequest,
   requestAssistance,
   sendEmailOTP,
+  verifyEmailOTP,
 } from "./api";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -259,3 +260,17 @@ export const useSendEmailOTP = () => {
     },
   });
 };
+
+export const useVerifyEmailOTP = () => {
+  return useMutation({
+    mutationKey: ["loyalty/verify"],
+    mutationFn: verifyEmailOTP,
+    onSuccess: () => {
+      toast.success("Success");
+    },
+    onError: () => {
+      toast.error("Something went wrong");
+    },
+  });
+};
+
