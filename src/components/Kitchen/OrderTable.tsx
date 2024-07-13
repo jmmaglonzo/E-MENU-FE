@@ -8,20 +8,31 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { useState } from "react";
 import { capitalize } from "@/lib/utils";
 import Loader from "@/components/common/Loader";
+import { ScrollArea } from "../ui/scroll-area";
 
 const OrderTable = () => {
   const { data, isSuccess } = useGetOrders();
-  const orders = (data as OrderTableType[]);
+  const orders = data as OrderTableType[];
 
-  const filters = ["PENDING", "ONGOING", "SERVED","COMPLETED","CANCELLED"] as const;
+  const filters = [
+    "PENDING",
+    "ONGOING",
+    "SERVED",
+    "COMPLETED",
+    "CANCELLED",
+  ] as const;
   type Filters = typeof filters;
   type Filter = Filters[number];
-  const [selectedFilter, setSelectedFilter] = useState<Filter | null>("PENDING");
+  const [selectedFilter, setSelectedFilter] = useState<Filter | null>(
+    "PENDING",
+  );
 
   if (!isSuccess)
-   return <div className="container flex justify-center mt-64">
-      <Loader />
-  </div> 
+    return (
+      <div className="container mt-64 flex justify-center">
+        <Loader />
+      </div>
+    );
 
   const ordersByStatus: Record<string, OrderTableType[]> = {};
 
@@ -31,9 +42,8 @@ const OrderTable = () => {
     else ordersByStatus[order.status] = [order];
   }
 
-  const filteredOrder = (selectedFilter
-    ? ordersByStatus[selectedFilter]
-    : orders) || [];
+  const filteredOrder =
+    (selectedFilter ? ordersByStatus[selectedFilter] : orders) || [];
 
   return (
     <main className="flex flex-col justify-between gap-8">
@@ -71,18 +81,17 @@ const OrderTable = () => {
         })}
       </div>
       <div className="h-[0.08rem] bg-gray-200"></div>
-      <div className="grid grid-cols-4 gap-4">
-        {
-          filteredOrder.length > 0 ?
-          filteredOrder.map((order) => (
-            <KitchenOrderCard key={order.orderNo} data={order} />
-          ))
-          :
-          <div>
-            There are no orders.
-          </div>
-        }
-      </div>
+      <ScrollArea className="h-dvh w-full">
+        <div className="grid grid-cols-4 gap-4">
+          {filteredOrder.length > 0 ? (
+            filteredOrder.map((order) => (
+              <KitchenOrderCard key={order.orderNo} data={order} />
+            ))
+          ) : (
+            <div>There are no orders.</div>
+          )}
+        </div>
+      </ScrollArea>
       <OrderModal />
     </main>
   );
