@@ -17,6 +17,7 @@ export const cartItemRoutes = [
   "/order_waiting",
   "/order_waiting/order_summary",
   "/checkout",
+  "/redeem/rewards",
 ];
 
 /**
