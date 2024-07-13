@@ -1,3 +1,5 @@
+"use client";
+
 import PointsHistory from "@/components/RedeemPoints/PointsHistoryDrawer";
 import RedeemDrawer from "@/components/RedeemPoints/RedeemDrawer";
 import {
@@ -6,15 +8,18 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
+import { useGetMyTotalLoyalties } from "@/services/queries";
 import { WalletIcon, ActivityIcon } from "lucide-react";
-import Link from "next/link";
 import { FaGift } from "react-icons/fa";
+
 const Rewards = () => {
+  const { data } = useGetMyTotalLoyalties();
+  const points = (data && data.points) || 0;
   return (
     <Card className="relative border-0 p-3">
       <CardHeader className="mb-4 flex items-center justify-center p-0">
         <div className="flex w-1/2 items-center justify-center gap-4 rounded-sm bg-primary py-4 text-3xl font-bold text-white">
-          <span>5000</span>
+          <span>{points}</span>
         </div>
       </CardHeader>
       <CardContent>
@@ -45,7 +50,7 @@ const Rewards = () => {
               </p>
             </div>
             <div className="flex flex-col gap-2 text-right">
-              <span className="font-bold">5000</span>
+              <span className="font-bold">{points}</span>
               <p className="text-sm text-muted-foreground">
                 Earned from purchases
               </p>
