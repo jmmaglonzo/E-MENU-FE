@@ -19,10 +19,11 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import { Button } from "../ui/button";
 
+import { MoveLeft } from "lucide-react";
+import { deleteCookie } from "cookies-next";
 interface OTPModalProps {
   isModalOpen: boolean;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
@@ -34,7 +35,10 @@ const FormSchema = z.object({
   }),
 });
 
-export default function OTPModal({ isModalOpen }: OTPModalProps) {
+export default function OTPModal({
+  isModalOpen,
+  setIsModalOpen,
+}: OTPModalProps) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -44,12 +48,26 @@ export default function OTPModal({ isModalOpen }: OTPModalProps) {
 
   function handleSubmit() {}
 
+  function handleCloseModal() {
+    deleteCookie("_customer_email");
+    setIsModalOpen(false);
+  }
+
   return (
     <>
       {isModalOpen && (
         <Modal>
-          <ModalContainer className="container flex h-1/2 w-full items-center justify-center p-5">
+          <ModalContainer className="container relative flex h-1/2 w-full items-center">
+            <Button
+              onClick={handleCloseModal}
+              type="button"
+              className="absolute top-6 text-muted-foreground outline-none"
+              variant={"ghost"}
+            >
+              <MoveLeft />
+            </Button>
             <ModalContent
+              className="flex w-full items-center justify-center"
               onClick={(e: React.MouseEvent) => e.stopPropagation()}
             >
               <Form {...form}>
