@@ -35,7 +35,7 @@ const OrderSummary = () => {
   textStatus = status === "ONGOING" ? "being prepared": status === "SERVED"? "ready to be served": textStatus;
 
   return (
-   <div className='container flex flex-col h-dvh'>
+   <div className='container flex flex-col h-full justify-between'>
 
     <div className='text-center m-5 font-bold text-[0.9em]'>
         <h1>Order Summary</h1>
@@ -58,21 +58,30 @@ const OrderSummary = () => {
         
     </header>
 
+    
     <main className='flex-1'>
       {
-        isPending? 
-        <div className="flex justify-center mt-44">
+        isPending ? 
+        <div className="flex justify-center mt-36">
           <Loader />
         </div>
         :
-        <OrderSummaryItems data={myLatestOrder}/>
+        <div className=''><OrderSummaryItems data={myLatestOrder}/></div>
       }
     </main>
+    {!isPending && (
+  <div className='mb-4 flex gap-x-2 '>
+    <Button className='w-full' onClick={handleRequestAssitance}>
+      Need Assistance
+    </Button>
 
-    <div className='mb-4'>
-        <Button className='w-full' onClick={handleRequestAssitance}>Need Assistance</Button>
-    </div>
-   </div>
+    <Button className='w-full bg-green-600 text-white'
+    variant='outline' onClick={handleRequestAssitance}>
+      Pay Now
+    </Button>
+  </div>
+)}
+  </div>
   )
 }
 
