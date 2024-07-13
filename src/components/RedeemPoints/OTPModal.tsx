@@ -62,7 +62,7 @@ export default function OTPModal({
     <>
       {isModalOpen && (
         <Modal>
-          <ModalContainer className="container relative flex h-1/2 w-full items-center">
+          <ModalContainer className="mobile-container relative flex h-1/2 w-full items-center">
             <Button
               onClick={handleCloseModal}
               type="button"
