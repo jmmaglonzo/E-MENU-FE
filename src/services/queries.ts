@@ -25,6 +25,7 @@ import {
   deleteAssistanceRequest,
   updateAssistanceRequest,
   requestAssistance,
+  sendEmailOTP,
 } from "./api";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -169,7 +170,7 @@ export const useApproveTableQueue = () => {
     mutationKey: ["table/queue"],
     mutationFn: updateTableQueue,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tableQueue"] });
+      queryClient.invalidateQueries({ queryKey: ["tableQueue","my_status"] });
       toast.success("Success");
     },
     onError: () => {
@@ -240,6 +241,19 @@ export const useApproveAssistanceRequest = () => {
     mutationFn: updateAssistanceRequest,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["assistanceRequests"] });
+      toast.success("Success");
+    },
+    onError: () => {
+      toast.error("Something went wrong");
+    },
+  });
+};
+
+export const useSendEmailOTP = () => {
+  return useMutation({
+    mutationKey: ["loyalty/login"],
+    mutationFn: sendEmailOTP,
+    onSuccess: () => {
       toast.success("Success");
     },
     onError: () => {
