@@ -31,8 +31,8 @@ export default function MainLayout({
           <Navbar />
         </Suspense>
       </header>
-      {children}
       <Toaster visibleToasts={1} position="top-center" richColors />
+      {children}
     </>
   );
 }
