@@ -1,9 +1,18 @@
+"use client";
+
 import Image from 'next/image'
 import React from 'react'
 import cloche from '@/../public/let-them-cook.gif'
 import { Button } from '@/components/ui/button'
+import { useRequestAssistance } from '@/services/queries'
 
 const OrderWaiting = () => {
+  const {mutate: requestAssitance} = useRequestAssistance();
+
+  function handleRequestAssitance() {
+    requestAssitance();
+  }
+
   return (
     <div className='h-screen flex flex-col justify-between mx-2'>
 
@@ -27,7 +36,7 @@ const OrderWaiting = () => {
       </main>
 
       <div className='mb-4 w-full max-w-[350px] mx-auto'>
-        <Button className='w-full'>Need Assistance</Button>
+        <Button className='w-full' onClick={handleRequestAssitance}>Need Assistance</Button>
       </div>
     </div>
   )

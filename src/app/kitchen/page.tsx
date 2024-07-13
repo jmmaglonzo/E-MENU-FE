@@ -1,9 +1,9 @@
-import Table from "@/components/Kitchen/Table";
+import QueueTable from "@/components/Kitchen/QueueTable";
 
 const Kitchen = () => {
   return (
   <>
-  <Table />
+  <QueueTable />
   </>
 );
 };
