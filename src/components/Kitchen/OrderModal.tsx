@@ -39,21 +39,27 @@ const OrderModal = () => {
 
     closeModal();
   };
-  
+
   if (!selectedItem) return null;
-  
+
   return (
     <div
       className="fixed inset-0 z-50 flex w-full items-center justify-center bg-black bg-opacity-50"
       onClick={closeModal}
     >
       <Card
-        className="container flex flex-col"
+        className="mobile-container flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         <CardHeader className="relative flex aspect-square h-full max-h-[120px] w-full items-center overflow-hidden rounded-tl-md rounded-tr-md">
-          <Badge className={`absolute right-0 ${getStatusColor(selectedItem.status)}`}>
-            {capitalize(selectedItem.status === "ONGOING" ? "In-progress": selectedItem.status)}
+          <Badge
+            className={`absolute right-0 ${getStatusColor(selectedItem.status)}`}
+          >
+            {capitalize(
+              selectedItem.status === "ONGOING"
+                ? "In-progress"
+                : selectedItem.status,
+            )}
           </Badge>
           <CardTitle>Table {selectedItem.tableNo}</CardTitle>
           <div className="flex items-center gap-2">
@@ -66,15 +72,16 @@ const OrderModal = () => {
           <RadioGroup defaultValue={selectedItem.status}>
             {STATUS.map((status) => {
               return (
-                <div
-                  className="flex items-center gap-x-3"
-                  key={status}
-                >
+                <div className="flex items-center gap-x-3" key={status}>
                   <RadioGroupItem
                     value={status as string}
                     onClick={() => setSelectedStatus(status)}
                   />
-                  <div className="font-bold">{capitalize(String(status === "ONGOING" ? "In-progress": status ))}</div>
+                  <div className="font-bold">
+                    {capitalize(
+                      String(status === "ONGOING" ? "In-progress" : status),
+                    )}
+                  </div>
                 </div>
               );
             })}
