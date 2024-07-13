@@ -2,6 +2,7 @@ import {
   DEFAULT_CUSTOMER_REDIRECT,
   DEFAULT_LOGIN_REDIRECT,
   DEFAULT_LOYALTY_REDIRECT,
+  DEFAULT_LOYALTY_REWARD_REDIRECT,
   apiAuthPrefix,
   authRoutes,
   cartItemRoutes,
@@ -23,9 +24,6 @@ export async function middleware(req: NextRequest) {
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
   const isLoyaltyReward = loyaltyRewardRoutes.includes(nextUrl.pathname);
-  // const isCartItemRoute = nextUrl.pathname.startsWith(
-  //   "/order_waiting" || "/checkout",
-  // );
 
   const isCartItemRoute = cartItemRoutes.includes(
     nextUrl.pathname.split("/")[0] + nextUrl.pathname,
@@ -36,19 +34,34 @@ export async function middleware(req: NextRequest) {
     return;
   }
 
+  //check if route is public
   if (isPublicRoute) {
+    //check if _table_session cookie exists
     if (!isTableSession) {
       return;
     }
   }
 
+  //check if cartItem cookie === 0
   if (Number(cartItems) < 1 && isCartItemRoute) {
     return NextResponse.redirect(new URL(DEFAULT_CUSTOMER_REDIRECT, nextUrl));
   }
 
+  //check if url === baseUrl/reward
   if (isLoyaltyReward) {
+    //check if no _loyalty_session cookie
     if (!isLoyaltyRewardSession) {
       return NextResponse.redirect(new URL(DEFAULT_LOYALTY_REDIRECT, nextUrl));
+    }
+  }
+
+  //check if _loyalty_session exists
+  if (isLoyaltyRewardSession) {
+    //check if url === baseURL/reward
+    if (isLoyaltyReward) {
+      return NextResponse.redirect(
+        new URL(DEFAULT_LOYALTY_REWARD_REDIRECT, nextUrl),
+      );
     }
   }
 
