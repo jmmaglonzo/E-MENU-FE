@@ -42,3 +42,4 @@ export const apiAuthPrefix = "/api";
 export const DEFAULT_LOGIN_REDIRECT = "/kitchen";
 export const DEFAULT_CUSTOMER_REDIRECT = "/";
 export const DEFAULT_LOYALTY_REDIRECT = "/redeem";
+export const DEFAULT_LOYALTY_REWARD_REDIRECT = "/redeem";
