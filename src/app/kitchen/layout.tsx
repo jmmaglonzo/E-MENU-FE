@@ -6,13 +6,11 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex max-h-screen flex-col overflow-hidden">
-      <header>
+    <>
+      <header className="my-2">
         <KitchenNav />
       </header>
-      <main className="hide-scrollbar container mx-auto mt-6 flex-1 overflow-scroll">
-        {children}
-      </main>
-    </div>
+      <main className="container mx-auto mt-6 flex-1">{children}</main>
+    </>
   );
 }
