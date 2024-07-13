@@ -2,7 +2,7 @@ import { HomeIcon } from "lucide-react";
 import Link from "next/link";
 const NotFound = () => {
   return (
-    <div className="container flex min-h-dvh flex-col items-center justify-center space-y-6 bg-background px-4 text-center">
+    <div className="mobile-container flex min-h-dvh flex-col items-center justify-center space-y-6 bg-background px-4 text-center">
       <h1 className="text-4xl font-bold tracking-tight text-foreground">
         Oops! Looks like something got a little saucy.
       </h1>
