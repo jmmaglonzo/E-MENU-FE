@@ -24,6 +24,7 @@ import { Button } from "../ui/button";
 
 import { MoveLeft } from "lucide-react";
 import { deleteCookie } from "cookies-next";
+import { useVerifyEmailOTP } from "@/services/queries";
 interface OTPModalProps {
   isModalOpen: boolean;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
@@ -46,7 +47,11 @@ export default function OTPModal({
     },
   });
 
-  function handleSubmit() {}
+  const { mutate: verify } = useVerifyEmailOTP();
+
+  function onSubmit(data: z.infer<typeof FormSchema>) {
+    verify(Number(data.code));
+  }
 
   function handleCloseModal() {
     deleteCookie("_customer_email");
@@ -71,7 +76,7 @@ export default function OTPModal({
               onClick={(e: React.MouseEvent) => e.stopPropagation()}
             >
               <Form {...form}>
-                <form>
+                <form onSubmit={form.handleSubmit(onSubmit)}>
                   <FormField
                     control={form.control}
                     name="code"
