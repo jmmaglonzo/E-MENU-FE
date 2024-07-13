@@ -20,7 +20,7 @@ const RedeemDrawer = () => {
       <DrawerTrigger className="rounded-sm bg-primary px-6 py-1 text-sm font-medium text-white">
         Redeem
       </DrawerTrigger>
-      <DrawerContent className="container">
+      <DrawerContent className="mobile-container">
         <DrawerHeader>
           <DrawerTitle className="text-center text-2xl font-bold">
             Redeem Rewards

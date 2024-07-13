@@ -6,7 +6,7 @@ import Link from "next/link";
 const OrderNav = () => {
   const pathname = usePathname();
   return (
-    <nav className="container flex flex-col items-center gap-4 px-1.5 py-2 text-center">
+    <nav className="mobile-container flex flex-col items-center gap-4 px-1.5 py-2 text-center">
       <div className="flex w-full items-center">
         <Link href="/">
           <ChevronLeft size={20} />

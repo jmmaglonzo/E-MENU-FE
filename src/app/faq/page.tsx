@@ -10,7 +10,7 @@ import DigiBiteLogo from "/public/DigiBiteLogo.png";
 import Link from "next/link";
 const Faq = () => {
   return (
-    <section className="container py-4 text-center">
+    <section className="mobile-container py-4 text-center">
       <h2 className="mb-2 text-3xl font-bold">Frequently Asked Questions</h2>
       <div className="relative mb-2 flex items-center justify-center">
         <Link

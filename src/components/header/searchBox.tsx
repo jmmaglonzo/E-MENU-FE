@@ -14,7 +14,7 @@ const SearchBox = () => {
   };
 
   return (
-    <div className="container">
+    <div className="mobile-container">
       <div className="mx-auto mt-2 flex w-full items-center rounded-md border-2 px-4 focus-within:border-orange-500">
         <input
           type="text"

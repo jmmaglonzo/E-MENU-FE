@@ -24,7 +24,7 @@ export const OrderDrawer = () => {
 
   return (
     <div
-      className={`container fixed bottom-0 bg-white p-4 duration-300 ${items.length === 0 ? "invisible opacity-0" : "visible opacity-100"}`}
+      className={`mobile-container fixed bottom-0 bg-white p-4 duration-300 ${items.length === 0 ? "invisible opacity-0" : "visible opacity-100"}`}
     >
       <Drawer>
         <DrawerTrigger className="inline-flex w-[90%] items-center justify-center rounded-md bg-primary text-white">
@@ -36,7 +36,7 @@ export const OrderDrawer = () => {
             <span>&#8369;{productAmount}</span>
           </div>
         </DrawerTrigger>
-        <DrawerContent className="container h-dvh">
+        <DrawerContent className="mobile-container h-dvh">
           <DrawerHeader className="my-4 flex flex-col items-center justify-center gap-6 p-0">
             <DrawerTitle>Order Summary</DrawerTitle>
             <div className="flex h-1.5 w-full gap-4">

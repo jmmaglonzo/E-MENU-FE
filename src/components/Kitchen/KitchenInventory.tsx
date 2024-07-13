@@ -6,6 +6,7 @@ import { Modal } from "../ui/modal";
 import KitchenModal from "./KitchenModal/KitchenModal";
 import EditModal from "./KitchenModal/EditModal";
 import KitchenDeleteModal from "./KitchenModal/KitchenDeleteModal";
+import { ScrollArea } from "../ui/scroll-area";
 
 interface Item {
   name: string;
@@ -14,8 +15,8 @@ interface Item {
 }
 
 const initialItems: Item[] = [
-  { name: "Bacon", quantity: 12, category: "Meat" },
-  { name: "Beef Tenderloin", quantity: 12, category: "Meat" },
+  { name: "Bacon", quantity: 12, category: "Main-Dish" },
+  { name: "Beef Tenderloin", quantity: 12, category: "Soup" },
   { name: "Broccoli", quantity: 12, category: "Produce" },
   { name: "Cheddar Cheese", quantity: 12, category: "Dairy" },
   { name: "Chicken Breasts", quantity: 12, category: "Meat" },
@@ -23,6 +24,16 @@ const initialItems: Item[] = [
   { name: "Milk", quantity: 12, category: "Dairy" },
   { name: "Lettuce", quantity: 12, category: "Produce" },
   { name: "Potatoes", quantity: 12, category: "Produce" },
+  { name: "Salmon Fillet", quantity: 12, category: "Seafood" },
+  { name: "Salmon Fillet", quantity: 12, category: "Seafood" },
+  { name: "Salmon Fillet", quantity: 12, category: "Seafood" },
+  { name: "Salmon Fillet", quantity: 12, category: "Seafood" },
+  { name: "Salmon Fillet", quantity: 12, category: "Seafood" },
+  { name: "Salmon Fillet", quantity: 12, category: "Seafood" },
+  { name: "Salmon Fillet", quantity: 12, category: "Seafood" },
+  { name: "Salmon Fillet", quantity: 12, category: "Seafood" },
+  { name: "Salmon Fillet", quantity: 12, category: "Seafood" },
+  { name: "Salmon Fillet", quantity: 12, category: "Seafood" },
   { name: "Salmon Fillet", quantity: 12, category: "Seafood" },
 ];
 
@@ -71,53 +82,63 @@ const KitchenInventory: React.FC = () => {
             <span>Sort by</span>
           </button>
         </div>
-       
+
         <button
           className="rounded bg-orange-500 p-2 text-white"
           onClick={() => setIsModalOpen(true)}
         >
           + Add New Item
         </button>
-        <KitchenModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
-        <EditModal editModalOpen={editModalOpen} setIsEditModalOpen={setIsEditModalOpen} />
-        <KitchenDeleteModal deleteItemModal={deleteItemModal} setDeleteItemModal={setDeleteItemModal} />
+
+        <KitchenModal
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+        />
+        <EditModal
+          editModalOpen={editModalOpen}
+          setIsEditModalOpen={setIsEditModalOpen}
+        />
+        <KitchenDeleteModal
+          deleteItemModal={deleteItemModal}
+          setDeleteItemModal={setDeleteItemModal}
+        />
       </div>
 
       {/* Add Item Modal */}
 
-      <table className="w-full border">
-        <thead>
-          <tr className="bg-gray-200">
-            <th className="p-2">Item</th>
-            <th className="p-2">Quantity</th>
-            <th className="p-2">Category</th>
-            <th className="p-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
+      <ScrollArea className="h-dvh w-full">
+        <div className="grid grid-cols-3 gap-4">
           {filteredItems.map((item, index) => (
-            <tr key={index} className="border-t">
-              <td className="p-2">{item.name}</td>
-              <td className="p-2">{item.quantity}</td>
-              <td className="p-2">{item.category}</td>
-              <td className="p-2">
+            <div key={index} className="border p-4">
+              <div className="flex justify-between">
+                <div>
+                  <h3 className="font-bold">{item.name}</h3>
+                  <p>{item.category}</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <h3 className="font-bold">{item.quantity}</h3>
+                  <p>Remaining</p>
+                </div>
+              </div>
+              <div className="mt-auto">
                 <button
-                onClick={() => setIsEditModalOpen(true)}
-                className="mr-2">
+                  onClick={() => setIsEditModalOpen(true)}
+                  className="mr-2"
+                >
                   <HiOutlinePencilAlt className="mr-2" />
                 </button>
-               
+
                 <button
-                onClick={() => setDeleteItemModal(true)}
-                className="text-red-600">
+                  onClick={() => setDeleteItemModal(true)}
+                  className="text-red-600"
+                >
                   <HiOutlineTrash />
                 </button>
-              </td>
-            </tr>
+              </div>
+            </div>
           ))}
-         
-        </tbody>
-      </table>
+        </div>
+      </ScrollArea>
     </div>
   );
 };
