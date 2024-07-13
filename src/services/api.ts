@@ -154,6 +154,6 @@ export const updateAssistanceRequest = async (sessionId: string) => {
 };
 
 export const sendEmailOTP = async (email: string) => {
-  const { data } = await api.post("loyalty/login", { email });
+  const { data } = await api.post("auth/loyalty/login", { email });
   return data;
 }
