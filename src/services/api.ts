@@ -158,7 +158,7 @@ export const sendEmailOTP = async (email: string) => {
   return data;
 }
 
-export const verifyEmailOTP = async (code: string) => {
+export const verifyEmailOTP = async (code: number) => {
   const { data } = await api.post("auth/loyalty/verify", { code });
   return data;
 }
