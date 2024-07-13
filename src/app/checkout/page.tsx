@@ -3,7 +3,7 @@ import OrderNav from "@/components/Order/OrderNav";
 
 const page = () => {
   return (
-    <section className="container">
+    <section className="mobile-container">
       <OrderNav />
       <OrderCheckout />
     </section>

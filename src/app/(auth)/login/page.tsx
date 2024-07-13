@@ -3,7 +3,7 @@ import React from "react";
 
 const LoginPage = () => {
   return (
-    <div className="container">
+    <div className="mobile-container">
       <div className="flex h-screen w-full items-center justify-center">
         <Login />
       </div>

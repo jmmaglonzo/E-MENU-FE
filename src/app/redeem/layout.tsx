@@ -10,7 +10,7 @@ export default function MainLayout({
   const pathname = usePathname();
   return (
     <>
-      <header className="container relative">
+      <header className="mobile-container relative">
         <div className="flex flex-col items-center justify-between space-y-4 p-0 py-2 text-center">
           <Link
             href={pathname === "/redeem/rewards" ? "/redeem" : "/"}
@@ -23,7 +23,7 @@ export default function MainLayout({
           </span>
         </div>
       </header>
-      <main className="container">{children}</main>
+      <main className="mobile-container">{children}</main>
     </>
   );
 }

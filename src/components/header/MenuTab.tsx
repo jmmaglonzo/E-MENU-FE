@@ -21,7 +21,7 @@ const MenuTab = () => {
   };
 
   return (
-    <div className="container mt-1.5 flex items-center gap-3 py-1 text-base">
+    <div className="mobile-container mt-1.5 flex items-center gap-3 py-1 text-base">
       {categoryItems.slice(0, 1).map((c) => (
         <button
           key={c.value}

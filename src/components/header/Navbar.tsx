@@ -29,7 +29,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="container mt-2 flex items-center justify-between">
+      <nav className="mobile-container mt-2 flex items-center justify-between">
         <div className="cursor-pointer">
           <MenuDrawer isDisabled={!isTableApproved} />
         </div>

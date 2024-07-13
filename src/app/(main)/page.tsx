@@ -16,7 +16,7 @@ export default function Home() {
   }, [data]);
 
   return (
-    <main className="container relative h-dvh overflow-y-scroll pb-16 no-scrollbar">
+    <main className="mobile-container relative h-dvh overflow-y-scroll pb-16 no-scrollbar">
       <CardContainer />
       <OrderDrawer />
     </main>
