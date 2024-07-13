@@ -262,11 +262,14 @@ export const useSendEmailOTP = () => {
 };
 
 export const useVerifyEmailOTP = () => {
+  const router = useRouter();
   return useMutation({
     mutationKey: ["loyalty/verify"],
     mutationFn: verifyEmailOTP,
     onSuccess: () => {
       toast.success("Success");
+      router.replace("/redeem/rewards");
+      router.refresh();
     },
     onError: () => {
       toast.error("Something went wrong");
