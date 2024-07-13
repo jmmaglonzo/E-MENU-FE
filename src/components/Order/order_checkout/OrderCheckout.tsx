@@ -165,7 +165,7 @@ const OrderCheckout = () => {
             )}
           />
         </footer>
-        <div className="mt-24">
+        <div className="lg:mt-12">
           {isPending ? (
             <LoadingButton />
           ) : (
