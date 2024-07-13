@@ -33,7 +33,7 @@ const RedeemPoints = () => {
     send(data.email);
   };
 
-  const [isModalOpen, setIsModalOpen] = useState(!isSuccess);
+  const [isModalOpen, setIsModalOpen] = useState(isSuccess);
 
   useEffect(() => {
     if (isSuccess) setIsModalOpen(true);
