@@ -5,10 +5,7 @@ import MenuTab from "./MenuTab";
 import MenuDrawer from "../Card/MenuDrawer";
 import NavDrawer from "../Drawer/NavDrawer";
 import { useRouter } from "next/navigation";
-import {
-  useConfirmRegister,
-  useGetMyTableStatus,
-} from "@/services/queries";
+import { useConfirmRegister, useGetMyTableStatus } from "@/services/queries";
 import { useEffect } from "react";
 import digibiteLogo from "/public/DigiBiteLogo.png";
 import { getCookie } from "cookies-next";
@@ -47,14 +44,9 @@ const Navbar = () => {
               className="object-contain"
             />
           </div>
-<<<<<<< HEAD
-          <div className="flex gap-x-1">
-            <span className="text-sm text-muted-foreground">ID:</span>
-            <span className="text-sm text-muted-foreground">{cookie}</span>
-          </div>
-=======
-          <span className="text-[12px] text-muted-foreground">ID: {cookie}</span>
->>>>>>> ae41a345f2640389ba485d7875cf580401c989ba
+          <span className="text-[12px] text-muted-foreground">
+            ID: {cookie}
+          </span>
         </div>
 
         <NavDrawer isDisabled={!isTableApproved} />

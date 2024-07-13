@@ -3,7 +3,21 @@
  * These routes does not require authentication
  *@type {string[]}
  */
-export const publicRoutes = ["/"];
+export const publicRoutes = [
+  "/",
+  "/order-history",
+  "/order_waiting",
+  "/order_waiting/order_summary",
+  "/redeem",
+  "/faq",
+  "/checkout",
+];
+
+export const cartItemRoutes = [
+  "/order_waiting",
+  "/order_waiting/order_summary",
+  "/checkout",
+];
 
 /**
  * An array of protected routes
@@ -24,3 +38,4 @@ export const apiAuthPrefix = "/api";
  * @type {string}
  */
 export const DEFAULT_LOGIN_REDIRECT = "/kitchen";
+export const DEFAULT_CUSTOMER_REDIRECT = "/";

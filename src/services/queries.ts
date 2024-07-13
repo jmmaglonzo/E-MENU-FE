@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   addCartItem,
   deleteTableQueue,
@@ -130,7 +126,9 @@ export const useUpdateOrderStatus = () => {
     mutationKey: ["order/status"],
     mutationFn: updateOrderStatus,
     onSuccess: (data: { message: string }) => {
-      queryClient.invalidateQueries({ queryKey: ["my_latest_order","orders","my_orders"] });
+      queryClient.invalidateQueries({
+        queryKey: ["orders", "my_latest_order", "my_orders"],
+      });
       toast.success(data.message);
     },
     onError: (reason: { message: string }) => {

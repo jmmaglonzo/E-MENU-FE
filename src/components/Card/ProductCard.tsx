@@ -11,12 +11,14 @@ import { useAddCart } from "@/services/queries";
 import { AxiosError } from "axios";
 import useCardStore from "@/store/productCard-store";
 import { useEffect } from "react";
+
 interface ProductCardProps {
   data: ItemTypes;
 }
 
 const ProductCard = ({ data }: ProductCardProps) => {
   const { error, isError, mutate } = useAddCart();
+
   useEffect(() => {
     if (isError) {
       const errStatus = (error as AxiosError).response?.request.status;
@@ -26,8 +28,11 @@ const ProductCard = ({ data }: ProductCardProps) => {
     }
   }, [error, isError]);
   const setSelectedItem = useCardStore((state) => state.setSelectedItem);
+  const selectedItem = useCardStore((state) => state.selectedItem);
+
   function handleAddCart(e: React.MouseEvent) {
     e.stopPropagation();
+
     mutate(data.id);
   }
 
