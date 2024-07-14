@@ -46,43 +46,44 @@ const OrderTable = () => {
     (selectedFilter ? ordersByStatus[selectedFilter] : orders) || [];
 
   return (
-    <ScrollArea className="h-dvh">
-      <main className="flex flex-col justify-between gap-8">
-        <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
-          {filters.map((filter) => {
-            let titleName: string = filter;
+    <main className="flex h-dvh flex-col justify-between gap-8">
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
+        {filters.map((filter) => {
+          let titleName: string = filter;
 
-            if (filter === "ONGOING") titleName = "In-progress";
-            const chosenFilterClass = "bg-primary text-white";
-            const isChosen = filter === selectedFilter;
+          if (filter === "ONGOING") titleName = "In-progress";
+          const chosenFilterClass = "bg-primary text-white";
+          const isChosen = filter === selectedFilter;
 
-            function handleClick() {
-              if (isChosen) return setSelectedFilter(null);
-              setSelectedFilter(filter);
-            }
+          function handleClick() {
+            if (isChosen) return setSelectedFilter(null);
+            setSelectedFilter(filter);
+          }
 
-            return (
-              <Card
-                key={filter}
-                className={`flex-1 cursor-pointer rounded-sm ${isChosen && chosenFilterClass}`}
-                onClick={handleClick}
-              >
-                <CardHeader>
-                  <CardTitle className="whitespace-nowrap text-base font-medium lg:text-xl xl:text-2xl">
-                    {capitalize(titleName)} Orders
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-5xl font-semibold">
-                  <div className="py-2 xl:text-5xl">
-                    {ordersByStatus[filter] ? ordersByStatus[filter].length : 0}
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
-        <div className="h-[0.08rem] bg-gray-200"></div>
-        <ScrollArea className="h-dvh w-full">
+          return (
+            <Card
+              key={filter}
+              className={`flex-1 cursor-pointer rounded-sm ${isChosen && chosenFilterClass}`}
+              onClick={handleClick}
+            >
+              <CardHeader>
+                <CardTitle className="whitespace-nowrap text-base font-medium lg:text-xl xl:text-2xl">
+                  {capitalize(titleName)} Orders
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-5xl font-semibold">
+                <div className="py-2 xl:text-5xl">
+                  {ordersByStatus[filter] ? ordersByStatus[filter].length : 0}
+                </div>
+              </CardContent>
+            </Card>
+          );
+        })}
+      </div>
+      <div className="h-[0.08rem] bg-gray-200" />
+
+      <ScrollArea className="size-full">
+        <div className="mb-40">
           <div className="grid gap-4 md:grid-cols-3 xl:grid-cols-4">
             {filteredOrder.length > 0 ? (
               filteredOrder.map((order) => (
@@ -92,10 +93,10 @@ const OrderTable = () => {
               <div>There are no orders.</div>
             )}
           </div>
-        </ScrollArea>
-        <OrderModal />
-      </main>
-    </ScrollArea>
+        </div>
+      </ScrollArea>
+      <OrderModal />
+    </main>
   );
 };
 
