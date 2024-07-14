@@ -121,7 +121,7 @@ const OrderCheckout = () => {
 
         <footer>
           <div className="mt-10 flex items-center justify-center leading-3">
-            <span className="text-base text-gray-800">
+            <span className="text-base leading-[20px] text-gray-800">
               I hereby give Chef Morgan Restaurant the permission to share my
               customer data with the Restaurant, and if applicable, their
               respective affiliates and subsidiaries, for service improvement
@@ -151,7 +151,7 @@ const OrderCheckout = () => {
                     />
                   </FormControl>
 
-                  <FormLabel className="flex items-center gap-1 text-black">
+                  <FormLabel className="flex items-center gap-1 font-normal text-black">
                     By completing this order, I agree to{" "}
                     <Link
                       href={"/terms-and-conditions"}
@@ -165,7 +165,7 @@ const OrderCheckout = () => {
             )}
           />
         </footer>
-        <div className="lg:mt-12">
+        <div className="lg:mt-20">
           {isPending ? (
             <LoadingButton />
           ) : (
