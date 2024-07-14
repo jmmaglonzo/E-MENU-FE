@@ -24,6 +24,7 @@ import {
   sendEmailOTP,
   verifyEmailOTP,
   getMyTotalLoyalties,
+  logoutUser,
 } from "./api";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -101,7 +102,10 @@ export const useOrderItem = () => {
       router.push("/order_waiting/order_summary");
     },
     onError: (reason: AxiosError) => {
-      toast.error((reason.response?.data as {message: string}).message || (reason.response?.data as string).slice(0,25));
+      toast.error(
+        (reason.response?.data as { message: string }).message ||
+          (reason.response?.data as string).slice(0, 25),
+      );
     },
   });
 };
@@ -139,7 +143,10 @@ export const useUpdateOrderStatus = () => {
       toast.success(data.message);
     },
     onError: (reason: AxiosError) => {
-      toast.error((reason.response?.data as {message: string}).message || reason.response?.data as string);
+      toast.error(
+        (reason.response?.data as { message: string }).message ||
+          (reason.response?.data as string),
+      );
     },
   });
 };
@@ -163,7 +170,10 @@ export const useDeclineTableQueue = () => {
       toast.success("Success");
     },
     onError: (reason: AxiosError) => {
-      toast.error((reason.response?.data as {message: string}).message || reason.response?.data as string);
+      toast.error(
+        (reason.response?.data as { message: string }).message ||
+          (reason.response?.data as string),
+      );
     },
   });
 };
@@ -174,11 +184,14 @@ export const useApproveTableQueue = () => {
     mutationKey: ["table/queue"],
     mutationFn: updateTableQueue,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tableQueue","my_status"] });
+      queryClient.invalidateQueries({ queryKey: ["tableQueue", "my_status"] });
       toast.success("Success");
     },
     onError: (reason: AxiosError) => {
-      toast.error((reason.response?.data as {message: string}).message || reason.response?.data as string);
+      toast.error(
+        (reason.response?.data as { message: string }).message ||
+          (reason.response?.data as string),
+      );
     },
   });
 };
@@ -194,7 +207,23 @@ export const useLogin = () => {
       router.refresh();
     },
     onError: (reason: AxiosError) => {
-      toast.error((reason.response?.data as {message: string}).message || reason.response?.data as string);
+      toast.error(
+        (reason.response?.data as { message: string }).message ||
+          (reason.response?.data as string),
+      );
+    },
+  });
+};
+
+export const useLogout = () => {
+  const router = useRouter();
+  return useMutation({
+    mutationFn: logoutUser,
+    onSuccess: () => {
+      router.push("/login");
+    },
+    onError: () => {
+      toast.error("Something went wrong");
     },
   });
 };
@@ -209,7 +238,10 @@ export const useRequestAssistance = () => {
       toast.success("Assistance Requested.");
     },
     onError: (reason: AxiosError) => {
-      toast.error((reason.response?.data as {message: string}).message || reason.response?.data as string);
+      toast.error(
+        (reason.response?.data as { message: string }).message ||
+          (reason.response?.data as string),
+      );
     },
   });
 };
@@ -233,7 +265,10 @@ export const useDeclineAssistanceRequest = () => {
       toast.success("Success");
     },
     onError: (reason: AxiosError) => {
-      toast.error((reason.response?.data as {message: string}).message || reason.response?.data as string);
+      toast.error(
+        (reason.response?.data as { message: string }).message ||
+          (reason.response?.data as string),
+      );
     },
   });
 };
@@ -248,7 +283,10 @@ export const useApproveAssistanceRequest = () => {
       toast.success("Success");
     },
     onError: (reason: AxiosError) => {
-      toast.error((reason.response?.data as {message: string}).message || reason.response?.data as string);
+      toast.error(
+        (reason.response?.data as { message: string }).message ||
+          (reason.response?.data as string),
+      );
     },
   });
 };
@@ -261,7 +299,10 @@ export const useSendEmailOTP = () => {
       toast.success("Success");
     },
     onError: (reason: AxiosError) => {
-      toast.error((reason.response?.data as {message: string}).message || reason.response?.data as string);
+      toast.error(
+        (reason.response?.data as { message: string }).message ||
+          (reason.response?.data as string),
+      );
     },
   });
 };
@@ -277,10 +318,13 @@ export const useVerifyEmailOTP = () => {
       router.refresh();
     },
     onError: (reason: AxiosError) => {
-      toast.error((reason.response?.data as {message: string}).message || reason.response?.data as string);
+      toast.error(
+        (reason.response?.data as { message: string }).message ||
+          (reason.response?.data as string),
+      );
     },
   });
-};  
+};
 
 export const useGetMyTotalLoyalties = () => {
   return useQuery({
