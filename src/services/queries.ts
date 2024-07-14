@@ -29,6 +29,7 @@ import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
 import { AxiosError } from "axios";
 import { CartItem } from "@/types/cart";
+import { MyOrder } from "@/types/myOrder";
 
 export const useGetMyTableStatus = () => {
   return useQuery({
@@ -146,7 +147,7 @@ export const useOrderItem = () => {
     mutationKey: ["order"],
     mutationFn: orderItem,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["my_orders"] });
+      queryClient.invalidateQueries({ queryKey: ["my_orders", "orders"]});
       router.push("/order_waiting/order_summary");
     },
     onError: (reason: AxiosError) => {
@@ -181,14 +182,32 @@ export const useUpdateOrderStatus = () => {
   return useMutation({
     mutationKey: ["order/status"],
     mutationFn: updateOrderStatus,
-    onSuccess: (data: { message: string }) => {
-      queryClient.invalidateQueries({
-        queryKey: ["orders", "my_latest_order", "my_orders"],
+    onMutate: async ({orderNo, status}) => {
+      await queryClient.cancelQueries({queryKey: ["orders"]});
+      const oldOrders =  queryClient.getQueryData(["orders"]) as MyOrder[];
+
+      const order = oldOrders.find(item => item.orderNo === orderNo);
+      queryClient.setQueryData(['orders'], (oldOrders: MyOrder[]) => {
+        const data = [...oldOrders];
+
+        if (order) {
+          const orderIdx = data.indexOf(order);
+          
+          data[orderIdx] = (({transactionId,orderNo,orders,orderDate,total}) => ({transactionId,orderNo,orders,orderDate,total,status}))(order);
+        }
+
+        return data;
+        
       });
-      toast.success(data.message);
+
+      return oldOrders;
     },
-    onError: (reason: AxiosError) => {
+    onError: (reason: AxiosError, _cartItem, context) => {
       toast.error((reason.response?.data as {message: string}).message || reason.response?.data as string);
+      queryClient.setQueryData(['orders'], context);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({queryKey: ["orders", "my_latest_order", "my_orders"]});
     },
   });
 };
