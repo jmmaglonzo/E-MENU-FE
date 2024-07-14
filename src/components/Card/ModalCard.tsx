@@ -20,8 +20,8 @@ const ModalCard = () => {
     if (isError) {
       const errStatus = (error as AxiosError).response?.request.status;
 
-      if (errStatus === 404) toast("Go visit our restaurant!");
-      if (errStatus === 401) toast("You are not allowed to order!");
+      if (errStatus === 404) toast.warning("Go visit our restaurant!");
+      if (errStatus === 401) toast.warning("You are not allowed to order!");
     }
   }, [error, isError]);
 
