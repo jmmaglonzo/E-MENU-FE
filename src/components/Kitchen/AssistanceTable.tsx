@@ -2,8 +2,12 @@
 
 import { useGetAssistanceRequests } from "@/services/queries";
 import ChoiceTable from "./ChoiceTable";
-import { useDeclineAssistanceRequest, useApproveAssistanceRequest } from "@/services/queries";
+import {
+  useDeclineAssistanceRequest,
+  useApproveAssistanceRequest,
+} from "@/services/queries";
 import { AssistanceRequest } from "@/types/assistance";
+import KitchenLoader from "../common/KitchenLoader";
 
 const AssitanceTable = () => {
   const queryResult = useGetAssistanceRequests();
@@ -18,10 +22,15 @@ const AssitanceTable = () => {
     return data.assist;
   }
 
-  if (queryResult.isPending) return <div>Loading</div>
+  if (queryResult.isPending)
+    return (
+      <div className="container mt-64 flex justify-center">
+        <KitchenLoader />
+      </div>
+    );
 
   return (
-    <ChoiceTable 
+    <ChoiceTable
       data={queryResult.data as AssistanceRequest[]}
       getSession={getSession}
       getStatus={getStatus}
