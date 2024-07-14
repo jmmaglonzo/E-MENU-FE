@@ -29,7 +29,7 @@ const OrderCards = ({ data, quantity }: OrderProps) => {
         <DrawerDescription className="text-sm font-semibold text-black md:text-base">
           {data.name}
         </DrawerDescription>
-        <DrawerDescription className="text-xs text-gray-600 md:text-sm">
+        <DrawerDescription className="text-base leading-4 text-gray-600">
           {data.description}
         </DrawerDescription>
 
