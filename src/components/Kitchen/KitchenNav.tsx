@@ -3,9 +3,7 @@
 import Image from "next/image";
 import digibite from "/public/DigiBiteLogo.png";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { Button } from "../ui/button";
-import { logoutUser } from "@/services/api";
+import { usePathname } from "next/navigation";
 import {
   Sheet,
   SheetTrigger,
@@ -26,16 +24,11 @@ import {
 import { MenuIcon } from "lucide-react";
 import { IoLogOutOutline } from "react-icons/io5";
 import { FaUserPlus } from "react-icons/fa";
+import { useLogout } from "@/services/queries";
 
 const KitchenNav = () => {
   const pathname = usePathname();
-  const router = useRouter();
-
-  async function handleLogout() {
-    const request = await logoutUser();
-
-    if (request.status === 200) router.refresh();
-  }
+  const { mutate: logout } = useLogout();
 
   const navLinks = [
     {
@@ -123,13 +116,13 @@ const KitchenNav = () => {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem className="flex items-center gap-2">
+                    <DropdownMenuItem className="flex cursor-pointer items-center gap-2">
                       <FaUserPlus size={20} />
                       Add Staff
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                      className="flex items-center gap-2"
-                      onClick={handleLogout}
+                      className="flex cursor-pointer items-center gap-2"
+                      onClick={() => logout()}
                     >
                       <IoLogOutOutline size={20} />
                       Logout
@@ -149,13 +142,13 @@ const KitchenNav = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="flex items-center gap-2">
+            <DropdownMenuItem className="flex cursor-pointer items-center gap-2">
               <FaUserPlus size={20} />
               Add Staff
             </DropdownMenuItem>
             <DropdownMenuItem
-              className="flex items-center gap-2"
-              onClick={handleLogout}
+              className="flex cursor-pointer items-center gap-2"
+              onClick={() => logout()}
             >
               <IoLogOutOutline size={20} />
               Logout
