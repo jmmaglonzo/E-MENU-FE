@@ -4,12 +4,13 @@ import { useGetTableQueue } from "@/services/queries";
 import ChoiceTable from "./ChoiceTable";
 import { TableTypes } from "@/types/table";
 import { useDeclineTableQueue, useApproveTableQueue } from "@/services/queries";
+import KitchenLoader from "../common/KitchenLoader";
 
 const QueueTable = () => {
   const queryResult = useGetTableQueue();
   const mutateRight = useApproveTableQueue();
-  const mutateLeft =  useDeclineTableQueue();
-  
+  const mutateLeft = useDeclineTableQueue();
+
   function getSession(data: TableTypes) {
     return data.session;
   }
@@ -18,10 +19,15 @@ const QueueTable = () => {
     return data.status;
   }
 
-  if (queryResult.isPending) return <div>Loading</div>
+  if (queryResult.isPending)
+    return (
+      <div className="mt-52 flex items-center justify-center md:m-64">
+        <KitchenLoader />
+      </div>
+    );
 
   return (
-    <ChoiceTable 
+    <ChoiceTable
       data={queryResult.data as TableTypes[]}
       getSession={getSession}
       getStatus={getStatus}
