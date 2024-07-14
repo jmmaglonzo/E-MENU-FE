@@ -18,7 +18,7 @@ const PointsHistory = () => {
       <DrawerTrigger className="whitespace-nowrap rounded-sm bg-primary px-4 py-1 text-sm font-medium text-white">
         View History
       </DrawerTrigger>
-      <DrawerContent className="container">
+      <DrawerContent className="mobile-container">
         <DrawerHeader>
           <DrawerTitle className="text-center text-2xl font-bold">
             Point History

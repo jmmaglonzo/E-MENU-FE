@@ -4,9 +4,12 @@ import { Input } from "@/components/ui/input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
-import Link from "next/link";
 import gift from "/public/gifts.png";
 import Image from "next/image";
+import { useSendEmailOTP } from "@/services/queries";
+import OTPModal from "@/components/RedeemPoints/OTPModal";
+import { useEffect, useState } from "react";
+
 const formSchema = z.object({
   email: z.string().email({
     message: "Please enter a valid email",
@@ -19,14 +22,23 @@ const RedeemPoints = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<FormFields>({
     resolver: zodResolver(formSchema),
   });
 
+  const { mutate: send, isSuccess } = useSendEmailOTP();
+
   const onSubmit: SubmitHandler<FormFields> = (data) => {
-    console.log(data);
+    send(data.email);
   };
+
+  const [isModalOpen, setIsModalOpen] = useState(isSuccess);
+
+  useEffect(() => {
+    if (isSuccess) setIsModalOpen(true);
+  }, [isSuccess]);
+
   return (
     <section className="flex flex-col">
       <div className="relative h-[270px] w-full">
@@ -50,13 +62,14 @@ const RedeemPoints = () => {
           <span className="text-base text-red-500">{errors.email.message}</span>
         )}
 
-        <Link
-          href="/redeem/rewards"
+        <Button
+          disabled={!isValid}
           className="inline-block w-full rounded-sm bg-primary py-2 text-center font-semibold text-white"
         >
           Access Reward Points
-        </Link>
+        </Button>
       </form>
+      <OTPModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </section>
   );
 };

@@ -14,11 +14,21 @@ interface TableProps {
   leftChoice: string;
   rightChoice: string;
   finalChoice: string;
-  mutateLeft:  UseMutationResult<void, Error, string, unknown>;
+  mutateLeft: UseMutationResult<void, Error, string, unknown>;
   mutateRight: UseMutationResult<void, Error, string, unknown>;
 }
 
-const TableCards = ({ data, getSession, getStatus, leftStatus, leftChoice, rightChoice, finalChoice, mutateLeft, mutateRight }: TableProps) => {
+const TableCards = ({
+  data,
+  getSession,
+  getStatus,
+  leftStatus,
+  leftChoice,
+  rightChoice,
+  finalChoice,
+  mutateLeft,
+  mutateRight,
+}: TableProps) => {
   const { mutate: leftAction } = mutateLeft;
   const { mutate: rightAction } = mutateRight;
 
@@ -32,14 +42,18 @@ const TableCards = ({ data, getSession, getStatus, leftStatus, leftChoice, right
     //if data.status === false then show the card else do not render
 
     <Card className="relative">
-      <CardHeader className="flex items-center justify-between">
-        <CardTitle>Table {data.tableNo}</CardTitle>
+      <CardHeader className="flex items-center justify-between px-0 py-2 md:p-2">
+        <CardTitle className="text-base md:text-xl lg:text-2xl">
+          Table {data.tableNo}
+        </CardTitle>
         <div className="flex items-center gap-2">
-          <Badge variant="secondary">{formatDate(data.createdAt)}</Badge>
+          <Badge variant="secondary" className="text-xs md:text-sm">
+            {formatDate(data.createdAt)}
+          </Badge>
         </div>
-        <div className="text-md">{session}</div>
+        <div className="text-sm md:text-base xl:text-xl">{session}</div>
       </CardHeader>
-      <CardContent className="flex flex-col items-center justify-between gap-4 font-bold md:flex-row">
+      <CardContent className="flex flex-col items-center justify-between gap-4 p-4 font-bold lg:flex-row">
         {!getStatus(data) ? (
           <>
             <Button

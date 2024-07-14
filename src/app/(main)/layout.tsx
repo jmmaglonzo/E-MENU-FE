@@ -19,7 +19,7 @@ export default function MainLayout({
 
   if (isLoading)
     return (
-      <div className="container mt-72 flex justify-center">
+      <div className="mobile-container mt-72 flex justify-center">
         <Loader />
       </div>
     );
@@ -31,7 +31,6 @@ export default function MainLayout({
           <Navbar />
         </Suspense>
       </header>
-      <Toaster visibleToasts={1} position="top-center" richColors />
       {children}
     </>
   );

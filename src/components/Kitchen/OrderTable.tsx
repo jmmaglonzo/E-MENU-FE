@@ -7,21 +7,32 @@ import OrderModal from "./OrderModal";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { useState } from "react";
 import { capitalize } from "@/lib/utils";
-import Loader from "@/components/common/Loader";
+import { ScrollArea } from "../ui/scroll-area";
+import KitchenLoader from "../common/KitchenLoader";
 
 const OrderTable = () => {
   const { data, isSuccess } = useGetOrders();
-  const orders = (data as OrderTableType[]);
+  const orders = data as OrderTableType[];
 
-  const filters = ["PENDING", "ONGOING", "SERVED","COMPLETED","CANCELLED"] as const;
+  const filters = [
+    "PENDING",
+    "ONGOING",
+    "SERVED",
+    "COMPLETED",
+    "CANCELLED",
+  ] as const;
   type Filters = typeof filters;
   type Filter = Filters[number];
-  const [selectedFilter, setSelectedFilter] = useState<Filter | null>("PENDING");
+  const [selectedFilter, setSelectedFilter] = useState<Filter | null>(
+    "PENDING",
+  );
 
   if (!isSuccess)
-   return <div className="container flex justify-center mt-64">
-      <Loader />
-  </div> 
+    return (
+      <div className="container mt-64 flex justify-center">
+        <KitchenLoader />
+      </div>
+    );
 
   const ordersByStatus: Record<string, OrderTableType[]> = {};
 
@@ -31,60 +42,60 @@ const OrderTable = () => {
     else ordersByStatus[order.status] = [order];
   }
 
-  const filteredOrder = (selectedFilter
-    ? ordersByStatus[selectedFilter]
-    : orders) || [];
+  const filteredOrder =
+    (selectedFilter ? ordersByStatus[selectedFilter] : orders) || [];
 
   return (
-    <main className="flex flex-col justify-between gap-8">
-      <div className="flex gap-3">
-        {filters.map((filter) => {
-          let titleName: string = filter;
+    <ScrollArea className="h-dvh">
+      <main className="flex flex-col justify-between gap-8">
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
+          {filters.map((filter) => {
+            let titleName: string = filter;
 
-          if (filter === "ONGOING") titleName = "In-progress";
-          const chosenFilterClass = "bg-primary text-white";
-          const isChosen = filter === selectedFilter;
+            if (filter === "ONGOING") titleName = "In-progress";
+            const chosenFilterClass = "bg-primary text-white";
+            const isChosen = filter === selectedFilter;
 
-          function handleClick() {
-            if (isChosen) return setSelectedFilter(null);
-            setSelectedFilter(filter);
-          }
+            function handleClick() {
+              if (isChosen) return setSelectedFilter(null);
+              setSelectedFilter(filter);
+            }
 
-          return (
-            <Card
-              key={filter}
-              className={`flex-1 cursor-pointer rounded-sm ${isChosen ? chosenFilterClass : ""}`}
-              onClick={handleClick}
-            >
-              <CardHeader>
-                <CardTitle className="font-medium">
-                  {capitalize(titleName)} Orders
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="text-5xl font-semibold">
-                <div className="py-2">
-                  {ordersByStatus[filter] ? ordersByStatus[filter].length : 0}
-                </div>
-              </CardContent>
-            </Card>
-          );
-        })}
-      </div>
-      <div className="h-[0.08rem] bg-gray-200"></div>
-      <div className="grid grid-cols-4 gap-4">
-        {
-          filteredOrder.length > 0 ?
-          filteredOrder.map((order) => (
-            <KitchenOrderCard key={order.orderNo} data={order} />
-          ))
-          :
-          <div>
-            There are no orders.
+            return (
+              <Card
+                key={filter}
+                className={`flex-1 cursor-pointer rounded-sm ${isChosen && chosenFilterClass}`}
+                onClick={handleClick}
+              >
+                <CardHeader>
+                  <CardTitle className="whitespace-nowrap text-base font-medium lg:text-xl xl:text-2xl">
+                    {capitalize(titleName)} Orders
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="text-5xl font-semibold">
+                  <div className="py-2 xl:text-5xl">
+                    {ordersByStatus[filter] ? ordersByStatus[filter].length : 0}
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+        <div className="h-[0.08rem] bg-gray-200"></div>
+        <ScrollArea className="h-dvh w-full">
+          <div className="grid gap-4 md:grid-cols-3 xl:grid-cols-4">
+            {filteredOrder.length > 0 ? (
+              filteredOrder.map((order) => (
+                <KitchenOrderCard key={order.orderNo} data={order} />
+              ))
+            ) : (
+              <div>There are no orders.</div>
+            )}
           </div>
-        }
-      </div>
-      <OrderModal />
-    </main>
+        </ScrollArea>
+        <OrderModal />
+      </main>
+    </ScrollArea>
   );
 };
 

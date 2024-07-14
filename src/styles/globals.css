@@ -58,10 +58,13 @@
   }
 }
 
-.kitchen-container {
-  max-width: 1200px;
+.mobile-container {
+  max-width: 430px;
   width: 100%;
-  padding: 10px 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .hide-scrollbar::-webkit-scrollbar {

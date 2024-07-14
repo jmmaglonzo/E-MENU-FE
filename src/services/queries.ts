@@ -21,9 +21,13 @@ import {
   deleteAssistanceRequest,
   updateAssistanceRequest,
   requestAssistance,
+  sendEmailOTP,
+  verifyEmailOTP,
+  getMyTotalLoyalties,
 } from "./api";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
+import { AxiosError } from "axios";
 
 export const useGetMyTableStatus = () => {
   return useQuery({
@@ -96,6 +100,9 @@ export const useOrderItem = () => {
       queryClient.invalidateQueries({ queryKey: ["my_orders"] });
       router.push("/order_waiting/order_summary");
     },
+    onError: (reason: AxiosError) => {
+      toast.error((reason.response?.data as {message: string}).message || (reason.response?.data as string).slice(0,25));
+    },
   });
 };
 
@@ -131,8 +138,8 @@ export const useUpdateOrderStatus = () => {
       });
       toast.success(data.message);
     },
-    onError: (reason: { message: string }) => {
-      toast.error(reason.message);
+    onError: (reason: AxiosError) => {
+      toast.error((reason.response?.data as {message: string}).message || reason.response?.data as string);
     },
   });
 };
@@ -155,8 +162,8 @@ export const useDeclineTableQueue = () => {
       queryClient.invalidateQueries({ queryKey: ["tableQueue"] });
       toast.success("Success");
     },
-    onError: () => {
-      toast.error("Something went wrong");
+    onError: (reason: AxiosError) => {
+      toast.error((reason.response?.data as {message: string}).message || reason.response?.data as string);
     },
   });
 };
@@ -167,11 +174,11 @@ export const useApproveTableQueue = () => {
     mutationKey: ["table/queue"],
     mutationFn: updateTableQueue,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tableQueue"] });
+      queryClient.invalidateQueries({ queryKey: ["tableQueue","my_status"] });
       toast.success("Success");
     },
-    onError: () => {
-      toast.error("Something went wrong");
+    onError: (reason: AxiosError) => {
+      toast.error((reason.response?.data as {message: string}).message || reason.response?.data as string);
     },
   });
 };
@@ -186,8 +193,8 @@ export const useLogin = () => {
       router.push("/kitchen");
       router.refresh();
     },
-    onError: () => {
-      toast.error("Something went wrong");
+    onError: (reason: AxiosError) => {
+      toast.error((reason.response?.data as {message: string}).message || reason.response?.data as string);
     },
   });
 };
@@ -201,8 +208,8 @@ export const useRequestAssistance = () => {
       queryClient.invalidateQueries({ queryKey: ["assistanceRequests"] });
       toast.success("Assistance Requested.");
     },
-    onError: () => {
-      toast.error("Something went wrong");
+    onError: (reason: AxiosError) => {
+      toast.error((reason.response?.data as {message: string}).message || reason.response?.data as string);
     },
   });
 };
@@ -225,8 +232,8 @@ export const useDeclineAssistanceRequest = () => {
       queryClient.invalidateQueries({ queryKey: ["assistanceRequests"] });
       toast.success("Success");
     },
-    onError: () => {
-      toast.error("Something went wrong");
+    onError: (reason: AxiosError) => {
+      toast.error((reason.response?.data as {message: string}).message || reason.response?.data as string);
     },
   });
 };
@@ -240,8 +247,44 @@ export const useApproveAssistanceRequest = () => {
       queryClient.invalidateQueries({ queryKey: ["assistanceRequests"] });
       toast.success("Success");
     },
-    onError: () => {
-      toast.error("Something went wrong");
+    onError: (reason: AxiosError) => {
+      toast.error((reason.response?.data as {message: string}).message || reason.response?.data as string);
     },
+  });
+};
+
+export const useSendEmailOTP = () => {
+  return useMutation({
+    mutationKey: ["loyalty/login"],
+    mutationFn: sendEmailOTP,
+    onSuccess: () => {
+      toast.success("Success");
+    },
+    onError: (reason: AxiosError) => {
+      toast.error((reason.response?.data as {message: string}).message || reason.response?.data as string);
+    },
+  });
+};
+
+export const useVerifyEmailOTP = () => {
+  const router = useRouter();
+  return useMutation({
+    mutationKey: ["loyalty/verify"],
+    mutationFn: verifyEmailOTP,
+    onSuccess: () => {
+      toast.success("Success");
+      router.replace("/redeem/rewards");
+      router.refresh();
+    },
+    onError: (reason: AxiosError) => {
+      toast.error((reason.response?.data as {message: string}).message || reason.response?.data as string);
+    },
+  });
+};  
+
+export const useGetMyTotalLoyalties = () => {
+  return useQuery({
+    queryKey: ["myTotalLoyalties"],
+    queryFn: getMyTotalLoyalties,
   });
 };

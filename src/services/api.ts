@@ -152,3 +152,18 @@ export const updateAssistanceRequest = async (sessionId: string) => {
   const { data } = await api.patch("assistance/approve", { sessionId });
   return data;
 };
+
+export const sendEmailOTP = async (email: string) => {
+  const { data } = await api.post("auth/loyalty/login", { email });
+  return data;
+}
+
+export const verifyEmailOTP = async (code: number) => {
+  const { data } = await api.post("auth/loyalty/verify", { code });
+  return data;
+}
+
+export const getMyTotalLoyalties = async () => {
+  const { data } = await api.get("my_total_loyalties");
+  return data;
+}

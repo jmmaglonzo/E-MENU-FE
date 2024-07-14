@@ -19,16 +19,16 @@ import { capitalize, formatDate, getStatusColor } from "@/lib/utils";
 const OrderHistory = () => {
   const [selectedStatus, setSelectedStatus] = useState("all");
   const { data } = useGetMyOrders();
-  
-  const orders = data as MyOrder[] || [];
-  
+
+  const orders = (data as MyOrder[]) || [];
+
   const filteredOrders =
     selectedStatus === "all"
       ? orders
       : orders.filter((order) => order.status === selectedStatus);
 
   return (
-    <div className="container rounded-lg bg-background p-6 shadow-md">
+    <div className="mobile-container rounded-lg bg-background p-6 shadow-md">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="flex items-center gap-2 text-2xl font-bold">
           <Link href="/">
@@ -68,10 +68,11 @@ const OrderHistory = () => {
         </DropdownMenu>
       </div>
       <div className="flex h-dvh flex-col gap-4 overflow-y-scroll no-scrollbar">
-        {
-        orders.length === 0 ?
-          <div className="font-bold container h-full flex items-center text-center">Not sure what to pick? Our dishes are waiting to impress!</div>
-          :
+        {orders.length === 0 ? (
+          <div className="mobile-container flex h-full items-center text-center font-bold">
+            Not sure what to pick? Our dishes are waiting to impress!
+          </div>
+        ) : (
           filteredOrders.map((order) => (
             <Card key={order.transactionId}>
               <CardHeader>
@@ -82,10 +83,10 @@ const OrderHistory = () => {
                   <div className="text-sm text-muted-foreground">
                     Order placed on {formatDate(order.orderDate.toString())}
                   </div>
-                  <Badge
-                    className={getStatusColor(order.status)}
-                  >
-                    {capitalize(order.status === "ONGOING" ? "In-progress": order.status)}
+                  <Badge className={getStatusColor(order.status)}>
+                    {capitalize(
+                      order.status === "ONGOING" ? "In-progress" : order.status,
+                    )}
                   </Badge>
                 </div>
               </CardHeader>
@@ -119,7 +120,7 @@ const OrderHistory = () => {
               </CardContent>
             </Card>
           ))
-        }
+        )}
       </div>
     </div>
   );

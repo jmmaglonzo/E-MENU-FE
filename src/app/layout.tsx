@@ -19,7 +19,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className} suppressHydrationWarning>
-        <Toaster richColors position="top-center" duration={2000} />
+        <Toaster
+          richColors
+          position="top-center"
+          duration={2000}
+          visibleToasts={1}
+        />
         <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
