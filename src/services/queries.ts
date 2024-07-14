@@ -28,6 +28,7 @@ import {
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
 import { AxiosError } from "axios";
+import { CartItem } from "@/types/cart";
 
 export const useGetMyTableStatus = () => {
   return useQuery({
@@ -73,9 +74,32 @@ export const useAddCart = () => {
   return useMutation({
     mutationKey: ["cart/add"],
     mutationFn: addCartItem,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["cartItems"] });
+    onMutate: async (productId) => {
+      await queryClient.cancelQueries({queryKey: ["cartItems"]});
+      const oldCartItems =  queryClient.getQueryData(['cartItems']) as CartItem[];
+      const cartItem = oldCartItems.find(item => item.id === productId);
+      queryClient.setQueryData(['cartItems'], (oldCartItems: CartItem[]) => {
+        const data = [...oldCartItems];
+
+        if (!cartItem) {
+          data.push({id: productId, quantity: 1});
+        } else {
+          const itemIdx = data.indexOf(cartItem);
+          data[itemIdx] = {id: productId, quantity: cartItem.quantity + 1};
+        }
+
+        return data;
+        
+      });
+
+      return oldCartItems;
     },
+    onError: (_error, _cartItem, context) => {
+      queryClient.setQueryData(['cartItems'], context);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({queryKey: ["cartItems"]});
+    }
   });
 };
 
@@ -84,9 +108,34 @@ export const useSubCart = () => {
   return useMutation({
     mutationKey: ["cart/sub"],
     mutationFn: subCartItem,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["cartItems"] });
+    onMutate: async (productId) => {
+      await queryClient.cancelQueries({queryKey: ["cartItems"]});
+      const oldCartItems =  queryClient.getQueryData(['cartItems']) as CartItem[];
+      const cartItem = oldCartItems.find(item => item.id === productId);
+      queryClient.setQueryData(['cartItems'], (oldCartItems: CartItem[]) => {
+        const data = [...oldCartItems];
+
+        if (cartItem) {
+          const itemIdx = data.indexOf(cartItem);
+          const newQuantity = cartItem.quantity - 1;
+
+          if (newQuantity === 0) {
+            data.splice(itemIdx,1);
+          } else data[itemIdx] = {id: cartItem.id, quantity: newQuantity};
+        }
+
+        return data;
+        
+      });
+
+      return oldCartItems;
     },
+    onError: (_error, _cartItem, context) => {
+      queryClient.setQueryData(['cartItems'], context);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({queryKey: ["cartItems"]});
+    }
   });
 };
 
