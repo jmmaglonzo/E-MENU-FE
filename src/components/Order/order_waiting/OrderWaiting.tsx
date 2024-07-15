@@ -22,7 +22,7 @@ const OrderWaiting = () => {
       </div>
 
       <main className="flex-grow flex flex-col items-center justify-center">
-        <div className='relative w-32 h-32'>
+        <div className='relative size-40'>
           <Image
             src={cloche}
             alt="cloche-icon"
