@@ -4,6 +4,7 @@ import TableLayout from "./TableLayout";
 import { UseMutationResult } from "@tanstack/react-query";
 import { AssistanceRequest } from "@/types/assistance";
 import { TableTypes } from "@/types/table";
+import { Loader } from "lucide-react";
 
 interface ChoiceTableProps {
   data: AssistanceRequest[] | TableTypes[] | Error;
@@ -36,6 +37,8 @@ const ChoiceTable = ({
   mutateLeft,
   mutateRight,
 }: ChoiceTableProps) => {
+  if (!data) return <Loader />;
+
   const [leftList, rightList] = (
     data as TableTypes[] | AssistanceRequest[]
   )?.reduce(
@@ -45,8 +48,6 @@ const ChoiceTable = ({
     },
     [[], []],
   ) as Array<any[]>;
-
-  console.log(rightList);
 
   return (
     <main className="grid min-h-screen grid-cols-2 gap-4">
