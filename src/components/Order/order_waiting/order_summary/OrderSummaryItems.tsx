@@ -2,17 +2,17 @@ import React from "react";
 import { dummyData, dummyDataProps } from "@/utils/dummyData";
 import Image from "next/image";
 import { MyOrder, Order } from "@/types/myOrder";
-
+import TotalAmount from "@/utils/orderTotal";
 interface OrderSummaryItemsProp {
   data: MyOrder;
 }
 
 
 const OrderSummaryItems = ({ data }: OrderSummaryItemsProp) => {
-
+  const totalAmount = TotalAmount();
   return (
     <div>
-      <div className="hide-scrollbar h-[280px] -mb-2
+      <div className="hide-scrollbar h-[270px] rounded-md -mb-2
       mt-8 flex flex-1 flex-col gap-4 overflow-y-auto bg-gray-100 px-4 py-4
         ">
         {data.orders.map((item: Order, index) => (
@@ -49,7 +49,7 @@ const OrderSummaryItems = ({ data }: OrderSummaryItemsProp) => {
         <div className="my-4 text-center">
           <div className="text-lg">Total Amount To Pay</div>
           <div className="text-4xl font-bold text-black">
-            &#8369;{data.total.toFixed(2)}
+            &#8369;{totalAmount}
           </div>
         </div>
       </div>

@@ -47,7 +47,7 @@ const OrderSummary = () => {
       </div>
 
       <header className="relative mt-2 flex flex-col items-center">
-        <div className="relative aspect-square size-32 -mt-16">
+        <div className="relative aspect-square size-32 -mt-10">
           <Image
             src={cloche}
             alt="cloche-icon"
