@@ -7,10 +7,12 @@ interface OrderSummaryItemsProp {
   data: MyOrder;
 }
 
+
 const OrderSummaryItems = ({ data }: OrderSummaryItemsProp) => {
+
   return (
     <div>
-      <div className="hide-scrollbar h-[250px] mb-12
+      <div className="hide-scrollbar h-[280px] -mb-2
       mt-8 flex flex-1 flex-col gap-4 overflow-y-auto bg-gray-100 px-4 py-4
         ">
         {data.orders.map((item: Order, index) => (
@@ -56,3 +58,7 @@ const OrderSummaryItems = ({ data }: OrderSummaryItemsProp) => {
 };
 
 export default OrderSummaryItems;
+function getOrderTotalAmount() {
+  throw new Error("Function not implemented.");
+}
+
