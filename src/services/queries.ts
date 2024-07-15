@@ -34,7 +34,7 @@ import { MyOrder } from "@/types/myOrder";
 
 export const useGetMyTableStatus = () => {
   return useQuery({
-    queryKey: [`/my_status`],
+    queryKey: [`my_status`],
     queryFn: getMyTableStatus,
     retry: 0,
   });
@@ -231,7 +231,7 @@ export const useDeclineTableQueue = () => {
     mutationKey: ["table/queue"],
     mutationFn: deleteTableQueue,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tableQueue"] });
+      queryClient.invalidateQueries({ queryKey: ["tableQueue","my_status"] });
       toast.success("Success");
     },
     onError: (reason: AxiosError) => {
