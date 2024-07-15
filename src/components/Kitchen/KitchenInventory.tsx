@@ -62,7 +62,7 @@ const KitchenInventory: React.FC = () => {
   );
 
   return (
-    <div>
+    <div className="flex h-dvh flex-col pb-28">
       <div className="mb-4 flex items-center justify-between">
         <div className="flex w-full flex-col gap-4 md:flex-row md:items-center">
           <div className="flex flex-1 items-center gap-2 rounded-md border px-4">
@@ -136,10 +136,10 @@ const KitchenInventory: React.FC = () => {
 
       {/* Add Item Modal */}
 
-      <ScrollArea className="h-dvh w-full">
+      <ScrollArea className="size-full">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filteredItems.map((item, index) => (
-            <div key={index} className="border p-4">
+            <div key={index} className="rounded-sm border p-4 shadow-sm">
               <div className="flex justify-between">
                 <div>
                   <h3 className="font-bold">{item.name}</h3>
