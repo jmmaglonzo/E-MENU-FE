@@ -38,14 +38,14 @@ const OrderSummary = () => {
       </div>
 
       <header className="relative mt-2 flex flex-col items-center">
-        <div className="relative h-32 w-32">
+        <div className="relative aspect-square size-32 -mt-10">
           <Image
             src={cloche}
             alt="cloche-icon"
             priority
-            sizes="100px"
+            sizes="30px"
             fill
-            className="object-contain"
+            className="object-fill"
           />
         </div>
 
