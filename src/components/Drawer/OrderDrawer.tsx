@@ -22,6 +22,11 @@ export const OrderDrawer = () => {
 
   if (items.length === 0) return <></>;
 
+  const getOrderQuantity = items.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.quantity,
+    0,
+  );
+
   return (
     <div
       className={`mobile-container fixed bottom-0 bg-white p-4 duration-300 ${items.length === 0 ? "invisible opacity-0" : "visible opacity-100"}`}
@@ -30,7 +35,7 @@ export const OrderDrawer = () => {
         <DrawerTrigger className="inline-flex w-[90%] items-center justify-center rounded-md bg-primary text-white">
           <div className="flex w-full items-center justify-between p-2.5 px-8">
             <div className="flex size-6 w-fit items-center justify-center rounded-full border border-primary-foreground p-2">
-              {items.length}
+              {getOrderQuantity}
             </div>
             <span>View Orders</span>
             <span>&#8369;{productAmount}</span>
