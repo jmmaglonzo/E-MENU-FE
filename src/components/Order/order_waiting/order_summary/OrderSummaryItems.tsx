@@ -49,7 +49,7 @@ const OrderSummaryItems = ({ data }: OrderSummaryItemsProp) => {
         <div className="my-4 text-center">
           <div className="text-lg">Total Amount To Pay</div>
           <div className="text-4xl font-bold text-black">
-            &#8369;{totalAmount}
+            &#8369;{totalAmount}.00
           </div>
         </div>
       </div>
