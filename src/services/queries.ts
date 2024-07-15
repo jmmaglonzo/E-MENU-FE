@@ -42,8 +42,8 @@ export const useGetMyTableStatus = () => {
 
 export const useConfirmRegister = () => {
   const searchParams = useSearchParams();
-  const tableNo = searchParams.get("tableNo");
-  const sessionId = searchParams.get("sessionId");
+  const tableNo = searchParams?.get("tableNo");
+  const sessionId = searchParams?.get("sessionId");
 
   return useQuery({
     queryKey: [`confirm_register`],
@@ -197,13 +197,12 @@ export const useUpdateOrderStatus = () => {
         if (order) {
           const orderIdx = data.indexOf(order);
           
-          data[orderIdx] = (({transactionId,orderNo,orders,orderDate,total}) => ({transactionId,orderNo,orders,orderDate,total,status}))(order);
+          data[orderIdx] = (({transactionId,orderNo,orders,createdAt,total}) => ({transactionId,orderNo,orders,createdAt,total,status}))(order);
         }
 
         return data;
         
       });
-
       return oldOrders;
     },
     onError: (reason: AxiosError, _cartItem, context) => {
