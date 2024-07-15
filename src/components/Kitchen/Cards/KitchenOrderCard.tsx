@@ -18,7 +18,7 @@ const KitchenOrderCard = ({ data }: KitchenOrderCardProps) => {
         <CardTitle>Table {data.tableNo}</CardTitle>
         <div className="flex items-center gap-2">
           <Badge variant="secondary">
-            {formatDate(data.orderDate.toString())}
+            {formatDate(data.createdAt.toString())}
           </Badge>
         </div>
       </CardHeader>
