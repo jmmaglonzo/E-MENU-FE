@@ -15,10 +15,18 @@ const schema = z.object({
   name: z.string().min(3, {
     message: "Name must be at least 3 characters long",
   }),
-  price: z.number({
-    message: "Price must be a number",
-  }),
-  cookingTime: z.number(),
+  price: z
+    .string()
+    .transform((val) => parseInt(val))
+    .refine((val) => !isNaN(val), {
+      message: "Price must be a number",
+    }),
+  cookingTime: z
+    .string()
+    .transform((val) => parseInt(val))
+    .refine((val) => !isNaN(val), {
+      message: "Cooking time must be a number",
+    }),
   image: z.string().url({
     message: "Invalid URL",
   }),
@@ -75,7 +83,7 @@ const KitchenModal = ({ isModalOpen, setIsModalOpen }: KitchenModalProps) => {
                   </span>
                 )}
               </div>
-              <div className="flex flex-col gap-2">
+              <div className="col-span-2 flex flex-col gap-2">
                 <input
                   type="text"
                   placeholder="Price"
@@ -88,7 +96,7 @@ const KitchenModal = ({ isModalOpen, setIsModalOpen }: KitchenModalProps) => {
                   </span>
                 )}
               </div>
-              <div className="flex flex-col gap-2">
+              <div className="col-span-2 flex flex-col gap-2">
                 <input
                   type="text"
                   placeholder="Cooking Time"
@@ -101,10 +109,10 @@ const KitchenModal = ({ isModalOpen, setIsModalOpen }: KitchenModalProps) => {
                   </span>
                 )}
               </div>
-              <div className="flex flex-col gap-2">
+              <div className="col-span-1 flex flex-col gap-2">
                 <input
                   type="text"
-                  className="col-span-2 w-full rounded border p-2"
+                  className="w-full rounded border p-2"
                   placeholder="Image Link"
                   {...register("image")}
                 />
