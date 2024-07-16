@@ -16,6 +16,7 @@ export interface SocketEvents {
   updateStatus: (orderNo: number, status: OrderStatus) => void;
   socket: Socket | null;
   getOrders: () => void;
+  getMyLatestOrderUpdate: () => void;
 }
 
 const WebSocketContext = createContext<SocketEvents | null>(null);
@@ -33,8 +34,8 @@ async function getCookies() {
 export function WebSocketProvider({ children }: { children: React.ReactNode }) {
   const [socket, setSocket] = useState<Socket | null>(null);
   const router = useRouter();
-  const setOrderStatus = useMyOrderStore((store) => store.setOrderStatus);
-  const setOrders = useOrdersStore((state) => state.setOrders);
+  const setLatestOrder = useMyOrderStore((store) => store.setLatestOrder);
+  const setOrders = useOrdersStore((store) => store.setOrders);
 
   useEffect(() => {
     getCookies().then((cookies = {}) => {
@@ -54,8 +55,6 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
             router.replace("/checkout/cash-payment");
           else router.replace(data.checkoutURL as string);
         }
-
-        setOrderStatus(data.status);
       });
 
       socket.on("orders sent", (data) => {
@@ -74,8 +73,18 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
     socket?.emit("get orders");
   }
 
+  function getMyLatestOrderUpdate() {
+    socket?.emit("my latest order status");
+
+    socket?.on("latest order update", (response) => {
+      if (response.status === 200) setLatestOrder(response.data);
+    });
+  }
+
   return (
-    <WebSocketContext.Provider value={{ updateStatus, socket, getOrders }}>
+    <WebSocketContext.Provider
+      value={{ updateStatus, socket, getOrders, getMyLatestOrderUpdate }}
+    >
       {children}
     </WebSocketContext.Provider>
   );
