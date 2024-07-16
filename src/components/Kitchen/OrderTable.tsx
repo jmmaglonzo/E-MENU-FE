@@ -9,10 +9,18 @@ import { useState } from "react";
 import { capitalize } from "@/lib/utils";
 import { ScrollArea } from "../ui/scroll-area";
 import KitchenLoader from "../common/KitchenLoader";
+import { useOrderState } from "@/store/orders";
+import { useWebSocketContext } from "@/providers/WebSocketProvider";
 
 const OrderTable = () => {
-  const { data, isSuccess } = useGetOrders();
-  const orders = data as OrderTableType[];
+  /* const { data, isSuccess } = useGetOrders();
+  const orders = data as OrderTableType[]; */
+  const socketEvents = useWebSocketContext();
+  const { data } = useOrderState();
+  const orders = data?.orders;
+  socketEvents?.getOrders();
+
+  console.log(orders);
 
   const filters = [
     "PENDING",
@@ -27,12 +35,14 @@ const OrderTable = () => {
     "PENDING",
   );
 
-  if (!isSuccess)
+  if (!orders) {
     return (
       <div className="container mt-64 flex justify-center">
         <KitchenLoader />
       </div>
     );
+  }
+  console.log("there is orders", orders);
 
   const ordersByStatus: Record<string, OrderTableType[]> = {};
 
