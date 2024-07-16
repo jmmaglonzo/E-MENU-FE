@@ -6,6 +6,7 @@ import {
   apiAuthPrefix,
   authRoutes,
   cartItemRoutes,
+  kitchenRoute,
   publicRoutes,
   redeem,
   redeemRewards,
@@ -26,6 +27,7 @@ export async function middleware(req: NextRequest) {
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
   const isRedeemRoute = redeem.includes(nextUrl.pathname);
   const isRedeemRewardRoute = redeemRewards.includes(nextUrl.pathname);
+  const isKitchenRoute = kitchenRoute.includes(nextUrl.pathname);
 
   const isCartItemRoute = cartItemRoutes.includes(
     nextUrl.pathname.split("/")[0] + nextUrl.pathname,
@@ -91,7 +93,7 @@ export async function middleware(req: NextRequest) {
     return response;
   }
 
-  if (!isLoggedIn && !isPublicRoute) {
+  if (!isLoggedIn && isKitchenRoute) {
     return NextResponse.redirect(new URL("/login", nextUrl));
   }
 
