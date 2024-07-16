@@ -12,6 +12,7 @@ import axios, { AxiosError } from "axios";
 import { OrderStatus } from "@/types/myOrder";
 import { useRouter } from "next/navigation";
 import { useOrdersStore, useMyOrderStore } from "@/store/orderStore";
+import { useCartStore } from "@/store/cart-store";
 export interface SocketEvents {
   updateStatus: (orderNo: number, status: OrderStatus) => void;
   socket: Socket | null;
@@ -37,6 +38,7 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const setLatestOrder = useMyOrderStore((store) => store.setLatestOrder);
   const setOrders = useOrdersStore((store) => store.setOrders);
+  const setCartItems = useCartStore((store) => store.setCartItems);
 
   useEffect(() => {
     getCookies().then((cookies = {}) => {
@@ -54,6 +56,10 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
             router.replace("/checkout/cash-payment");
           else router.replace(data.checkoutURL as string);
         }
+      });
+
+      socket.on("cart update", (response) => {
+        setCartItems(response.data);
       });
 
       setSocket(socket);
