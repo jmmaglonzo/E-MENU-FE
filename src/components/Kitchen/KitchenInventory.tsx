@@ -1,10 +1,4 @@
 "use client";
-import React, { useState } from "react";
-import { HiOutlinePencilAlt, HiOutlineTrash } from "react-icons/hi";
-import KitchenModal from "./KitchenModal/KitchenModal";
-import EditModal from "./KitchenModal/EditModal";
-import KitchenDeleteModal from "./KitchenModal/KitchenDeleteModal";
-import { ScrollArea } from "../ui/scroll-area";
 import { Input } from "../ui/input";
 import { SearchIcon, FilterIcon, ListOrderedIcon } from "lucide-react";
 import { Button } from "../ui/button";
@@ -16,12 +10,14 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
 } from "@/components/ui/dropdown-menu";
-interface Item {
+import KitchenProducts from "./KitchenProducts";
+import { ScrollArea } from "../ui/scroll-area";
+import KitchenModal from "./KitchenModal/KitchenModal";
+export interface Item {
   name: string;
   quantity: number;
   category: string;
 }
-
 const initialItems: Item[] = [
   { name: "Bacon", quantity: 12, category: "Main-Dish" },
   { name: "Beef Tenderloin", quantity: 12, category: "Soup" },
@@ -43,26 +39,20 @@ const initialItems: Item[] = [
   { name: "Salmon Fillet", quantity: 12, category: "Seafood" },
   { name: "Salmon Fillet", quantity: 12, category: "Seafood" },
   { name: "Salmon Fillet", quantity: 12, category: "Seafood" },
+  { name: "Salmon Fillet", quantity: 12, category: "Seafood" },
+  { name: "Salmon Fillet", quantity: 12, category: "Seafood" },
+  { name: "Salmon Fillet", quantity: 12, category: "Seafood" },
+  { name: "Salmon Fillet", quantity: 12, category: "Seafood" },
+  { name: "Salmon Fillet", quantity: 12, category: "Seafood" },
+  { name: "Salmon Fillet", quantity: 12, category: "Seafood" },
+  { name: "Salmon Fillet", quantity: 12, category: "Seafood" },
+  { name: "Salmon Fillet", quantity: 12, category: "Seafood" },
+  { name: "Salmon Fillet", quantity: 12, category: "Seafood" },
+  { name: "Salmon Fillet", quantity: 12, category: "Seafood" },
 ];
-
 const KitchenInventory: React.FC = () => {
-  const [items, setItems] = useState<Item[]>(initialItems);
-  const [search, setSearch] = useState<string>("");
-  const [newItem, setNewItem] = useState<Item>({
-    name: "",
-    quantity: 0,
-    category: "",
-  });
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [editModalOpen, setIsEditModalOpen] = useState<boolean>(false);
-  const [deleteItemModal, setDeleteItemModal] = useState<boolean>(false);
-
-  const filteredItems = items.filter((item) =>
-    item.name.toLowerCase().includes(search.toLowerCase()),
-  );
-
   return (
-    <div className="flex h-dvh flex-col pb-28">
+    <div className="flex flex-col">
       <div className="mb-4 flex items-center justify-between">
         <div className="flex w-full flex-col gap-4 md:flex-row md:items-center">
           <div className="flex flex-1 items-center gap-2 rounded-md border px-4">
@@ -114,58 +104,14 @@ const KitchenInventory: React.FC = () => {
                 </DropdownMenuRadioGroup>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Button className="w-full" onClick={() => setIsModalOpen(true)}>
-              Add Item
-            </Button>
+            <KitchenModal />
           </div>
         </div>
-
-        <KitchenModal
-          isModalOpen={isModalOpen}
-          setIsModalOpen={setIsModalOpen}
-        />
-        <EditModal
-          editModalOpen={editModalOpen}
-          setIsEditModalOpen={setIsEditModalOpen}
-        />
-        <KitchenDeleteModal
-          deleteItemModal={deleteItemModal}
-          setDeleteItemModal={setDeleteItemModal}
-        />
       </div>
-
-      {/* Add Item Modal */}
-
-      <ScrollArea className="size-full">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {filteredItems.map((item, index) => (
-            <div key={index} className="rounded-sm border p-4 shadow-sm">
-              <div className="flex justify-between">
-                <div>
-                  <h3 className="font-bold">{item.name}</h3>
-                  <p>{item.category}</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <h3 className="font-bold">{item.quantity}</h3>
-                  <p>Remaining</p>
-                </div>
-              </div>
-              <div className="mt-auto">
-                <button
-                  onClick={() => setIsEditModalOpen(true)}
-                  className="mr-2"
-                >
-                  <HiOutlinePencilAlt className="mr-2" />
-                </button>
-
-                <button
-                  onClick={() => setDeleteItemModal(true)}
-                  className="text-red-600"
-                >
-                  <HiOutlineTrash />
-                </button>
-              </div>
-            </div>
+      <ScrollArea className="h-screen pb-40">
+        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {initialItems.map((item, index) => (
+            <KitchenProducts key={index} item={item} />
           ))}
         </div>
       </ScrollArea>
