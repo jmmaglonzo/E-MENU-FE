@@ -1,178 +1,155 @@
-import { Modal } from "@/components/ui/modal";
-import { useMenuStore } from "@/store/menuTab-store";
-import KitchenCategory from "@/utils/kitchen_category_modal";
-import { z } from "zod";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogOverlay,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-type KitchenModalProps = {
-  isModalOpen: boolean;
-  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { categories } from "@/utils/kitchen_category_modal";
 type FormValues = z.infer<typeof schema>;
-
 const schema = z.object({
-  name: z.string().min(3, {
-    message: "Name must be at least 3 characters long",
+  product: z.string().min(6, {
+    message: "Product name must be at least 6 characters long",
   }),
   price: z
-    .string()
-    .transform((val) => parseInt(val))
-    .refine((val) => !isNaN(val), {
+    .number({
       message: "Price must be a number",
+    })
+    .positive({
+      message: "Price must be a positive number",
     }),
-  cookingTime: z
-    .string()
-    .transform((val) => parseInt(val))
-    .refine((val) => !isNaN(val), {
-      message: "Cooking time must be a number",
+  time: z
+    .number({
+      message: "Time must be a number",
+    })
+    .positive({
+      message: "Time must be a positive number",
     }),
-  image: z.string().url({
-    message: "Invalid URL",
+  link: z.string().url({
+    message: "Link must be a valid URL",
   }),
-  category: z.string(),
-  description: z.string().min(15, {
-    message: "Description must be at least 15 characters long",
+  description: z.string().min(10, {
+    message: "Description must be at least 10 characters long",
   }),
 });
-
-const KitchenModal = ({ isModalOpen, setIsModalOpen }: KitchenModalProps) => {
-  const selected = useMenuStore((state) => state.selected);
-  const setSelected = useMenuStore((state) => state.setSelected);
+const KitchenModal = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
+    clearErrors,
+    watch,
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
   });
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FormValues> = (value) => {
+    console.log(value);
     reset();
   };
-
   return (
-    <div>
-      {isModalOpen && (
-        <Modal
-          onClick={handleCloseModal}
-          className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 px-2 text-[0.7em]"
-        >
-          <form
-            onClick={(e: React.MouseEvent) => e.stopPropagation()}
-            onSubmit={handleSubmit(onSubmit)}
-            className="w-full max-w-3xl rounded bg-white p-5 shadow-lg"
-          >
-            <h2 className="mb-4 text-xl font-bold">Add New Item</h2>
-            <div className="grid grid-cols-3 gap-2">
-              <div className="flex flex-col gap-2">
-                <input
-                  type="text"
-                  placeholder="Product Name"
-                  className="col-span-2 w-full rounded border p-2"
-                  {...register("name")}
-                />
-                {errors.name && (
-                  <span className="text-sm text-red-500">
-                    {errors.name.message}
-                  </span>
-                )}
-              </div>
-              <div className="col-span-2 flex flex-col gap-2">
-                <input
-                  type="text"
-                  placeholder="Price"
-                  className="w-full rounded border p-2"
-                  {...register("price")}
-                />
-                {errors.price && (
-                  <span className="text-sm text-red-500">
-                    {errors.price.message}
-                  </span>
-                )}
-              </div>
-              <div className="col-span-2 flex flex-col gap-2">
-                <input
-                  type="text"
-                  placeholder="Cooking Time"
-                  className="w-full rounded border p-2"
-                  {...register("cookingTime")}
-                />
-                {errors.cookingTime && (
-                  <span className="text-sm text-red-500">
-                    {errors.cookingTime.message}
-                  </span>
-                )}
-              </div>
-              <div className="col-span-1 flex flex-col gap-2">
-                <input
-                  type="text"
-                  className="w-full rounded border p-2"
-                  placeholder="Image Link"
-                  {...register("image")}
-                />
-                {errors.image && (
-                  <span className="text-sm text-red-500">
-                    {errors.image.message}
-                  </span>
-                )}
-              </div>
+    <Dialog
+      onOpenChange={(open) => {
+        if (!open) {
+          clearErrors();
+        }
+      }}
+    >
+      <DialogTrigger className="w-full rounded-sm bg-primary px-4 py-2 text-sm font-semibold text-white">
+        Add Item
+      </DialogTrigger>
+      <DialogContent className="flex max-w-2xl flex-col">
+        <DialogHeader>
+          <DialogTitle>Add New Item</DialogTitle>
+          <DialogDescription>Add new Products on the List</DialogDescription>
+        </DialogHeader>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="grid grid-cols-4 gap-2">
+            <div className="col-span-3 flex flex-col gap-2">
+              <Input
+                type="text"
+                placeholder="Product Name"
+                {...register("product")}
+              />
+              {errors.product && (
+                <span className="whitespace-nowrap text-sm text-red-600">
+                  {errors.product.message}
+                </span>
+              )}
             </div>
-            {/*Category Items*/}
-            <div className="mt-5">
-              <div>
-                <h2 className="mb-4 text-xl font-bold">Category</h2>
-              </div>
-
-              <div className="flex items-center gap-2 overflow-x-scroll whitespace-nowrap py-1 text-[0.8em] no-scrollbar">
-                {KitchenCategory.map((c) => (
-                  <button
-                    key={c.value}
-                    className={`${selected === c.value ? "bg-primary text-white" : "text-muted-foreground"} flex items-center gap-2 rounded-[5px] bg-gray-200 px-4 py-1 font-medium shadow-sm`}
-                    onClick={() => setSelected(c.value)}
-                  >
-                    {c.label}
-                  </button>
-                ))}
-              </div>
-
-              <div className="mt-2 flex flex-col gap-2">
-                <textarea
-                  placeholder="Description"
-                  className="h-[200px] w-full resize-none rounded-[5px] border border-gray-200 p-3"
-                  {...register("description")}
-                />
-                {errors.description && (
-                  <span className="text-sm text-red-500">
-                    {errors.description.message}
-                  </span>
-                )}
-              </div>
+            <div className="flex flex-col gap-2">
+              <Input
+                type="number"
+                placeholder="Price"
+                {...register("price", {
+                  valueAsNumber: true,
+                })}
+              />
+              {errors.price && (
+                <span className="whitespace-nowrap text-sm text-red-600">
+                  {errors.price.message}
+                </span>
+              )}
             </div>
-            <div className="flex justify-end">
-              <button
-                className="mt-4 rounded p-2 text-black"
-                onClick={() => setIsModalOpen(false)}
-              >
-                Cancel
-              </button>
-
-              <button
-                className="mt-4 rounded bg-orange-500 p-2 text-white"
-                type="submit"
-              >
-                Add Item
-              </button>
+            <div className="flex flex-col gap-2">
+              <Input
+                type="number"
+                placeholder="Cooking Time"
+                {...register("time", {
+                  valueAsNumber: true,
+                })}
+              />
+              {errors.time && (
+                <span className="whitespace-nowrap text-sm text-red-600">
+                  {errors.time.message}
+                </span>
+              )}
             </div>
-          </form>
-        </Modal>
-      )}
-    </div>
+            <div className="col-span-3 flex flex-col gap-2">
+              <Input
+                type="text"
+                placeholder="Image Link"
+                {...register("link")}
+              />
+              {errors.link && (
+                <span className="whitespace-nowrap text-sm text-red-600">
+                  {errors.link.message}
+                </span>
+              )}
+            </div>
+            {/* INSERT CATEGORY */}
+
+            <div className="col-span-4 flex flex-col gap-2 px-1">
+              <Textarea
+                {...register("description")}
+                placeholder="Enter Description"
+              />
+              {errors.description && (
+                <span className="whitespace-nowrap text-sm text-red-600">
+                  {errors.description.message}
+                </span>
+              )}
+            </div>
+          </div>
+
+          <div className="mt-4 flex justify-end">
+            <button
+              type="submit"
+              className="rounded-sm bg-primary px-4 py-1.5 text-sm font-medium text-white"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </DialogContent>
+    </Dialog>
   );
 };
 
