@@ -6,8 +6,9 @@ import {
   apiAuthPrefix,
   authRoutes,
   cartItemRoutes,
-  loyaltyRewardRoutes,
   publicRoutes,
+  redeem,
+  redeemRewards,
 } from "@/routes";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -23,7 +24,8 @@ export async function middleware(req: NextRequest) {
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
-  const isLoyaltyReward = loyaltyRewardRoutes.includes(nextUrl.pathname);
+  const isRedeemRoute = redeem.includes(nextUrl.pathname);
+  const isRedeemRewardRoute = redeemRewards.includes(nextUrl.pathname);
 
   const isCartItemRoute = cartItemRoutes.includes(
     nextUrl.pathname.split("/")[0] + nextUrl.pathname,
@@ -47,22 +49,37 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL(DEFAULT_CUSTOMER_REDIRECT, nextUrl));
   }
 
-  //check if url === baseUrl/reward
-  if (isLoyaltyReward) {
-    //check if no _loyalty_session cookie
-    if (!isLoyaltyRewardSession) {
-      return NextResponse.redirect(new URL(DEFAULT_LOYALTY_REDIRECT, nextUrl));
-    }
-  }
+  // //check if url === baseUrl/redeem
+  // if (!isRedeemRoute) {
+  //   // //check if no _loyalty_session cookie
+  //   if (!isLoyaltyRewardSession) {
+  //     return NextResponse.redirect(new URL(DEFAULT_LOYALTY_REDIRECT, nextUrl));
+  //   }
 
-  //check if _loyalty_session exists
-  if (isLoyaltyRewardSession) {
-    //check if url === baseURL/reward
-    if (isLoyaltyReward) {
+  //   if (isLoyaltyRewardSession) {
+  //     return NextResponse.redirect(
+  //       new URL(DEFAULT_LOYALTY_REWARD_REDIRECT, nextUrl),
+  //     );
+  //   }
+  // }
+
+  //check if url === baseURl/redeem
+  if (isRedeemRoute) {
+    //check if _loyalty_session cookie exists
+    if (isLoyaltyRewardSession) {
       return NextResponse.redirect(
         new URL(DEFAULT_LOYALTY_REWARD_REDIRECT, nextUrl),
       );
     }
+  }
+
+  //check if url === baseUrl/redeem/rewards
+  if (isRedeemRewardRoute) {
+    //check if _loyalty_session cookie does not exists
+    if (!isLoyaltyRewardSession) {
+      return NextResponse.redirect(new URL(DEFAULT_LOYALTY_REDIRECT, nextUrl));
+    }
+    return;
   }
 
   //check AuthRoute
