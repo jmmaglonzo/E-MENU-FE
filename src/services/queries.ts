@@ -314,7 +314,7 @@ export const useVerifyEmailOTP = () => {
     mutationFn: verifyEmailOTP,
     onSuccess: () => {
       toast.success("Success");
-      router.replace("/redeem/rewards");
+      router.push("/redeem/rewards");
       router.refresh();
     },
     onError: (reason: AxiosError) => {
