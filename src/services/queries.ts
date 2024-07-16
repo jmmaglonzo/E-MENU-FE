@@ -34,7 +34,7 @@ import { MyOrder } from "@/types/myOrder";
 
 export const useGetMyTableStatus = () => {
   return useQuery({
-    queryKey: [`/my_status`],
+    queryKey: [`my_status`],
     queryFn: getMyTableStatus,
     retry: 0,
   });
@@ -42,8 +42,8 @@ export const useGetMyTableStatus = () => {
 
 export const useConfirmRegister = () => {
   const searchParams = useSearchParams();
-  const tableNo = searchParams.get("tableNo");
-  const sessionId = searchParams.get("sessionId");
+  const tableNo = searchParams?.get("tableNo");
+  const sessionId = searchParams?.get("sessionId");
 
   return useQuery({
     queryKey: [`confirm_register`],
@@ -197,13 +197,12 @@ export const useUpdateOrderStatus = () => {
         if (order) {
           const orderIdx = data.indexOf(order);
           
-          data[orderIdx] = (({transactionId,orderNo,orders,orderDate,total}) => ({transactionId,orderNo,orders,orderDate,total,status}))(order);
+          data[orderIdx] = (({transactionId,orderNo,orders,createdAt,total}) => ({transactionId,orderNo,orders,createdAt,total,status}))(order);
         }
 
         return data;
         
       });
-
       return oldOrders;
     },
     onError: (reason: AxiosError, _cartItem, context) => {
@@ -231,7 +230,7 @@ export const useDeclineTableQueue = () => {
     mutationKey: ["table/queue"],
     mutationFn: deleteTableQueue,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tableQueue"] });
+      queryClient.invalidateQueries({ queryKey: ["tableQueue","my_status"] });
       toast.success("Success");
     },
     onError: (reason: AxiosError) => {

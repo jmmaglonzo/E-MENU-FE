@@ -81,7 +81,7 @@ const OrderHistory = () => {
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="text-sm text-muted-foreground">
-                    Order placed on {formatDate(order.orderDate.toString())}
+                    Order placed on {formatDate(order.createdAt.toString())}
                   </div>
                   <Badge className={getStatusColor(order.status)}>
                     {capitalize(

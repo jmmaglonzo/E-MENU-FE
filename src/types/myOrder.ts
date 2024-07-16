@@ -30,7 +30,7 @@ export interface MyOrder {
     transactionId: string,
     orderNo: number,
     orders: Order[],
-    orderDate: Date,
+    createdAt: Date,
     total: number,
     status:  OrderStatus
 }
