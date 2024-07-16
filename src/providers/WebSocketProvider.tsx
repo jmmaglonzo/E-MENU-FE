@@ -57,10 +57,6 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
         }
       });
 
-      socket.on("orders sent", (data) => {
-        setOrders(data);
-      });
-
       setSocket(socket);
     });
   }, []);
@@ -71,6 +67,11 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
 
   function getOrders() {
     socket?.emit("get orders");
+
+    socket?.on("orders sent", (data) => {
+      console.log(data);
+      setOrders(data);
+    });
   }
 
   function getMyLatestOrderUpdate() {
