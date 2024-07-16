@@ -126,7 +126,6 @@ export const loginUser = async ({ email, password }: LoginType) => {
   return data;
 };
 
-
 export const logoutUser = async () => {
   const response = await api.get("auth/logout");
   return response;
@@ -156,14 +155,16 @@ export const updateAssistanceRequest = async (sessionId: string) => {
 export const sendEmailOTP = async (email: string) => {
   const { data } = await api.post("auth/loyalty/login", { email });
   return data;
-}
+};
 
 export const verifyEmailOTP = async (code: number) => {
   const { data } = await api.post("auth/loyalty/verify", { code });
+
+  setCookie("_loyalty_session", data.loyaltySession);
   return data;
-}
+};
 
 export const getMyTotalLoyalties = async () => {
   const { data } = await api.get("my_total_loyalties");
   return data;
-}
+};
