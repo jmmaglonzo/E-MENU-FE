@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
 import { Modal, ModalContainer, ModalContent } from "../ui/modal";
 import {
   InputOTP,
@@ -25,6 +27,7 @@ import { Button } from "../ui/button";
 import { MoveLeft } from "lucide-react";
 import { deleteCookie } from "cookies-next";
 import { useVerifyEmailOTP } from "@/services/queries";
+
 interface OTPModalProps {
   isModalOpen: boolean;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
@@ -47,14 +50,23 @@ export default function OTPModal({
     },
   });
 
-  const { mutate: verify } = useVerifyEmailOTP();
+  const { mutate: verify, isSuccess, isPending } = useVerifyEmailOTP();
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     verify(Number(data.code));
+    if (!isPending && isSuccess) {
+      setIsModalOpen(false);
+      form.reset();
+    }
+
+    if (!isPending && !isSuccess) {
+      form.reset();
+    }
   }
 
   function handleCloseModal() {
     deleteCookie("_customer_email");
+    form.reset();
     setIsModalOpen(false);
   }
 
@@ -107,7 +119,11 @@ export default function OTPModal({
                       </FormItem>
                     )}
                   ></FormField>
-                  <Button type="submit" className="mt-5 w-full">
+                  <Button
+                    type="submit"
+                    className="mt-5 w-full"
+                    disabled={isPending}
+                  >
                     Submit
                   </Button>
                 </form>
