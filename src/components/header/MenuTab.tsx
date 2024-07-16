@@ -25,7 +25,7 @@ const MenuTab = () => {
       {categoryItems.slice(0, 1).map((c) => (
         <button
           key={c.value}
-          className={`${selected === c.value ? "bg-primary text-white" : "text-muted-foreground"} flex items-center gap-2 rounded-sm px-4 py-1 font-medium shadow-sm`}
+          className={`${selected === c.value ? "bg-primary text-white" : "text-muted-foreground"} flex items-center gap-2 rounded-sm px-4 py-1 font-medium shadow-sm duration-300 ease-in`}
           onClick={() => handleButtonClick(c.value)}
         >
           {c.label}
@@ -41,7 +41,7 @@ const MenuTab = () => {
             key={c.value}
             data-value={c.value}
             onClick={() => handleButtonClick(c.value)}
-            className={`${selected === c.value ? "bg-primary text-white" : "text-muted-foreground"} flex items-center gap-2 rounded-sm px-4 py-1 font-medium shadow-sm`}
+            className={`${selected === c.value ? "bg-primary text-white" : "text-muted-foreground"} flex items-center gap-2 rounded-sm px-4 py-1 font-medium shadow-sm duration-300 ease-in`}
           >
             <span>{c.icon}</span>
             {c.label}
