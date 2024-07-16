@@ -7,7 +7,7 @@ interface CartStore {
    setCartItems: (cart: CartItem[]) => void;
 }
 
-export const useCart = create<CartStore>((set) => ({
+export const useCartStore = create<CartStore>((set) => ({
     items: [],
     error: null,
     setCartItems: (items: CartItem[]) => set({items})
