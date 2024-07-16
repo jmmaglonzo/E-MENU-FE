@@ -1,16 +1,18 @@
 import { OrderTableType } from "@/types/table";
 
-import { OrderStatus } from "@/types/myOrder";
+import { MyLatestOrder, OrderStatus } from "@/types/myOrder";
 import { create } from "zustand";
 
 interface MyOrderStore {
-  orderStatus: OrderStatus;
-  setOrderStatus: (status: OrderStatus) => void;
+  latestOrder: MyLatestOrder | never[];
+  serverRetrieved: boolean;
+  setLatestOrder: (order: MyLatestOrder) => void;
 }
 
 export const useMyOrderStore = create<MyOrderStore>((set) => ({
-  orderStatus: OrderStatus.PENDING,
-  setOrderStatus: (status: OrderStatus) => set({ orderStatus: status }),
+  latestOrder: [],
+  serverRetrieved: false, 
+  setLatestOrder: (order: MyLatestOrder) => set({ latestOrder: order, serverRetrieved: true }),
 }));
 
 interface OrdersStore {
