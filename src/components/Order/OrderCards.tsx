@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { OrderData } from "@/utils/orderData";
-import { useAddCart, useSubCart } from "@/services/queries";
 import { DrawerDescription } from "../ui/drawer";
+import { useWebSocketContext } from "@/providers/WebSocketProvider";
 
 interface OrderProps {
   data: OrderData;
@@ -11,8 +11,7 @@ interface OrderProps {
 }
 
 const OrderCards = ({ data, quantity }: OrderProps) => {
-  const { mutate: addCart, isPending: addPending } = useAddCart();
-  const { mutate: subCart, isPending: subPending } = useSubCart();
+  const socketEvents = useWebSocketContext();
 
   return (
     <section className="flex justify-between gap-1 rounded-sm p-2">
@@ -36,8 +35,7 @@ const OrderCards = ({ data, quantity }: OrderProps) => {
         <div className="flex w-[70px] items-center gap-2">
           <button
             className="text-xl text-primary"
-            onClick={() => subCart(data.id)}
-            disabled={subPending}
+            onClick={() => socketEvents?.subToCart(data.id)}
           >
             -
           </button>
@@ -49,8 +47,7 @@ const OrderCards = ({ data, quantity }: OrderProps) => {
           />
           <button
             className="text-xl text-primary"
-            onClick={() => addCart(data.id)}
-            disabled={addPending}
+            onClick={() => socketEvents?.addToCart(data.id)}
           >
             +
           </button>
