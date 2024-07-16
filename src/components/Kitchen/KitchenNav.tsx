@@ -47,6 +47,11 @@ const KitchenNav = () => {
       name: "Products",
       value: "/kitchen/products",
     },
+
+    {
+      name: "Rewards",
+      value: "/kitchen/rewards",
+    },
     {
       name: "Analytics",
       value: "/kitchen/admin",
@@ -78,7 +83,7 @@ const KitchenNav = () => {
           <li key={link.name}>
             <Link
               href={link.value}
-              className={`${pathname === link.value && "rounded-sm bg-primary px-4 py-2 font-semibold text-white"} text-sm xl:text-base`}
+              className={`${pathname === link.value && "rounded-sm bg-primary px-4 py-2 font-semibold text-white"} text-sm duration-300 ease-in-out xl:text-base`}
             >
               {link.name}
             </Link>

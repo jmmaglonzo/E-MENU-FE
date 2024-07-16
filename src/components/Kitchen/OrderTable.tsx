@@ -63,7 +63,7 @@ const OrderTable = () => {
           return (
             <Card
               key={filter}
-              className={`flex-1 cursor-pointer rounded-sm ${isChosen && chosenFilterClass}`}
+              className={`flex-1 cursor-pointer rounded-sm duration-300 ease-in-out ${isChosen && chosenFilterClass}`}
               onClick={handleClick}
             >
               <CardHeader>
