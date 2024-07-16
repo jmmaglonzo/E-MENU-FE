@@ -9,15 +9,12 @@ import { useState } from "react";
 import { capitalize } from "@/lib/utils";
 import { ScrollArea } from "../ui/scroll-area";
 import KitchenLoader from "../common/KitchenLoader";
-import { useOrderState } from "@/store/orders";
+import { useOrdersStore } from "@/store/orderStore";
 import { useWebSocketContext } from "@/providers/WebSocketProvider";
 
 const OrderTable = () => {
-  /* const { data, isSuccess } = useGetOrders();
-  const orders = data as OrderTableType[]; */
   const socketEvents = useWebSocketContext();
-  const { data } = useOrderState();
-  const orders = data?.orders;
+  const orders = useOrdersStore((state) => state.orders);
   socketEvents?.getOrders();
 
   console.log(orders);
