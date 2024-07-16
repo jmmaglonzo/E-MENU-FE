@@ -19,6 +19,14 @@ export const cartItemRoutes = [
   "/checkout",
 ];
 
+export const kitchenRoute = [
+  "/kitchen",
+  "/kitchen/order",
+  "/kitchen/assistance",
+  "/kitchen/products",
+  "/kitchen/analytics",
+];
+
 export const redeemRewards = ["/redeem/rewards"];
 export const redeem = ["/redeem"];
 
@@ -40,6 +48,7 @@ export const apiAuthPrefix = "/api";
  * Default redirect path after logging in
  * @type {string}
  */
+
 export const DEFAULT_LOGIN_REDIRECT = "/kitchen";
 export const DEFAULT_CUSTOMER_REDIRECT = "/";
 export const DEFAULT_LOYALTY_REDIRECT = "/redeem";
