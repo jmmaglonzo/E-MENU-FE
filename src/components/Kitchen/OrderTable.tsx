@@ -5,7 +5,7 @@ import KitchenOrderCard from "./Cards/KitchenOrderCard";
 import { useGetOrders } from "@/services/queries";
 import OrderModal from "./OrderModal";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { capitalize } from "@/lib/utils";
 import { ScrollArea } from "../ui/scroll-area";
 import KitchenLoader from "../common/KitchenLoader";
@@ -15,7 +15,10 @@ import { useWebSocketContext } from "@/providers/WebSocketProvider";
 const OrderTable = () => {
   const socketEvents = useWebSocketContext();
   const orders = useOrdersStore((state) => state.orders);
-  socketEvents?.getOrders();
+
+  useEffect(() => {
+    socketEvents?.getOrders();
+  }, [socketEvents]);
 
   console.log(orders);
 
