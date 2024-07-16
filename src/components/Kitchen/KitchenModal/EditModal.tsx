@@ -1,154 +1,166 @@
-import { Modal, ModalContainer, ModalContent } from "@/components/ui/modal";
+import {
+  Dialog,
+  DialogHeader,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose,
+} from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
+import { HiOutlinePencilAlt } from "react-icons/hi";
+import { Input } from "@/components/ui/input";
 import { z } from "zod";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler, useForm } from "react-hook-form";
 
-type EditField = z.infer<typeof EditFieldSchema>;
-
-const EditFieldSchema = z.object({
-  name: z.string().min(3, { message: "Name must be at least 3 characters" }),
-  description: z.string().min(15, {
-    message: "Description must be at least 15 characters",
+const editSchema = z.object({
+  name: z.string().min(6, {
+    message: "Name must be at least 6 characters long",
+  }),
+  description: z.string().min(10, {
+    message: "Description must be at least 10 characters long",
   }),
   price: z
-    .string()
-    .transform((val) => parseInt(val))
-    .refine((val) => !isNaN(val), {
+    .number({
       message: "Price must be a number",
+    })
+    .positive({
+      message: "Price must be a positive number",
     }),
   quantity: z
-    .string()
-    .transform((val) => parseInt(val))
-    .refine((val) => !isNaN(val), { message: "Quantity must be a number" }),
+    .number({
+      message: "Quantity must be a number",
+    })
+    .positive({
+      message: "Quantity must be a positive number",
+    }),
 });
 
-type KitchenModalProps = {
-  editModalOpen: boolean;
-  setIsEditModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-};
-const EditModal = ({
-  editModalOpen,
-  setIsEditModalOpen,
-}: KitchenModalProps) => {
-  const handleCloseModal = () => {
-    setIsEditModalOpen(false);
-  };
-
+const EditModal = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<EditField>({
-    resolver: zodResolver(EditFieldSchema),
+    clearErrors,
+  } = useForm<z.infer<typeof editSchema>>({
+    resolver: zodResolver(editSchema),
   });
 
-  const onSubmit: SubmitHandler<EditField> = (data) => {
-    console.log(data);
+  const editSubmit: SubmitHandler<z.infer<typeof editSchema>> = (value) => {
+    console.log("Form submitted", value);
     reset();
   };
   return (
-    <div>
-      {editModalOpen && (
-        <Modal onClick={handleCloseModal}>
-          <ModalContainer>
-            <ModalContent
-              className="w-[380px]"
-              onClick={(e: React.MouseEvent) => e.stopPropagation()}
+    <Dialog
+      onOpenChange={(open) => {
+        if (!open) {
+          clearErrors();
+        }
+      }}
+    >
+      <DialogTrigger className="cursor-pointer">
+        <HiOutlinePencilAlt />
+      </DialogTrigger>
+      <DialogContent className="max-w-xl">
+        <DialogHeader>
+          <DialogTitle>Edit Inventory Item</DialogTitle>
+          <DialogDescription>
+            Make changes to the inventory item details.
+          </DialogDescription>
+        </DialogHeader>
+
+        <form className="space-y-4" onSubmit={handleSubmit(editSubmit)}>
+          <div>
+            <label
+              htmlFor="name"
+              className="text-base font-medium text-gray-700"
             >
-              <div>
-                <h2 className="font-bold">Edit Inventory Item</h2>
-                <span className="text-[0.6em] text-gray-400">
-                  Make changes to the Inventory Item details
-                </span>
-              </div>
-              <form
-                className="mx-5 my-5 flex flex-col space-y-4 text-[0.7em]"
-                onSubmit={handleSubmit(onSubmit)}
-              >
-                <div className="flex gap-2">
-                  <label className="ml-7">Name</label>
-                  <div className="flex flex-col">
-                    <input
-                      {...register("name")}
-                      type="text"
-                      className="h-[30px] w-full rounded-[5px] border border-gray-200 p-1"
-                    />
-                    {errors.name && (
-                      <span className="text-sm text-red-500">
-                        {errors.name.message}
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                <div className="flex gap-x-2">
-                  <label className="">Description</label>
-                  <div className="flex flex-col">
-                    <textarea
-                      className="h-[150px] w-full resize-none rounded-[5px] border border-gray-200 p-3"
-                      {...register("description")}
-                    ></textarea>
-                    {errors.description && (
-                      <span className="text-sm text-red-500">
-                        {errors.description.message}
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                <div className="flex gap-2">
-                  <label className="ml-8">Price</label>
-                  <div className="flex flex-col">
-                    <input
-                      {...register("price")}
-                      className="h-[30px] w-full rounded-[5px] border border-gray-200"
-                      type="text"
-                    />
-                    {errors.price && (
-                      <span className="text-sm text-red-500">
-                        {errors.price.message}
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                <div className="flex gap-2">
-                  <label className="ml-4">Quantity</label>
-                  <div className="flex flex-col">
-                    <input
-                      {...register("quantity")}
-                      className="h-[30px] w-full rounded-[5px] border border-gray-200"
-                      type="text"
-                    />
-                    {errors.quantity && (
-                      <span className="text-sm text-red-500">
-                        {errors.quantity.message}
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                <div className="flex justify-end gap-2 p-2 text-base">
-                  <button
-                    className="rounded-[5px] bg-primary p-1 text-white"
-                    type="submit"
-                  >
-                    Save Changes
-                  </button>
-                  <button
-                    className="rounded-[5px] border border-gray-200 p-1 text-black"
-                    onClick={() => setIsEditModalOpen(false)}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
-            </ModalContent>
-          </ModalContainer>
-        </Modal>
-      )}
-    </div>
+              Name
+            </label>
+            <Input
+              {...register("name")}
+              type="text"
+              className="rounded-lg border px-3 py-2 focus:outline-none"
+            />
+            {errors.name && (
+              <span className="text-sm text-red-500">
+                {errors.name.message}
+              </span>
+            )}
+          </div>
+          <div>
+            <label
+              htmlFor="description"
+              className="text-base font-medium text-gray-700"
+            >
+              Description
+            </label>
+            <Textarea
+              {...register("description")}
+              className="flex-1 rounded-lg border px-3 py-2 focus:outline-none"
+            />
+            {errors.description && (
+              <span className="text-sm text-red-500">
+                {errors.description.message}
+              </span>
+            )}
+          </div>
+          <div>
+            <label
+              htmlFor="price"
+              className="text-base font-medium text-gray-700"
+            >
+              Price
+            </label>
+            <Input
+              {...register("price", {
+                valueAsNumber: true,
+              })}
+              type="number"
+              className="rounded-lg border px-3 py-2 focus:outline-none"
+            />
+            {errors.price && (
+              <span className="text-sm text-red-500">
+                {errors.price.message}
+              </span>
+            )}
+          </div>
+          <div>
+            <label
+              htmlFor="quantity"
+              className="text-base font-medium text-gray-700"
+            >
+              Quantity
+            </label>
+            <Input
+              {...register("quantity", {
+                valueAsNumber: true,
+              })}
+              type="number"
+              className="rounded-lg border px-3 py-2 focus:outline-none"
+            />
+            {errors.quantity && (
+              <span className="text-sm text-red-500">
+                {errors.quantity.message}
+              </span>
+            )}
+          </div>
+          <div className="flex justify-end gap-2">
+            <DialogClose className="rounded-sm bg-secondary px-4 py-2">
+              Cancel
+            </DialogClose>
+            <button
+              type="submit"
+              className="rounded-lg bg-orange-500 px-4 py-2 text-white hover:bg-orange-600 focus:outline-none"
+            >
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </DialogContent>
+    </Dialog>
   );
 };
 
