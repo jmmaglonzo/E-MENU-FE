@@ -1,40 +1,47 @@
-import { Modal, ModalContainer, ModalContent } from '@/components/ui/modal'
-import React from 'react'
+import {
+  Dialog,
+  DialogHeader,
+  DialogTrigger,
+  DialogTitle,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+} from "@/components/ui/dialog";
+import { HiOutlineTrash } from "react-icons/hi";
 
-type KitchenDeleteModalProps = {
-    deleteItemModal: boolean;
-    setDeleteItemModal:React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const KitchenDeleteModal = ({deleteItemModal, setDeleteItemModal}: KitchenDeleteModalProps) => {
-    const handleCloseModal = () =>{
-        setDeleteItemModal(false);
-    }
+const KitchenDeleteModal = () => {
   return (
-    <div>
-        {deleteItemModal && (
-              <Modal onClick={handleCloseModal}>
-              <ModalContainer className='p-5'>
-                  <ModalContent onClick={(e: React.MouseEvent) => e.stopPropagation()}>
-                      <h2 className='font-bold -mt-3'>Delete Item</h2>
-                      <span className='text-gray-400 text-[0.7em]'
-                      >Are you sure you want to delete the selected item?
-                       This action cannot be undone</span>
-                  </ModalContent>
-                <div className='flex justify-end text-[0.6em] gap-2'>
-                  <button className="border border-gray-300 mt-4 text-black p-2 rounded-[5px]" onClick={() => setDeleteItemModal(false)}>
-                  Cancel
-                </button>
-                <button className=" mt-4 bg-orange-500 text-white p-2 rounded-[5px]" onClick={() => setDeleteItemModal(false)}>
-                  Delete Item
-                </button>
-                </div>
-              </ModalContainer>
-          </Modal>
-        )}
-      
-    </div>
-  )
-}
+    <Dialog>
+      <DialogTrigger className="cursor-pointer">
+        <HiOutlineTrash className="text-red-500" />
+      </DialogTrigger>
 
-export default KitchenDeleteModal
+      <DialogContent>
+        <form>
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold">Delete Item</DialogTitle>
+            <DialogDescription className="text-lg">
+              Are you sure want to delete the selected item? This action cannot
+              be undone.
+            </DialogDescription>
+          </DialogHeader>
+
+          <DialogFooter>
+            <DialogClose className="rounded-sm bg-secondary px-4 py-1.5 font-semibold">
+              Cancel
+            </DialogClose>
+            <button
+              type="submit"
+              className="rounded-sm bg-primary px-4 py-1.5 font-semibold text-white"
+            >
+              Delete
+            </button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+export default KitchenDeleteModal;
