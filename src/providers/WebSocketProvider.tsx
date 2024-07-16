@@ -9,10 +9,9 @@ import {
   useState,
 } from "react";
 import axios, { AxiosError } from "axios";
-import { MyOrder, OrderStatus } from "@/types/myOrder";
+import { OrderStatus } from "@/types/myOrder";
 import { useRouter } from "next/navigation";
-import useMyOrderStore from "@/store/myOrder-store";
-import { useOrderState } from "@/store/orders";
+import { useOrdersStore, useMyOrderStore } from "@/store/orderStore";
 export interface SocketEvents {
   updateStatus: (orderNo: number, status: OrderStatus) => void;
   socket: Socket | null;
@@ -35,7 +34,7 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
   const [socket, setSocket] = useState<Socket | null>(null);
   const router = useRouter();
   const setOrderStatus = useMyOrderStore((store) => store.setOrderStatus);
-  const { setData: setOrders } = useOrderState();
+  const setOrders = useOrdersStore((state) => state.setOrders);
 
   useEffect(() => {
     getCookies().then((cookies = {}) => {
@@ -60,7 +59,7 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
       });
 
       socket.on("orders sent", (data) => {
-        setOrders({ orders: data });
+        setOrders(data);
       });
 
       setSocket(socket);
