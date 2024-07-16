@@ -64,7 +64,7 @@ const OrderModal = () => {
           <CardTitle>Table {selectedItem.tableNo}</CardTitle>
           <div className="flex items-center gap-2">
             <Badge variant="secondary">
-              {formatDate(selectedItem.orderDate.toString())}
+              {formatDate(selectedItem.createdAt.toString())}
             </Badge>
           </div>
         </CardHeader>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import QueryProvider from "@/providers/QueryProvider";
+import { WebSocketProvider } from "@/providers/WebSocketProvider";
 import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -25,7 +26,9 @@ export default function RootLayout({
           duration={2000}
           visibleToasts={1}
         />
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <WebSocketProvider>{children}</WebSocketProvider>
+        </QueryProvider>
       </body>
     </html>
   );

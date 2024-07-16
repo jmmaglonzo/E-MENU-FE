@@ -8,29 +8,20 @@ import { Button } from "@/components/ui/button";
 import { useGetMyLatestOrder, useRequestAssistance } from "@/services/queries";
 import Loader from "@/components/common/Loader";
 import { MyLatestOrder } from "@/types/myOrder";
-import { useRouter } from "next/navigation";
+import useMyOrderStore from "@/store/myOrder-store";
 
 const OrderSummary = () => {
   const { data, isPending, isSuccess } = useGetMyLatestOrder();
-  const router = useRouter();
 
   const { mutate: requestAssitance } = useRequestAssistance();
+
+  const status = useMyOrderStore((state) => state.orderStatus);
 
   function handleRequestAssitance() {
     requestAssitance();
   }
 
   const myLatestOrder = (isSuccess ? data : []) as MyLatestOrder;
-  let status = "PENDING";
-  if (isSuccess) {
-    if (data.status === "CANCELLED") router.replace("/");
-    if (data.status === "COMPLETED") {
-      if (data.paymentMethod === "CASH")
-        router.replace("/checkout/cash-payment");
-      else router.replace(data.checkoutURL as string);
-    }
-    status = data.status;
-  }
 
   let textStatus = "pending";
   textStatus =
@@ -47,14 +38,14 @@ const OrderSummary = () => {
       </div>
 
       <header className="relative mt-2 flex flex-col items-center">
-        <div className="relative h-32 w-32">
+        <div className="relative aspect-square size-32 -mt-10">
           <Image
             src={cloche}
             alt="cloche-icon"
             priority
-            sizes="100px"
+            sizes="30px"
             fill
-            className="object-contain"
+            className="object-fill"
           />
         </div>
 
