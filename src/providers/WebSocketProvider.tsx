@@ -19,6 +19,7 @@ export interface SocketEvents {
   getOrders: () => void;
   getMyLatestOrderUpdate: () => void;
   addToCart: (productId: string) => void;
+  subToCart: (productId: string) => void;
 }
 
 const WebSocketContext = createContext<SocketEvents | null>(null);
@@ -82,6 +83,10 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
     socket?.emit("add cart", { productId });
   }
 
+  function subToCart(productId: string) {
+    socket?.emit("sub cart", { productId });
+  }
+
   function getMyLatestOrderUpdate() {
     socket?.emit("my latest order status");
 
@@ -98,6 +103,7 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
         getOrders,
         getMyLatestOrderUpdate,
         addToCart,
+        subToCart,
       }}
     >
       {children}
