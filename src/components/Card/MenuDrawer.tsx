@@ -18,6 +18,7 @@ import Link from "next/link";
 import restaurantLogo from "/public/restaurant_logo.png";
 import Image from "next/image";
 import { MouseEvent } from "react";
+import { getCookie } from "cookies-next";
 
 interface MenuDrawerProp {
   isDisabled: boolean;
@@ -25,6 +26,7 @@ interface MenuDrawerProp {
 
 const MenuDrawer = ({ isDisabled }: MenuDrawerProp) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const cookie = getCookie("_loyalty_session");
 
   function handleClick(event: MouseEvent) {
     if (isDisabled) event.preventDefault();
@@ -78,7 +80,7 @@ const MenuDrawer = ({ isDisabled }: MenuDrawerProp) => {
             Order History
           </Link>
           <Link
-            href={"/redeem"}
+            href={cookie ? "/redeem/rewards" : "/redeem"}
             className="rounded-sm bg-primary py-1.5 text-white transition active:scale-110"
           >
             Redeem Points
