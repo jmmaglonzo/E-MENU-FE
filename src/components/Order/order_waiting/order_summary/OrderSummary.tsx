@@ -1,27 +1,38 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import cloche from "@/../public/let-them-cook.gif";
 import OrderSummaryItems from "./OrderSummaryItems";
 import { Button } from "@/components/ui/button";
 import { useGetMyLatestOrder, useRequestAssistance } from "@/services/queries";
 import Loader from "@/components/common/Loader";
-import { MyLatestOrder } from "@/types/myOrder";
+import { MyLatestOrder, OrderStatus } from "@/types/myOrder";
 import { useMyOrderStore } from "@/store/orderStore";
+import { useWebSocketContext } from "@/providers/WebSocketProvider";
 
 const OrderSummary = () => {
-  const { data, isPending, isSuccess } = useGetMyLatestOrder();
+  /*  const { data, isPending, isSuccess } = useGetMyLatestOrder(); */
+
+  const socketEvents = useWebSocketContext();
+
+  useEffect(() => {
+    socketEvents?.getMyLatestOrderUpdate();
+  }, [socketEvents]);
 
   const { mutate: requestAssitance } = useRequestAssistance();
 
-  const status = useMyOrderStore((state) => state.orderStatus);
+  const { latestOrder, serverRetrieved } = useMyOrderStore();
+  const isPending = !serverRetrieved;
 
   function handleRequestAssitance() {
     requestAssitance();
   }
 
-  const myLatestOrder = (isSuccess ? data : []) as MyLatestOrder;
+  const myLatestOrder = (latestOrder || {
+    status: OrderStatus.PENDING,
+  }) as MyLatestOrder;
+  const status = myLatestOrder.status;
 
   let textStatus = "pending";
   textStatus =
