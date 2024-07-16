@@ -8,13 +8,16 @@ import {
   useEffect,
   useState,
 } from "react";
-import { getCookie } from "cookies-next";
-import { useSearchParams } from "next/navigation";
 import axios, { AxiosError } from "axios";
-import { SocketEvents } from "@/types/socket";
-import { OrderStatus } from "@/types/myOrder";
+import { MyOrder, OrderStatus } from "@/types/myOrder";
 import { useRouter } from "next/navigation";
 import useMyOrderStore from "@/store/myOrder-store";
+import { useOrderState } from "@/store/orders";
+export interface SocketEvents {
+  updateStatus: (orderNo: number, status: OrderStatus) => void;
+  socket: Socket | null;
+  getOrders: () => void;
+}
 
 const WebSocketContext = createContext<SocketEvents | null>(null);
 
@@ -32,6 +35,7 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
   const [socket, setSocket] = useState<Socket | null>(null);
   const router = useRouter();
   const setOrderStatus = useMyOrderStore((store) => store.setOrderStatus);
+  const { setData: setOrders } = useOrderState();
 
   useEffect(() => {
     getCookies().then((cookies = {}) => {
@@ -45,7 +49,6 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
       });
 
       socket.on("order status update", (data) => {
-        console.log(data);
         if (data.status === "CANCELLED") router.replace("/");
         if (data.status === "COMPLETED") {
           if (data.paymentMethod === "CASH")
@@ -56,6 +59,10 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
         setOrderStatus(data.status);
       });
 
+      socket.on("orders sent", (data) => {
+        setOrders({ orders: data });
+      });
+
       setSocket(socket);
     });
   }, []);
@@ -64,8 +71,12 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
     socket?.emit("update order status", { orderNo, status });
   }
 
+  function getOrders() {
+    socket?.emit("get orders");
+  }
+
   return (
-    <WebSocketContext.Provider value={{ updateStatus, socket }}>
+    <WebSocketContext.Provider value={{ updateStatus, socket, getOrders }}>
       {children}
     </WebSocketContext.Provider>
   );
