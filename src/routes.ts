@@ -19,7 +19,8 @@ export const cartItemRoutes = [
   "/checkout",
 ];
 
-export const loyaltyRewardRoutes = ["/redeem/rewards"];
+export const redeemRewards = ["/redeem/rewards"];
+export const redeem = ["/redeem"];
 
 /**
  * An array of protected routes
