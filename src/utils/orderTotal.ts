@@ -1,10 +1,11 @@
-import { useGetCartItems, useGetProducts } from "@/services/queries";
+import { useGetProducts } from "@/services/queries";
+import { useCartStore } from "@/store/cart-store";
 
 export default function TotalAmount() {
-  const getCartItems = useGetCartItems();
+  const cartItems = useCartStore((state) => state.items);
   const { data } = useGetProducts();
 
-  const items = getCartItems.data || [];
+  const items = cartItems;
 
   if (items.length === 0) return 0;
 
