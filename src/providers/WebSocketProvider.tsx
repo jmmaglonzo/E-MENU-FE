@@ -17,6 +17,7 @@ export interface SocketEvents {
   socket: Socket | null;
   getOrders: () => void;
   getMyLatestOrderUpdate: () => void;
+  addToCart: (productId: string) => void;
 }
 
 const WebSocketContext = createContext<SocketEvents | null>(null);
@@ -39,8 +40,6 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     getCookies().then((cookies = {}) => {
-      console.log(cookies);
-
       const socket = io(process.env.NEXT_PUBLIC_WS_BASE_URL as string, {
         query: {
           tableSession: cookies._table_session,
@@ -69,9 +68,12 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
     socket?.emit("get orders");
 
     socket?.on("orders sent", (data) => {
-      console.log(data);
       setOrders(data);
     });
+  }
+
+  function addToCart(productId: string) {
+    socket?.emit("add cart", { productId });
   }
 
   function getMyLatestOrderUpdate() {
@@ -84,7 +86,13 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <WebSocketContext.Provider
-      value={{ updateStatus, socket, getOrders, getMyLatestOrderUpdate }}
+      value={{
+        updateStatus,
+        socket,
+        getOrders,
+        getMyLatestOrderUpdate,
+        addToCart,
+      }}
     >
       {children}
     </WebSocketContext.Provider>
