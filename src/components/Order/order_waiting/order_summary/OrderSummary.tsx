@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useGetMyLatestOrder, useRequestAssistance } from "@/services/queries";
 import Loader from "@/components/common/Loader";
 import { MyLatestOrder } from "@/types/myOrder";
-import useMyOrderStore from "@/store/myOrder-store";
+import { useMyOrderStore } from "@/store/orderStore";
 
 const OrderSummary = () => {
   const { data, isPending, isSuccess } = useGetMyLatestOrder();
@@ -38,7 +38,7 @@ const OrderSummary = () => {
       </div>
 
       <header className="relative mt-2 flex flex-col items-center">
-        <div className="relative aspect-square size-32 -mt-10">
+        <div className="relative -mt-10 aspect-square size-32">
           <Image
             src={cloche}
             alt="cloche-icon"
