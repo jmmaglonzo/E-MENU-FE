@@ -70,9 +70,9 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
       });
 
       socket.on("error", (response) => {
-        const error = response.error;
-        const message = error.message;
-        toast.error(message ? message : error);
+        const message = response.message;
+        console.log(response);
+        if (message) toast.error(message);
       });
 
       setSocket(socket);
@@ -105,6 +105,7 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
     socket?.on("latest order update", (response) => {
       if (response.status === 200) {
         setLatestOrder(response.data);
+        console.log(response.data);
         if (response.data.status !== "COMPLETED") {
           setCookie("_is_ordering", 1, {
             secure: true,
