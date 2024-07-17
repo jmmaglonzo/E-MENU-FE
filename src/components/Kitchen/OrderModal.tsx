@@ -13,6 +13,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { OrderStatus } from "@/types/myOrder";
 import { useUpdateOrderStatus } from "@/services/queries";
 import { useState } from "react";
+import { useWebSocketContext } from "@/providers/WebSocketProvider";
 
 const OrderModal = () => {
   const setSelectedItem = useKitchenOrderStore(
@@ -20,10 +21,12 @@ const OrderModal = () => {
   );
   const selectedItem = useKitchenOrderStore((state) => state.selectedItem);
   const STATUS = Object.values(OrderStatus);
-  const { mutate: updateStatus } = useUpdateOrderStatus();
+  /*   const { mutate: updateStatus } = useUpdateOrderStatus(); */
   const [selectedStatus, setSelectedStatus] = useState<OrderStatus>(
     selectedItem?.status as OrderStatus,
   );
+  const socketEvents = useWebSocketContext();
+  const updateStatus = socketEvents?.updateStatus;
 
   const closeModal = () => {
     setSelectedItem(null);
@@ -32,11 +35,12 @@ const OrderModal = () => {
   const handleUpdateStatus = () => {
     if (selectedStatus === selectedItem?.status) return;
 
-    updateStatus({
+    /*  updateStatus({
       orderNo: selectedItem?.orderNo as number,
       status: selectedStatus,
-    });
-
+    }); */
+    if (updateStatus)
+      updateStatus(Number(selectedItem?.orderNo), selectedStatus);
     closeModal();
   };
 

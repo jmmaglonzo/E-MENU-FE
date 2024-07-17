@@ -5,14 +5,22 @@ import KitchenOrderCard from "./Cards/KitchenOrderCard";
 import { useGetOrders } from "@/services/queries";
 import OrderModal from "./OrderModal";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { capitalize } from "@/lib/utils";
 import { ScrollArea } from "../ui/scroll-area";
 import KitchenLoader from "../common/KitchenLoader";
+import { useOrdersStore } from "@/store/orderStore";
+import { useWebSocketContext } from "@/providers/WebSocketProvider";
 
 const OrderTable = () => {
-  const { data, isSuccess } = useGetOrders();
-  const orders = data as OrderTableType[];
+  const socketEvents = useWebSocketContext();
+  const orders = useOrdersStore((state) => state.orders);
+
+  useEffect(() => {
+    socketEvents?.getOrders();
+  }, [socketEvents]);
+
+  console.log(orders);
 
   const filters = [
     "PENDING",
@@ -27,12 +35,14 @@ const OrderTable = () => {
     "PENDING",
   );
 
-  if (!isSuccess)
+  if (!orders) {
     return (
       <div className="container mt-64 flex justify-center">
         <KitchenLoader />
       </div>
     );
+  }
+  console.log("there is orders", orders);
 
   const ordersByStatus: Record<string, OrderTableType[]> = {};
 

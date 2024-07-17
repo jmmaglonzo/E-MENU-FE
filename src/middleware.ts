@@ -20,6 +20,7 @@ export async function middleware(req: NextRequest) {
   const isTableSession = !!req.cookies.get("_table_session");
   const cartItems = req.cookies.get("_cart_items")?.value!!;
   const isLoyaltyRewardSession = !!req.cookies.get("_loyalty_session");
+  const isOrderingPhase = !!req.cookies.get("_is_ordering");
 
   //set variables for routes
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
@@ -47,7 +48,7 @@ export async function middleware(req: NextRequest) {
   }
 
   //check if cartItem cookie === 0
-  if (Number(cartItems) < 1 && isCartItemRoute) {
+  if (Number(cartItems) < 1 && isCartItemRoute && !isOrderingPhase) {
     return NextResponse.redirect(new URL(DEFAULT_CUSTOMER_REDIRECT, nextUrl));
   }
 

@@ -6,11 +6,19 @@ import { useGetProducts } from "@/services/queries";
 import ModalCard from "./ModalCard";
 import { useSearchStore } from "@/store/search-store";
 import NoResults from "../common/NoResults";
+import { useWebSocketContext } from "@/providers/WebSocketProvider";
+import { useEffect } from "react";
 
 const CardContainer = () => {
   const { data, error } = useGetProducts();
   const selected = useMenuStore((state) => state.selected);
   const search = useSearchStore((state) => state.search);
+  const socketEvents = useWebSocketContext();
+
+  useEffect(() => {
+    socketEvents?.getMyLatestOrderUpdate();
+  }, [socketEvents]);
+
   const filteredItems =
     search !== ""
       ? data?.filter((product) =>
