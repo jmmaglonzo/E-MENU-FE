@@ -12,13 +12,14 @@ import {
 import { useGetProducts, useGetCartItems } from "@/services/queries";
 import { ItemTypes } from "@/types/productCard";
 import getOrderTotalAmount from "@/utils/orderTotal";
+import { useCartStore } from "@/store/cart-store";
 
 export const OrderDrawer = () => {
-  const getCartItems = useGetCartItems();
+  const cartItems = useCartStore((state) => state.items);
   const { data } = useGetProducts();
   const productAmount = getOrderTotalAmount();
 
-  const items = getCartItems.data || [];
+  const items = cartItems;
 
   if (items.length === 0) return <></>;
 

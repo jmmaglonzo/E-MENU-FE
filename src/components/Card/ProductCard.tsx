@@ -11,13 +11,17 @@ import { useAddCart } from "@/services/queries";
 import { AxiosError } from "axios";
 import useCardStore from "@/store/productCard-store";
 import { useEffect } from "react";
+import { useWebSocketContext } from "@/providers/WebSocketProvider";
 
 interface ProductCardProps {
   data: ItemTypes;
 }
 
 const ProductCard = ({ data }: ProductCardProps) => {
-  const { error, isError, mutate } = useAddCart();
+  /* const { error, isError, mutate } = useAddCart(); */
+  const isError = false;
+  const error = new AxiosError();
+  const socketEvents = useWebSocketContext();
 
   useEffect(() => {
     if (isError) {
@@ -33,7 +37,8 @@ const ProductCard = ({ data }: ProductCardProps) => {
   function handleAddCart(e: React.MouseEvent) {
     e.stopPropagation();
 
-    mutate(data.id);
+    console.log("adding item to cart...");
+    socketEvents?.addToCart(data.id);
   }
 
   useEffect(() => {
