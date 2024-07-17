@@ -18,26 +18,24 @@ import Link from "next/link";
 import restaurantLogo from "/public/restaurant_logo.png";
 import Image from "next/image";
 import { MouseEvent } from "react";
-import { getCookie } from "cookies-next";
+import { CookieValueTypes, getCookie } from "cookies-next";
+import { cn } from "@/lib/utils";
 
 interface MenuDrawerProp {
-  isDisabled: boolean;
+  cookie: CookieValueTypes | undefined;
 }
 
-const MenuDrawer = ({ isDisabled }: MenuDrawerProp) => {
+const MenuDrawer = ({ cookie }: MenuDrawerProp) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const cookie = getCookie("_loyalty_session");
+  // const cookie = getCookie("_loyalty_session");
 
-  function handleClick(event: MouseEvent) {
-    if (isDisabled) event.preventDefault();
-  }
+  // function handleClick(event: MouseEvent) {
+  //   if (isDisabled) event.preventDefault();
+  // }
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
-      <DrawerTrigger
-        onClick={handleClick}
-        className={isDisabled ? "opacity-50" : ""}
-      >
+      <DrawerTrigger>
         <RxHamburgerMenu size={20} />
       </DrawerTrigger>
       <DrawerContent className="mx-auto mt-10 max-w-[380px]">
@@ -75,16 +73,22 @@ const MenuDrawer = ({ isDisabled }: MenuDrawerProp) => {
         <DrawerFooter className="text-center text-base text-gray-500">
           <Link
             href={"/order-history"}
-            className="rounded-sm border border-primary bg-white py-1.5 text-primary transition active:scale-110"
+            className={cn(
+              "rounded-sm border border-primary bg-white py-1.5 text-primary transition active:scale-110",
+              !cookie && "hidden",
+            )}
           >
             Order History
           </Link>
           <Link
             href={cookie ? "/redeem/rewards" : "/redeem"}
-            className="rounded-sm bg-primary py-1.5 text-white transition active:scale-110"
+            className={cn(
+              "rounded-sm bg-primary py-1.5 text-white transition active:scale-110",
+            )}
           >
             Redeem Points
           </Link>
+
           <Link href="/faq" className="hover:text-primary">
             Need Help?
           </Link>

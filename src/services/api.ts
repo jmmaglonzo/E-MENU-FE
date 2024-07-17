@@ -4,7 +4,7 @@ import { ItemTypes } from "@/types/productCard";
 import { CartItemServer } from "@/types/cart";
 import { OrderTableType, TableTypes } from "@/types/table";
 import { MyLatestOrder, MyOrder, OrderStatus } from "@/types/myOrder";
-import { LoginType } from "@/types/login";
+import { LoginType, RegisterType } from "@/types/login";
 import { deleteCookie, setCookie } from "cookies-next";
 import { AssistanceRequest } from "@/types/assistance";
 
@@ -173,5 +173,22 @@ export const getMyTotalLoyalties = async () => {
 
 export const getMyLoyaltyHistory = async () => {
   const { data } = await api.get("my_loyalties");
+  return data;
+};
+
+export const registerNewStaff = async ({
+  name,
+  email,
+  contact,
+  password,
+  role,
+}: RegisterType) => {
+  const { data } = await api.post("auth/register", {
+    name,
+    email,
+    contact,
+    password,
+    role,
+  });
   return data;
 };
