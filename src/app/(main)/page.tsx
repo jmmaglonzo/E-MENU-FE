@@ -11,7 +11,10 @@ export default function Home() {
   const { data } = useGetCartItems();
   const router = useRouter();
   useEffect(() => {
-    setCookie("_cart_items", data?.length);
+    setCookie("_cart_items", data?.length, {
+      sameSite: "none",
+      secure: true,
+    });
     router.refresh();
   }, [data]);
 
