@@ -2,7 +2,6 @@
 
 import { OrderTableType } from "@/types/table";
 import KitchenOrderCard from "./Cards/KitchenOrderCard";
-import { useGetOrders } from "@/services/queries";
 import OrderModal from "./OrderModal";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { useEffect, useState } from "react";
@@ -19,8 +18,6 @@ const OrderTable = () => {
   useEffect(() => {
     socketEvents?.getOrders();
   }, [socketEvents]);
-
-  console.log(orders);
 
   const filters = [
     "PENDING",
