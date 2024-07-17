@@ -24,7 +24,7 @@ const schema = z.object({
     .positive({
       message: "Price must be a positive number",
     }),
-  time: z
+  estimatedCookingTimeMin: z
     .number({
       message: "Time must be a number",
     })
@@ -113,11 +113,13 @@ const KitchenModal = () => {
               <Input
                 type="number"
                 placeholder="Cooking Time"
-                {...register("time", { valueAsNumber: true })}
+                {...register("estimatedCookingTimeMin", {
+                  valueAsNumber: true,
+                })}
               />
-              {errors.time && (
+              {errors.estimatedCookingTimeMin && (
                 <span className="text-sm text-red-600">
-                  {errors.time.message}
+                  {errors.estimatedCookingTimeMin.message}
                 </span>
               )}
             </div>
