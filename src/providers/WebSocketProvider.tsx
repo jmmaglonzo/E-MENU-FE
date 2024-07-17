@@ -1,18 +1,13 @@
 "use client";
 
 import io, { Socket } from "socket.io-client";
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import { OrderStatus } from "@/types/myOrder";
 import { useRouter } from "next/navigation";
 import { useOrdersStore, useMyOrderStore } from "@/store/orderStore";
 import { useCartStore } from "@/store/cart-store";
+import { getCookie, setCookie } from "cookies-next";
 export interface SocketEvents {
   updateStatus: (orderNo: number, status: OrderStatus) => void;
   socket: Socket | null;
@@ -20,6 +15,7 @@ export interface SocketEvents {
   getMyLatestOrderUpdate: () => void;
   addToCart: (productId: string) => void;
   subToCart: (productId: string) => void;
+  checkoutCart: (paymentMethod: "ONLINE" | "CASH") => void;
 }
 
 const WebSocketContext = createContext<SocketEvents | null>(null);
@@ -61,6 +57,10 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
 
       socket.on("cart update", (response) => {
         setCartItems(response.data);
+        setCookie("_cart_items", response.data.length, {
+          secure: true,
+          sameSite: "none",
+        });
       });
 
       setSocket(socket);
@@ -74,8 +74,8 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
   function getOrders() {
     socket?.emit("get orders");
 
-    socket?.on("orders sent", (data) => {
-      setOrders(data);
+    socket?.on("orders sent", ({ data, error }) => {
+      if (!error) setOrders(data);
     });
   }
 
@@ -91,8 +91,21 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
     socket?.emit("my latest order status");
 
     socket?.on("latest order update", (response) => {
-      if (response.status === 200) setLatestOrder(response.data);
+      if (response.status === 200) {
+        setLatestOrder(response.data);
+        if (response.data.status !== "COMPLETED") {
+          setCookie("_is_ordering", 1, {
+            secure: true,
+            sameSite: "none",
+          });
+        }
+        router.replace("/order_waiting/order_summary");
+      }
     });
+  }
+
+  function checkoutCart(paymentMethod: "ONLINE" | "CASH") {
+    socket?.emit("checkout cart", { paymentMethod });
   }
 
   return (
@@ -104,6 +117,7 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
         getMyLatestOrderUpdate,
         addToCart,
         subToCart,
+        checkoutCart,
       }}
     >
       {children}
