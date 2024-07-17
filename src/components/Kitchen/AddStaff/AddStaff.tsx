@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { FaUserPlus } from "react-icons/fa6";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 const addStaffSchema = z.object({
   name: z.string().min(3, {
@@ -38,38 +38,83 @@ const addStaffSchema = z.object({
 });
 
 const AddStaff = () => {
-  const { register } = useForm<z.infer<typeof addStaffSchema>>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    clearErrors,
+    reset,
+  } = useForm<z.infer<typeof addStaffSchema>>({
     resolver: zodResolver(addStaffSchema),
   });
+
+  const onSubmit: SubmitHandler<z.infer<typeof addStaffSchema>> = (value) => {
+    console.log("Form Submitted", value);
+    reset();
+  };
   return (
-    <Dialog>
+    <Dialog
+      onOpenChange={(open) => {
+        if (!open) {
+          clearErrors();
+        }
+      }}
+    >
       <DialogTrigger className="flex cursor-pointer items-center gap-2">
         <FaUserPlus size={20} />
         Add Staffs
       </DialogTrigger>
       <DialogContent>
-        <DialogHeader>
+        <DialogHeader className="space-y-0">
           <DialogTitle>Add Staff</DialogTitle>
           <DialogDescription>
             Add a new staff member to your team
           </DialogDescription>
         </DialogHeader>
 
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <label htmlFor="name">Name</label>
+            <label htmlFor="name" className="text-base">
+              Name
+            </label>
             <Input type="text" {...register("name")} />
+            {errors.name && (
+              <span className="text-sm text-red-500">
+                {errors.name.message}
+              </span>
+            )}
           </div>
           <div>
-            <label htmlFor="email">Email Address</label>
+            <label htmlFor="email" className="text-base">
+              Email Address
+            </label>
             <Input type="email" {...register("email")} />
+            {errors.email && (
+              <span className="text-sm text-red-500">
+                {errors.email.message}
+              </span>
+            )}
           </div>
           <div>
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password" className="text-base">
+              Password
+            </label>
             <Input type="password" {...register("password")} />
+            {errors.password && (
+              <span className="text-sm text-red-500">
+                {errors.password.message}
+              </span>
+            )}
           </div>
 
-          <button type="submit">Submit</button>
+          <div className="mt-4 flex justify-end">
+            <button
+              type="submit"
+              className="rounded-sm bg-primary px-4 py-1.5 text-white"
+            >
+              Submit
+            </button>
+          </div>
         </form>
       </DialogContent>
     </Dialog>
