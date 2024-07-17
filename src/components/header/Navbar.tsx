@@ -51,7 +51,10 @@ const Navbar = () => {
 
         <NavDrawer isDisabled={!isTableApproved} />
       </nav>
-      <SearchBox />
+      <div className="mobile-container mt-2">
+        <SearchBox />
+      </div>
+
       <MenuTab />
     </>
   );

@@ -10,5 +10,6 @@ export interface ItemTypes {
   productCategorize: string[];
   productReview: string[];
   categories: string[];
+  quantity: number;
   ratings: number;
 }
