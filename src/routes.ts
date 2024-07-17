@@ -24,7 +24,8 @@ export const kitchenRoute = [
   "/kitchen/order",
   "/kitchen/assistance",
   "/kitchen/products",
-  "/kitchen/analytics",
+  "/kitchen/rewards",
+  "/kitchen/admin",
 ];
 
 export const redeemRewards = ["/redeem/rewards"];
