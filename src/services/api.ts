@@ -7,6 +7,7 @@ import { MyLatestOrder, MyOrder, OrderStatus } from "@/types/myOrder";
 import { LoginType } from "@/types/login";
 import { deleteCookie, setCookie } from "cookies-next";
 import { AssistanceRequest } from "@/types/assistance";
+import { string } from "zod";
 
 export const getMyTableStatus = async () => {
   const { data } = await api.get("/my_status");
@@ -177,10 +178,30 @@ export const getMyLoyaltyHistory = async () => {
 };
 
 export const deleteProductItem = async (id: string) => {
-  await api.delete(`/product/delete/${id}`); 
+  await api.delete(`product/delete/${id}`); 
   
  };
- export const editProductItem = async (id: string) => {
-   const response = await api.put(`products/${id}`);
-   return response.data;
+ export const editProductItem = async ({id,
+  name,
+  description,
+  price,
+  quantity
+
+ }:{
+  id: string,
+  name: string,
+  description: string,
+  price: number,
+  quantity: number,
+} ) => {
+   const { data } = await api.put(`product/update`,
+   {
+    id,
+    name,
+    description,
+    price,
+    quantity,
+  },
+    );
+   return data;
  }

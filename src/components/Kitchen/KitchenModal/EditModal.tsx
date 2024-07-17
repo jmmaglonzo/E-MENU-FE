@@ -43,10 +43,12 @@ const editSchema = z.object({
 
 interface Item {
   id: string;
-  name: string;
-  description: string;
-  price: number;
-  quantity: number;
+  name?: string;
+  image?: string;
+  description?: string;
+  price?: number;
+  estimatedCookingTimeMin?: number;
+  quantity?: string | number;
 }
 
 interface EditModalProps {
@@ -70,7 +72,7 @@ const EditModal: React.FC<EditModalProps> = ({ item, onEdit }) => {
       name: item?.name,
       description: item?.description,
       price: item?.price,
-      quantity: item?.quantity,
+      quantity: typeof item?.quantity === 'number' ? item?.quantity : parseInt(item?.quantity as string),
     },
   });
 
@@ -93,11 +95,12 @@ const EditModal: React.FC<EditModalProps> = ({ item, onEdit }) => {
         categories: [],
         ratings: 0
       };
-      mutate(data.id); 
+      mutate(updatedItem); 
       onEdit(updatedItem); 
     } catch (error) {
       console.error('Error editing item:', error);
     }
+   
   };
 
   return (
