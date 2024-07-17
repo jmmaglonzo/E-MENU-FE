@@ -27,13 +27,14 @@ const RedeemPoints = () => {
     resolver: zodResolver(formSchema),
   });
 
-  const { mutate: send, isSuccess } = useSendEmailOTP();
+  const { mutate: send, isSuccess, isPending } = useSendEmailOTP();
 
   const onSubmit: SubmitHandler<FormFields> = (data) => {
     send(data.email);
   };
 
   const [isModalOpen, setIsModalOpen] = useState(isSuccess);
+  const checkValid = !isValid ? true : isPending;
 
   useEffect(() => {
     if (isSuccess) setIsModalOpen(true);
@@ -63,7 +64,7 @@ const RedeemPoints = () => {
         )}
 
         <Button
-          disabled={!isValid}
+          disabled={checkValid}
           className="inline-block w-full rounded-sm bg-primary py-2 text-center font-semibold text-white"
         >
           Access Reward Points
