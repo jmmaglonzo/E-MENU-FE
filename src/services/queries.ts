@@ -26,6 +26,8 @@ import {
   getMyTotalLoyalties,
   logoutUser,
   getMyLoyaltyHistory,
+  deleteProductItem,
+  editProductItem
 } from "./api";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -411,3 +413,44 @@ export const useGetMyTotalLoyalties = () => {
     queryFn: getMyTotalLoyalties,
   });
 };
+
+export const useGetMyLoyaltyHistory = () => {
+  return useQuery({
+    queryKey: ["myLoyaltyHistory"],
+    queryFn: getMyLoyaltyHistory,
+  });
+};
+
+export const useDeleteItem = () => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+  return useMutation({
+    mutationKey: ["products/delete"],
+    mutationFn: deleteProductItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+      toast.success("Item deleted successfully");
+    },
+    onError: (error: AxiosError) => {
+      toast.error(error.message || "Failed to delete item");
+    },
+  });
+  
+};
+
+export const useEditItem = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['products/edit'],
+    mutationFn: editProductItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['products'] });
+      toast.success('Item updated successfully');
+    },
+    onError: (error) => {
+      toast.error(error.message || 'Failed to update item');
+    },
+  });
+};
+
