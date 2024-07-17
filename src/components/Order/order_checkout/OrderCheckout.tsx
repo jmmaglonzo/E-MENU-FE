@@ -24,6 +24,7 @@ import {
 import { Button } from "@/components/ui/button";
 import TotalAmount from "@/utils/orderTotal";
 import LoadingButton from "@/components/common/LoadingButton";
+import { useWebSocketContext } from "@/providers/WebSocketProvider";
 
 const OrderCheckout = () => {
   const [paymentMethod, setPaymentMethod] = useState<"ONLINE" | "CASH">(
@@ -31,7 +32,8 @@ const OrderCheckout = () => {
   );
   const router = useRouter();
 
-  const { mutate: order, isPending } = useOrderItem();
+  /*  const { mutate: order, isPending } = useOrderItem(); */
+  const socketEvents = useWebSocketContext();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -41,12 +43,8 @@ const OrderCheckout = () => {
   });
 
   const onSubmit = () => {
-    order({
-      loyalty: false,
-      paymentMethod,
-    });
-
     router.push("/order_waiting");
+    socketEvents?.checkoutCart(paymentMethod);
   };
 
   const productAmount = TotalAmount();
@@ -166,16 +164,12 @@ const OrderCheckout = () => {
           />
         </footer>
         <div className="lg:mt-20">
-          {isPending ? (
-            <LoadingButton />
-          ) : (
-            <Button
-              type="submit"
-              className="w-full rounded-sm bg-primary py-2 text-center text-[0.8em] font-semibold text-white"
-            >
-              Place Order
-            </Button>
-          )}
+          <Button
+            type="submit"
+            className="w-full rounded-sm bg-primary py-2 text-center text-[0.8em] font-semibold text-white"
+          >
+            Place Order
+          </Button>
         </div>
       </form>
     </Form>
