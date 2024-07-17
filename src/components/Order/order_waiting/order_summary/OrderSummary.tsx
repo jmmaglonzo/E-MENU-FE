@@ -72,6 +72,9 @@ const OrderSummary = () => {
         <span className="text-sm text-gray-500">
           Please wait while we process your order.
         </span>
+        <div className="text-2xl font-extrabold text-primary">
+          ORDER: #{myLatestOrder.orderNo}
+        </div>
       </header>
 
       <main className="flex-1">
