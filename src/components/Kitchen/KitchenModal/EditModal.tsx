@@ -1,3 +1,7 @@
+import React from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Dialog,
   DialogHeader,
@@ -6,38 +10,53 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogClose,
-} from "@/components/ui/dialog";
-import { Textarea } from "@/components/ui/textarea";
-import { HiOutlinePencilAlt } from "react-icons/hi";
-import { Input } from "@/components/ui/input";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
+} from '@/components/ui/dialog';
+import { Textarea } from '@/components/ui/textarea';
+import { HiOutlinePencilAlt } from 'react-icons/hi';
+import { Input } from '@/components/ui/input';
+import { useEditItem } from '@/services/queries';
+import { ItemTypes } from '@/types/productCard';
 
 const editSchema = z.object({
+  id: z.string().uuid(),
   name: z.string().min(6, {
-    message: "Name must be at least 6 characters long",
+    message: 'Name must be at least 6 characters long',
   }),
   description: z.string().min(10, {
-    message: "Description must be at least 10 characters long",
+    message: 'Description must be at least 10 characters long',
   }),
   price: z
     .number({
-      message: "Price must be a number",
+      message: 'Price must be a number',
     })
     .positive({
-      message: "Price must be a positive number",
+      message: 'Price must be a positive number',
     }),
   quantity: z
     .number({
-      message: "Quantity must be a number",
+      message: 'Quantity must be a number',
     })
     .positive({
-      message: "Quantity must be a positive number",
+      message: 'Quantity must be a positive number',
     }),
 });
 
-const EditModal = () => {
+interface Item {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  quantity: number;
+}
+
+interface EditModalProps {
+  item: Item;
+  onEdit: (updatedItem: ItemTypes) => void;
+}
+
+const EditModal: React.FC<EditModalProps> = ({ item, onEdit }) => {
+  const { mutate } = useEditItem();
+
   const {
     register,
     handleSubmit,
@@ -46,12 +65,41 @@ const EditModal = () => {
     clearErrors,
   } = useForm<z.infer<typeof editSchema>>({
     resolver: zodResolver(editSchema),
+    defaultValues: {
+      id: item?.id,
+      name: item?.name,
+      description: item?.description,
+      price: item?.price,
+      quantity: item?.quantity,
+    },
   });
 
-  const editSubmit: SubmitHandler<z.infer<typeof editSchema>> = (value) => {
-    console.log("Form submitted", value);
-    reset();
+  const handleEdit: SubmitHandler<z.infer<typeof editSchema>> = async (data) => {
+    try {
+    
+      const updatedItem: ItemTypes = {
+        id: data.id,
+        name: data.name,
+        description: data.description,
+        quantity: data.quantity,
+        price: data.price,
+
+        image: '',
+        createdAt: '',
+        updatedAt: '',
+        estimatedCookingTimeMin: 0,
+        productCategorize: [],
+        productReview: [],
+        categories: [],
+        ratings: 0
+      };
+      mutate(data.id); 
+      onEdit(updatedItem); 
+    } catch (error) {
+      console.error('Error editing item:', error);
+    }
   };
+
   return (
     <Dialog
       onOpenChange={(open) => {
@@ -71,7 +119,8 @@ const EditModal = () => {
           </DialogDescription>
         </DialogHeader>
 
-        <form className="space-y-4" onSubmit={handleSubmit(editSubmit)}>
+        <form className="space-y-4" onSubmit={handleSubmit(handleEdit)}>
+          <input type="hidden" {...register('id')} />
           <div>
             <label
               htmlFor="name"
@@ -80,7 +129,7 @@ const EditModal = () => {
               Name
             </label>
             <Input
-              {...register("name")}
+              {...register('name')}
               type="text"
               className="rounded-lg border px-3 py-2 focus:outline-none"
             />
@@ -98,7 +147,7 @@ const EditModal = () => {
               Description
             </label>
             <Textarea
-              {...register("description")}
+              {...register('description')}
               className="flex-1 rounded-lg border px-3 py-2 focus:outline-none"
             />
             {errors.description && (
@@ -115,7 +164,7 @@ const EditModal = () => {
               Price
             </label>
             <Input
-              {...register("price", {
+              {...register('price', {
                 valueAsNumber: true,
               })}
               type="number"
@@ -135,7 +184,7 @@ const EditModal = () => {
               Quantity
             </label>
             <Input
-              {...register("quantity", {
+              {...register('quantity', {
                 valueAsNumber: true,
               })}
               type="number"
@@ -153,6 +202,7 @@ const EditModal = () => {
             </DialogClose>
             <button
               type="submit"
+              onClick={() => handleEdit}
               className="rounded-lg bg-orange-500 px-4 py-2 text-white hover:bg-orange-600 focus:outline-none"
             >
               Save Changes

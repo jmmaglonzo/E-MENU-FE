@@ -10,7 +10,18 @@ import {
 } from "@/components/ui/dialog";
 import { HiOutlineTrash } from "react-icons/hi";
 
-const KitchenDeleteModal = () => {
+
+interface KitchenDeleteModalProps {
+  onDelete: () => void; 
+}
+
+const KitchenDeleteModal = ({onDelete}: KitchenDeleteModalProps) => {
+  
+  const handleDelete = (event: any) => {
+    event.preventDefault();
+    onDelete();
+  }
+
   return (
     <Dialog>
       <DialogTrigger className="cursor-pointer">
@@ -18,7 +29,7 @@ const KitchenDeleteModal = () => {
       </DialogTrigger>
 
       <DialogContent>
-        <form>
+        <form onSubmit={handleDelete}>
           <DialogHeader>
             <DialogTitle className="text-xl font-bold">Delete Item</DialogTitle>
             <DialogDescription className="text-lg">

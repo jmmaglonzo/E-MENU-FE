@@ -2,13 +2,28 @@ import { ItemTypes } from "@/types/productCard";
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import EditModal from "./KitchenModal/EditModal";
 import KitchenDeleteModal from "./KitchenModal/KitchenDeleteModal";
-interface KitchenProductsProps {
-  card: ItemTypes;
+
+
+interface Item {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  quantity: number;
 }
 
-const KitchenProducts = ({
+interface KitchenProductsProps {
+  card: ItemTypes;
+  onDelete: () => void;
+  onEdit: (updatedItem: ItemTypes) => void;
+  item: Item;
+}
+
+
+const KitchenProducts = ({onDelete, onEdit, item,
   card: { description, name, quantity, price },
 }: KitchenProductsProps) => {
+
   return (
     <Card className="flex flex-col gap-4 rounded-sm border p-4 shadow-sm">
       <CardHeader className="p-0">
@@ -25,8 +40,8 @@ const KitchenProducts = ({
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <EditModal />
-          <KitchenDeleteModal />
+          <EditModal  onEdit={onEdit} item={item} />
+          <KitchenDeleteModal onDelete={onDelete} />
         </div>
       </CardFooter>
     </Card>

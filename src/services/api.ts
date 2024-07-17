@@ -168,3 +168,13 @@ export const getMyTotalLoyalties = async () => {
   const { data } = await api.get("my_total_loyalties");
   return data;
 };
+
+export const deleteProductItem = async (id: string) => {
+ await api.delete(`/product/delete/${id}`); 
+ 
+};
+export const editProductItem = async (id: string) => {
+  const response = await api.put(`products/${id}`);
+  return response.data;
+}
+
