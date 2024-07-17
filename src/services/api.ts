@@ -5,7 +5,7 @@ import { CartItemServer } from "@/types/cart";
 import { OrderTableType, TableTypes } from "@/types/table";
 import { MyLatestOrder, MyOrder, OrderStatus } from "@/types/myOrder";
 import { LoginType } from "@/types/login";
-import { setCookie } from "cookies-next";
+import { deleteCookie, setCookie } from "cookies-next";
 import { AssistanceRequest } from "@/types/assistance";
 
 export const getMyTableStatus = async () => {
@@ -128,6 +128,7 @@ export const loginUser = async ({ email, password }: LoginType) => {
 
 export const logoutUser = async () => {
   const response = await api.get("auth/logout");
+  deleteCookie('_user_session')
   return response;
 };
 
