@@ -72,7 +72,7 @@ const KitchenModal = () => {
         }
       }}
     >
-      <DialogTrigger className="w-full rounded-sm bg-primary px-4 py-2 text-sm font-semibold text-white">
+      <DialogTrigger className="w-full whitespace-nowrap rounded-sm bg-primary px-4 py-2 text-sm font-semibold text-white">
         Add Item
       </DialogTrigger>
       <DialogContent className="flex max-w-2xl flex-col">
