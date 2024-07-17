@@ -50,7 +50,8 @@ const ChoiceTable = ({
   ) as Array<any[]>;
 
   return (
-    <main className="grid min-h-screen grid-cols-2 gap-4">
+    <main className="grid min-h-screen h-screen grid-cols-2 gap-4 bg-gray-100">
+      <div className="h-[85dvh] overflow-y-scroll no-scrollbar p-2">
       <TableLayout
         data={leftList}
         emptyText={leftEmptyText}
@@ -64,6 +65,8 @@ const ChoiceTable = ({
         mutateLeft={mutateLeft}
         mutateRight={mutateRight}
       />
+      </div>
+      <div className="h-[85dvh] overflow-y-scroll no-scrollbar p-2">
       <TableLayout
         data={rightList}
         emptyText={rightEmptyText}
@@ -77,6 +80,7 @@ const ChoiceTable = ({
         mutateLeft={mutateLeft}
         mutateRight={mutateRight}
       />
+      </div>
     </main>
   );
 };
