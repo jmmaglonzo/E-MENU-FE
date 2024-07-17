@@ -25,6 +25,7 @@ import { MenuIcon } from "lucide-react";
 import { IoLogOutOutline } from "react-icons/io5";
 import { FaUserPlus } from "react-icons/fa";
 import { useLogout } from "@/services/queries";
+import AddStaff from "./AddStaff/AddStaff";
 
 const KitchenNav = () => {
   const pathname = usePathname();
@@ -121,9 +122,8 @@ const KitchenNav = () => {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem className="flex cursor-pointer items-center gap-2">
-                      <FaUserPlus size={20} />
-                      Add Staff
+                    <DropdownMenuItem>
+                      <AddStaff />
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       className="flex cursor-pointer items-center gap-2"
@@ -148,8 +148,7 @@ const KitchenNav = () => {
           <DropdownMenuContent>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="flex cursor-pointer items-center gap-2">
-              <FaUserPlus size={20} />
-              Add Staff
+              <AddStaff />
             </DropdownMenuItem>
             <DropdownMenuItem
               className="flex cursor-pointer items-center gap-2"
