@@ -32,7 +32,6 @@ const OrderCheckout = () => {
   );
   const router = useRouter();
 
-  /*  const { mutate: order, isPending } = useOrderItem(); */
   const socketEvents = useWebSocketContext();
 
   const form = useForm<z.infer<typeof formSchema>>({
