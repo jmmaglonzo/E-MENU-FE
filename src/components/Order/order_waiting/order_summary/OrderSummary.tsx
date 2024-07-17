@@ -5,15 +5,15 @@ import React, { useEffect, useState } from "react";
 import cloche from "@/../public/let-them-cook.gif";
 import OrderSummaryItems from "./OrderSummaryItems";
 import { Button } from "@/components/ui/button";
-import { useGetMyLatestOrder, useRequestAssistance } from "@/services/queries";
+import { useRequestAssistance } from "@/services/queries";
 import Loader from "@/components/common/Loader";
 import { MyLatestOrder, OrderStatus } from "@/types/myOrder";
 import { useMyOrderStore } from "@/store/orderStore";
 import { useWebSocketContext } from "@/providers/WebSocketProvider";
+import { useRouter } from "next/navigation";
 
 const OrderSummary = () => {
-  /*  const { data, isPending, isSuccess } = useGetMyLatestOrder(); */
-
+  const router = useRouter();
   const socketEvents = useWebSocketContext();
 
   useEffect(() => {
@@ -27,6 +27,14 @@ const OrderSummary = () => {
 
   function handleRequestAssitance() {
     requestAssitance();
+  }
+
+  function handlePayment() {
+    const order = latestOrder as MyLatestOrder;
+    if (order.paymentMethod === "CASH")
+      return router.replace("/checkout/cash-payment");
+
+    if (order.checkoutURL) router.replace(order.checkoutURL);
   }
 
   const myLatestOrder = (latestOrder || {
@@ -86,7 +94,7 @@ const OrderSummary = () => {
           <Button
             className="w-full bg-green-600 text-white"
             variant="outline"
-            onClick={handleRequestAssitance}
+            onClick={handlePayment}
           >
             Pay Now
           </Button>
