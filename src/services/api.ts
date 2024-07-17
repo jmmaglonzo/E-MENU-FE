@@ -128,7 +128,7 @@ export const loginUser = async ({ email, password }: LoginType) => {
 
 export const logoutUser = async () => {
   const response = await api.get("auth/logout");
-  deleteCookie('_user_session')
+  deleteCookie("_user_session");
   return response;
 };
 
@@ -155,6 +155,7 @@ export const updateAssistanceRequest = async (sessionId: string) => {
 
 export const sendEmailOTP = async (email: string) => {
   const { data } = await api.post("auth/loyalty/login", { email });
+  setCookie("_customer_email", data.customerEmail);
   return data;
 };
 
@@ -167,5 +168,10 @@ export const verifyEmailOTP = async (code: number) => {
 
 export const getMyTotalLoyalties = async () => {
   const { data } = await api.get("my_total_loyalties");
+  return data;
+};
+
+export const getMyLoyaltyHistory = async () => {
+  const { data } = await api.get("my_loyalties");
   return data;
 };
