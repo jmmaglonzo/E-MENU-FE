@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useOrdersStore, useMyOrderStore } from "@/store/orderStore";
 import { useCartStore } from "@/store/cart-store";
 import { getCookie, setCookie } from "cookies-next";
+import { toast } from "sonner";
 export interface SocketEvents {
   updateStatus: (orderNo: number, status: OrderStatus) => void;
   socket: Socket | null;
@@ -63,6 +64,17 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
         });
       });
 
+      socket.on("error cart action", (response) => {
+        console.log(response);
+        toast.error(response.message || response.error);
+      });
+
+      socket.on("error", (response) => {
+        const message = response.message;
+        console.log(response);
+        if (message) toast.error(message);
+      });
+
       setSocket(socket);
     });
   }, []);
@@ -93,6 +105,7 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
     socket?.on("latest order update", (response) => {
       if (response.status === 200) {
         setLatestOrder(response.data);
+        console.log(response.data);
         if (response.data.status !== "COMPLETED") {
           setCookie("_is_ordering", 1, {
             secure: true,

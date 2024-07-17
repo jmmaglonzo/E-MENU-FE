@@ -5,7 +5,7 @@ import { CartItemServer } from "@/types/cart";
 import { OrderTableType, TableTypes } from "@/types/table";
 import { MyLatestOrder, MyOrder, OrderStatus } from "@/types/myOrder";
 import { LoginType } from "@/types/login";
-import { setCookie } from "cookies-next";
+import { deleteCookie, setCookie } from "cookies-next";
 import { AssistanceRequest } from "@/types/assistance";
 
 export const getMyTableStatus = async () => {
@@ -128,6 +128,7 @@ export const loginUser = async ({ email, password }: LoginType) => {
 
 export const logoutUser = async () => {
   const response = await api.get("auth/logout");
+  deleteCookie("_user_session");
   return response;
 };
 
@@ -154,6 +155,7 @@ export const updateAssistanceRequest = async (sessionId: string) => {
 
 export const sendEmailOTP = async (email: string) => {
   const { data } = await api.post("auth/loyalty/login", { email });
+  setCookie("_customer_email", data.customerEmail);
   return data;
 };
 
@@ -169,12 +171,7 @@ export const getMyTotalLoyalties = async () => {
   return data;
 };
 
-export const deleteProductItem = async (id: string) => {
- await api.delete(`/product/delete/${id}`); 
- 
+export const getMyLoyaltyHistory = async () => {
+  const { data } = await api.get("my_loyalties");
+  return data;
 };
-export const editProductItem = async (id: string) => {
-  const response = await api.put(`products/${id}`);
-  return response.data;
-}
-
