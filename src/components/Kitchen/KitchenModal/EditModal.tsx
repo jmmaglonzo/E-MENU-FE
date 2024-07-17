@@ -48,7 +48,7 @@ interface Item {
   description?: string;
   price?: number;
   estimatedCookingTimeMin?: number;
-  quantity?: string | number;
+  quantity?:number;
 }
 
 interface EditModalProps {
@@ -72,7 +72,7 @@ const EditModal: React.FC<EditModalProps> = ({ item, onEdit }) => {
       name: item?.name,
       description: item?.description,
       price: item?.price,
-      quantity: typeof item?.quantity === 'number' ? item?.quantity : parseInt(item?.quantity as string),
+      quantity: item?.quantity,
     },
   });
 
