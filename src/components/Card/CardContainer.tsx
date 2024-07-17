@@ -29,7 +29,7 @@ const CardContainer = () => {
 
   return (
     <div
-      className={`mb-40 relative gap-3 rounded-sm px-2 py-4 ${filteredItems?.length !== 0 && "grid grid-cols-2"} `}
+      className={`relative mb-40 gap-3 rounded-sm px-2 py-4 ${filteredItems?.length !== 0 && "grid grid-cols-2"} `}
     >
       {filteredItems?.length === 0 ? (
         <NoResults />
