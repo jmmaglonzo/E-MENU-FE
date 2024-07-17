@@ -24,7 +24,7 @@ const schema = z.object({
     .positive({
       message: "Price must be a positive number",
     }),
-  time: z
+  estimatedCookingTimeMin: z
     .number({
       message: "Time must be a number",
     })
@@ -72,7 +72,7 @@ const KitchenModal = () => {
         }
       }}
     >
-      <DialogTrigger className="w-full rounded-sm bg-primary px-4 py-2 text-sm font-semibold text-white">
+      <DialogTrigger className="w-full whitespace-nowrap rounded-sm bg-primary px-4 py-2 text-sm font-semibold text-white">
         Add Item
       </DialogTrigger>
       <DialogContent className="flex max-w-2xl flex-col">
@@ -113,11 +113,13 @@ const KitchenModal = () => {
               <Input
                 type="number"
                 placeholder="Cooking Time"
-                {...register("time", { valueAsNumber: true })}
+                {...register("estimatedCookingTimeMin", {
+                  valueAsNumber: true,
+                })}
               />
-              {errors.time && (
+              {errors.estimatedCookingTimeMin && (
                 <span className="text-sm text-red-600">
-                  {errors.time.message}
+                  {errors.estimatedCookingTimeMin.message}
                 </span>
               )}
             </div>

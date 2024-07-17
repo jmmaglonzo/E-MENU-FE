@@ -25,6 +25,7 @@ import {
   verifyEmailOTP,
   getMyTotalLoyalties,
   logoutUser,
+  getMyLoyaltyHistory,
 } from "./api";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -77,31 +78,32 @@ export const useAddCart = () => {
     mutationKey: ["cart/add"],
     mutationFn: addCartItem,
     onMutate: async (productId) => {
-      await queryClient.cancelQueries({queryKey: ["cartItems"]});
-      const oldCartItems =  queryClient.getQueryData(['cartItems']) as CartItem[];
-      const cartItem = oldCartItems.find(item => item.id === productId);
-      queryClient.setQueryData(['cartItems'], (oldCartItems: CartItem[]) => {
+      await queryClient.cancelQueries({ queryKey: ["cartItems"] });
+      const oldCartItems = queryClient.getQueryData([
+        "cartItems",
+      ]) as CartItem[];
+      const cartItem = oldCartItems.find((item) => item.id === productId);
+      queryClient.setQueryData(["cartItems"], (oldCartItems: CartItem[]) => {
         const data = [...oldCartItems];
 
         if (!cartItem) {
-          data.push({id: productId, quantity: 1});
+          data.push({ id: productId, quantity: 1 });
         } else {
           const itemIdx = data.indexOf(cartItem);
-          data[itemIdx] = {id: productId, quantity: cartItem.quantity + 1};
+          data[itemIdx] = { id: productId, quantity: cartItem.quantity + 1 };
         }
 
         return data;
-        
       });
 
       return oldCartItems;
     },
     onError: (_error, _cartItem, context) => {
-      queryClient.setQueryData(['cartItems'], context);
+      queryClient.setQueryData(["cartItems"], context);
     },
     onSettled: () => {
-      queryClient.invalidateQueries({queryKey: ["cartItems"]});
-    }
+      queryClient.invalidateQueries({ queryKey: ["cartItems"] });
+    },
   });
 };
 
@@ -111,10 +113,12 @@ export const useSubCart = () => {
     mutationKey: ["cart/sub"],
     mutationFn: subCartItem,
     onMutate: async (productId) => {
-      await queryClient.cancelQueries({queryKey: ["cartItems"]});
-      const oldCartItems =  queryClient.getQueryData(['cartItems']) as CartItem[];
-      const cartItem = oldCartItems.find(item => item.id === productId);
-      queryClient.setQueryData(['cartItems'], (oldCartItems: CartItem[]) => {
+      await queryClient.cancelQueries({ queryKey: ["cartItems"] });
+      const oldCartItems = queryClient.getQueryData([
+        "cartItems",
+      ]) as CartItem[];
+      const cartItem = oldCartItems.find((item) => item.id === productId);
+      queryClient.setQueryData(["cartItems"], (oldCartItems: CartItem[]) => {
         const data = [...oldCartItems];
 
         if (cartItem) {
@@ -122,22 +126,21 @@ export const useSubCart = () => {
           const newQuantity = cartItem.quantity - 1;
 
           if (newQuantity === 0) {
-            data.splice(itemIdx,1);
-          } else data[itemIdx] = {id: cartItem.id, quantity: newQuantity};
+            data.splice(itemIdx, 1);
+          } else data[itemIdx] = { id: cartItem.id, quantity: newQuantity };
         }
 
         return data;
-        
       });
 
       return oldCartItems;
     },
     onError: (_error, _cartItem, context) => {
-      queryClient.setQueryData(['cartItems'], context);
+      queryClient.setQueryData(["cartItems"], context);
     },
     onSettled: () => {
-      queryClient.invalidateQueries({queryKey: ["cartItems"]});
-    }
+      queryClient.invalidateQueries({ queryKey: ["cartItems"] });
+    },
   });
 };
 
@@ -148,7 +151,7 @@ export const useOrderItem = () => {
     mutationKey: ["order"],
     mutationFn: orderItem,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["my_orders", "orders"]});
+      queryClient.invalidateQueries({ queryKey: ["my_orders", "orders"] });
       router.push("/order_waiting/order_summary");
     },
     onError: (reason: AxiosError) => {
@@ -186,31 +189,43 @@ export const useUpdateOrderStatus = () => {
   return useMutation({
     mutationKey: ["order/status"],
     mutationFn: updateOrderStatus,
-    onMutate: async ({orderNo, status}) => {
-      await queryClient.cancelQueries({queryKey: ["orders"]});
-      const oldOrders =  queryClient.getQueryData(["orders"]) as MyOrder[];
+    onMutate: async ({ orderNo, status }) => {
+      await queryClient.cancelQueries({ queryKey: ["orders"] });
+      const oldOrders = queryClient.getQueryData(["orders"]) as MyOrder[];
 
-      const order = oldOrders.find(item => item.orderNo === orderNo);
-      queryClient.setQueryData(['orders'], (oldOrders: MyOrder[]) => {
+      const order = oldOrders.find((item) => item.orderNo === orderNo);
+      queryClient.setQueryData(["orders"], (oldOrders: MyOrder[]) => {
         const data = [...oldOrders];
 
         if (order) {
           const orderIdx = data.indexOf(order);
-          
-          data[orderIdx] = (({transactionId,orderNo,orders,createdAt,total}) => ({transactionId,orderNo,orders,createdAt,total,status}))(order);
+
+          data[orderIdx] = (({
+            transactionId,
+            orderNo,
+            orders,
+            createdAt,
+            total,
+          }) => ({ transactionId, orderNo, orders, createdAt, total, status }))(
+            order,
+          );
         }
 
         return data;
-        
       });
       return oldOrders;
     },
     onError: (reason: AxiosError, _cartItem, context) => {
-      toast.error((reason.response?.data as {message: string}).message || reason.response?.data as string);
-      queryClient.setQueryData(['orders'], context);
+      toast.error(
+        (reason.response?.data as { message: string }).message ||
+          (reason.response?.data as string),
+      );
+      queryClient.setQueryData(["orders"], context);
     },
     onSettled: () => {
-      queryClient.invalidateQueries({queryKey: ["orders", "my_latest_order", "my_orders"]});
+      queryClient.invalidateQueries({
+        queryKey: ["orders", "my_latest_order", "my_orders"],
+      });
     },
   });
 };
@@ -230,7 +245,7 @@ export const useDeclineTableQueue = () => {
     mutationKey: ["table/queue"],
     mutationFn: deleteTableQueue,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tableQueue","my_status"] });
+      queryClient.invalidateQueries({ queryKey: ["tableQueue", "my_status"] });
       toast.success("Success");
     },
     onError: (reason: AxiosError) => {
@@ -394,5 +409,12 @@ export const useGetMyTotalLoyalties = () => {
   return useQuery({
     queryKey: ["myTotalLoyalties"],
     queryFn: getMyTotalLoyalties,
+  });
+};
+
+export const useGetMyLoyaltyHistory = () => {
+  return useQuery({
+    queryKey: ["myLoyaltyHistory"],
+    queryFn: getMyLoyaltyHistory,
   });
 };

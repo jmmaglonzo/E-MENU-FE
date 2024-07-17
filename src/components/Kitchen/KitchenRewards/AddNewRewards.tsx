@@ -85,7 +85,12 @@ const AddNewRewards = () => {
           </div>
           <div>
             <label htmlFor="points">Reward Points</label>
-            <Input type="number" {...register("points")} />
+            <Input
+              type="number"
+              {...register("points", {
+                valueAsNumber: true,
+              })}
+            />
             {errors.points && (
               <span className="text-base text-red-500">
                 {errors.points.message}

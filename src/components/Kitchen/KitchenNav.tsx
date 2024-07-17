@@ -23,9 +23,9 @@ import {
 
 import { MenuIcon } from "lucide-react";
 import { IoLogOutOutline } from "react-icons/io5";
-import { FaUserPlus } from "react-icons/fa";
 import { useLogout } from "@/services/queries";
-
+import AddStaff from "./AddStaff/AddStaff";
+import Logo from "/public/DigiBiteLogo.png";
 const KitchenNav = () => {
   const pathname = usePathname();
   const { mutate: logout } = useLogout();
@@ -97,9 +97,18 @@ const KitchenNav = () => {
             <MenuIcon />
           </SheetTrigger>
           <SheetContent side={"top"} className="mobile-container">
-            <SheetHeader className="pl-4 text-start">
-              <SheetTitle>DIGIBITE</SheetTitle>
-              <SheetDescription>Kitchen DashBoard</SheetDescription>
+            <SheetHeader className="text-start">
+              <SheetTitle className="relative aspect-auto h-[50px] w-[100px]">
+                <Image
+                  src={Logo}
+                  alt="DigiBite Logo"
+                  fill
+                  className="object-contain"
+                />
+              </SheetTitle>
+              <SheetDescription className="text-base">
+                Kitchen DashBoard
+              </SheetDescription>
             </SheetHeader>
 
             <ul className="mt-4 flex flex-col items-start justify-evenly gap-4">
@@ -107,23 +116,23 @@ const KitchenNav = () => {
                 <SheetClose asChild key={link.value}>
                   <Link
                     href={link.value}
-                    className={`${pathname === link.value ? "rounded-sm bg-primary px-4 py-1 font-semibold text-white" : "pl-4 text-base font-medium"} `}
+                    className={`${pathname === link.value ? "rounded-sm bg-primary px-4 py-1 text-base font-semibold text-white" : "font-medium"} `}
                   >
                     {link.name}
                   </Link>
                 </SheetClose>
               ))}
 
-              <div className="ml-3 block md:hidden">
+              {/* MOBILE MENU */}
+              <div className="block md:hidden">
                 <DropdownMenu>
                   <DropdownMenuTrigger className="rounded-sm bg-black px-4 py-0.5 text-base text-white">
                     Menu
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem className="flex cursor-pointer items-center gap-2">
-                      <FaUserPlus size={20} />
-                      Add Staff
+                    <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                      <AddStaff />
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       className="flex cursor-pointer items-center gap-2"
@@ -140,6 +149,7 @@ const KitchenNav = () => {
         </Sheet>
       </div>
 
+      {/* DESKTOP MENU */}
       <div className="hidden md:block">
         <DropdownMenu>
           <DropdownMenuTrigger className="rounded-sm bg-black px-4 py-0.5 text-base text-white">
@@ -147,9 +157,8 @@ const KitchenNav = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="flex cursor-pointer items-center gap-2">
-              <FaUserPlus size={20} />
-              Add Staff
+            <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+              <AddStaff />
             </DropdownMenuItem>
             <DropdownMenuItem
               className="flex cursor-pointer items-center gap-2"
