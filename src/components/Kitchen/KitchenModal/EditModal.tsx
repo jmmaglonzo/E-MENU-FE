@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useUpdateProduct } from "@/services/queries";
 
 const editSchema = z.object({
   name: z.string().min(6, {
@@ -35,9 +36,17 @@ const editSchema = z.object({
     .positive({
       message: "Quantity must be a positive number",
     }),
+  estimatedCookingTimeMin: z
+    .number({
+      message: "Quantity must be a number",
+    })
+    .positive({
+      message: "Quantity must be a positive number",
+    }),
 });
 
-const EditModal = () => {
+const EditModal = ({ id }: { id: string }) => {
+  const { mutate } = useUpdateProduct();
   const {
     register,
     handleSubmit,
@@ -49,7 +58,7 @@ const EditModal = () => {
   });
 
   const editSubmit: SubmitHandler<z.infer<typeof editSchema>> = (value) => {
-    console.log("Form submitted", value);
+    mutate({ ...value, id });
     reset();
   };
   return (
@@ -90,23 +99,7 @@ const EditModal = () => {
               </span>
             )}
           </div>
-          <div>
-            <label
-              htmlFor="description"
-              className="text-base font-medium text-gray-700"
-            >
-              Description
-            </label>
-            <Textarea
-              {...register("description")}
-              className="flex-1 rounded-lg border px-3 py-2 focus:outline-none"
-            />
-            {errors.description && (
-              <span className="text-sm text-red-500">
-                {errors.description.message}
-              </span>
-            )}
-          </div>
+
           <div>
             <label
               htmlFor="price"
@@ -147,16 +140,57 @@ const EditModal = () => {
               </span>
             )}
           </div>
+
+          <div>
+            <label
+              htmlFor="estimatedCookingTimeMin"
+              className="text-base font-medium text-gray-700"
+            >
+              Cooking Time
+            </label>
+            <Input
+              {...register("estimatedCookingTimeMin", {
+                valueAsNumber: true,
+              })}
+              type="number"
+              className="rounded-lg border px-3 py-2 focus:outline-none"
+            />
+            {errors.estimatedCookingTimeMin && (
+              <span className="text-sm text-red-500">
+                {errors.estimatedCookingTimeMin.message}
+              </span>
+            )}
+          </div>
+
+          <div>
+            <label
+              htmlFor="description"
+              className="text-base font-medium text-gray-700"
+            >
+              Description
+            </label>
+            <Textarea
+              {...register("description")}
+              className="flex-1 rounded-lg border px-3 py-2 focus:outline-none"
+            />
+            {errors.description && (
+              <span className="text-sm text-red-500">
+                {errors.description.message}
+              </span>
+            )}
+          </div>
           <div className="flex justify-end gap-2">
             <DialogClose className="rounded-sm bg-secondary px-4 py-2">
               Cancel
             </DialogClose>
-            <button
-              type="submit"
-              className="rounded-lg bg-orange-500 px-4 py-2 text-white hover:bg-orange-600 focus:outline-none"
-            >
-              Save Changes
-            </button>
+            <DialogClose asChild>
+              <button
+                type="submit"
+                className="rounded-lg bg-orange-500 px-4 py-2 text-white hover:bg-orange-600 focus:outline-none"
+              >
+                Save Changes
+              </button>
+            </DialogClose>
           </div>
         </form>
       </DialogContent>
