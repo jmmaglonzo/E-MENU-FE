@@ -7,6 +7,7 @@ import { MyLatestOrder, MyOrder, OrderStatus } from "@/types/myOrder";
 import { LoginType, RegisterType } from "@/types/login";
 import { deleteCookie, setCookie } from "cookies-next";
 import { AssistanceRequest } from "@/types/assistance";
+import { AddItemProduct } from "@/types/AddItemProduct";
 
 export const getMyTableStatus = async () => {
   const { data } = await api.get("/my_status");
@@ -190,5 +191,57 @@ export const registerNewStaff = async ({
     password,
     role,
   });
+  return data;
+};
+
+export const addItemProduct = async ({
+  name,
+  quantity,
+  description,
+  price,
+  image,
+  categories,
+  estimatedCookingTimeMin,
+}: AddItemProduct) => {
+  const { data } = await api.post("products", {
+    name,
+    quantity,
+    description,
+    price,
+    image,
+    categories,
+    estimatedCookingTimeMin,
+  });
+  return data;
+};
+
+export const updateProducts = async ({
+  id,
+  name,
+  description,
+  price,
+  quantity,
+  estimatedCookingTimeMin,
+}: AddItemProduct) => {
+  const { data } = await api.put(`product/update`, {
+    id,
+    name,
+    description,
+    price,
+    quantity,
+    estimatedCookingTimeMin,
+  });
+
+  return data;
+};
+
+export const getCategories = async () => {
+  const { data } = await api.get("categories");
+  return data;
+};
+
+export const deleteProducts = async (id: string) => {
+  const { data } = await api.delete(`product/delete/${id}`);
+
   return data;
 };
