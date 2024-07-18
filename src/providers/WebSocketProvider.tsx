@@ -19,6 +19,8 @@ export interface SocketEvents {
   subToCart: (productId: string) => void;
   checkoutCart: (paymentMethod: "ONLINE" | "CASH") => void;
   getTableQueues: () => void;
+  approveTableQueue: (sessionId: string) => void;
+  declineTableQueue: (sessionId: string) => void;
 }
 
 const WebSocketContext = createContext<SocketEvents | null>(null);
@@ -39,7 +41,7 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
   const setLatestOrder = useMyOrderStore((store) => store.setLatestOrder);
   const setOrders = useOrdersStore((store) => store.setOrders);
   const setCartItems = useCartStore((store) => store.setCartItems);
-  const setTableQueues = useTableQueueStore((store) => store.setQueue);
+  const tableQueueStore = useTableQueueStore();
 
   useEffect(() => {
     getCookies().then((cookies = {}) => {
@@ -127,8 +129,19 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
 
     socket?.on("table queues sent", ({ error, data }) => {
       console.log(data);
-      if (!error) setTableQueues(data);
+      if (!error) {
+        tableQueueStore.setQueue(data);
+        tableQueueStore.setServerRetrieved(true);
+      }
     });
+  }
+
+  function approveTableQueue(sessionId: string) {
+    socket?.emit("approve table queue", { sessionId });
+  }
+
+  function declineTableQueue(sessionId: string) {
+    socket?.emit("decline table queue", { sessionId });
   }
 
   function checkoutCart(paymentMethod: "ONLINE" | "CASH") {
@@ -146,6 +159,8 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
         subToCart,
         checkoutCart,
         getTableQueues,
+        approveTableQueue,
+        declineTableQueue,
       }}
     >
       {children}
