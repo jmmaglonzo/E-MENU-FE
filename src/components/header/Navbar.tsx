@@ -53,7 +53,10 @@ const Navbar = () => {
         )}
       >
         <div className="flex cursor-pointer items-center justify-center">
-          <MenuDrawer cookie={loyaltyCookieState} />
+          <MenuDrawer
+            loyaltyCookie={loyaltyCookieState}
+            tableCookie={tableCookieState}
+          />
         </div>
         <div
           className={cn(
