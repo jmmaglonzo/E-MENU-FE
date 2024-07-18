@@ -11,10 +11,10 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { categories } from "@/utils/kitchen_category_modal";
+import { useAddProduct, useGetCategories } from "@/services/queries";
 
 const schema = z.object({
-  product: z.string().min(6, {
+  name: z.string().min(6, {
     message: "Product name must be at least 6 characters long",
   }),
   price: z
@@ -38,7 +38,7 @@ const schema = z.object({
     .positive({
       message: "Quantity must be a positive number",
     }),
-  link: z.string().url({
+  image: z.string().url({
     message: "Link must be a valid URL",
   }),
   categories: z
@@ -52,6 +52,9 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>;
 
 const KitchenModal = () => {
+  const { mutate } = useAddProduct();
+  const { data: categories } = useGetCategories();
+
   const {
     register,
     handleSubmit,
@@ -67,7 +70,7 @@ const KitchenModal = () => {
   });
 
   const onSubmit: SubmitHandler<FormValues> = (value) => {
-    console.log(value);
+    mutate(value);
     reset();
   };
 
@@ -93,11 +96,11 @@ const KitchenModal = () => {
               <Input
                 type="text"
                 placeholder="Product Name"
-                {...register("product")}
+                {...register("name")}
               />
-              {errors.product && (
+              {errors.name && (
                 <span className="text-sm text-red-600">
-                  {errors.product.message}
+                  {errors.name.message}
                 </span>
               )}
             </div>
@@ -148,11 +151,11 @@ const KitchenModal = () => {
               <Input
                 type="text"
                 placeholder="Image Link"
-                {...register("link")}
+                {...register("image")}
               />
-              {errors.link && (
+              {errors.image && (
                 <span className="text-sm text-red-600">
-                  {errors.link.message}
+                  {errors.image.message}
                 </span>
               )}
             </div>
@@ -165,28 +168,33 @@ const KitchenModal = () => {
               control={control}
               render={({ field }) => (
                 <div className="flex flex-wrap gap-2">
-                  {categories.map((category) => (
-                    <label key={category} className="inline-flex items-center">
+                  {categories.map((category: { id: string; name: string }) => (
+                    <label
+                      key={category.id}
+                      className="inline-flex items-center"
+                    >
                       <input
                         type="checkbox"
-                        value={category}
+                        value={category.id}
                         onChange={(e) => {
                           const updatedCategories = e.target.checked
-                            ? [...field.value, category]
-                            : field.value.filter((c: string) => c !== category);
+                            ? [...field.value, category.id]
+                            : field.value.filter(
+                                (c: string) => c !== category.id,
+                              );
                           field.onChange(updatedCategories);
                         }}
-                        checked={field.value.includes(category)}
+                        checked={field.value.includes(category.id)}
                         className="hidden"
                       />
                       <span
                         className={`cursor-pointer rounded-full px-4 py-2 text-sm ${
-                          field.value.includes(category)
+                          field.value.includes(category.id)
                             ? "bg-primary text-white"
                             : "bg-gray-200 text-gray-700"
                         }`}
                       >
-                        {category}
+                        {category.name}
                       </span>
                     </label>
                   ))}
