@@ -9,6 +9,7 @@ import { useOrdersStore, useMyOrderStore } from "@/store/orderStore";
 import { useCartStore } from "@/store/cart-store";
 import { getCookie, setCookie } from "cookies-next";
 import { toast } from "sonner";
+import { useTableQueueStore } from "@/store/kitchenQueue-store";
 export interface SocketEvents {
   updateStatus: (orderNo: number, status: OrderStatus) => void;
   socket: Socket | null;
@@ -17,6 +18,7 @@ export interface SocketEvents {
   addToCart: (productId: string) => void;
   subToCart: (productId: string) => void;
   checkoutCart: (paymentMethod: "ONLINE" | "CASH") => void;
+  getTableQueues: () => void;
 }
 
 const WebSocketContext = createContext<SocketEvents | null>(null);
@@ -37,6 +39,7 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
   const setLatestOrder = useMyOrderStore((store) => store.setLatestOrder);
   const setOrders = useOrdersStore((store) => store.setOrders);
   const setCartItems = useCartStore((store) => store.setCartItems);
+  const setTableQueues = useTableQueueStore((store) => store.setQueue);
 
   useEffect(() => {
     getCookies().then((cookies = {}) => {
@@ -44,6 +47,8 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
         query: {
           tableSession: cookies._table_session,
           userSession: cookies._user_session,
+          tableNo: cookies._table_no,
+          sessionStart: new Date(),
         },
       });
 
@@ -117,6 +122,15 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
     });
   }
 
+  function getTableQueues() {
+    socket?.emit("get table queues");
+
+    socket?.on("table queues sent", ({ error, data }) => {
+      console.log(data);
+      if (!error) setTableQueues(data);
+    });
+  }
+
   function checkoutCart(paymentMethod: "ONLINE" | "CASH") {
     socket?.emit("checkout cart", { paymentMethod });
   }
@@ -131,6 +145,7 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
         addToCart,
         subToCart,
         checkoutCart,
+        getTableQueues,
       }}
     >
       {children}
