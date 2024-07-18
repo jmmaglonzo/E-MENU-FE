@@ -9,7 +9,6 @@ import { useOrdersStore, useMyOrderStore } from "@/store/orderStore";
 import { useCartStore } from "@/store/cart-store";
 import { getCookie, setCookie } from "cookies-next";
 import { toast } from "sonner";
-import { useTableQueueStore } from "@/store/kitchenQueue-store";
 export interface SocketEvents {
   updateStatus: (orderNo: number, status: OrderStatus) => void;
   socket: Socket | null;
@@ -18,9 +17,6 @@ export interface SocketEvents {
   addToCart: (productId: string) => void;
   subToCart: (productId: string) => void;
   checkoutCart: (paymentMethod: "ONLINE" | "CASH") => void;
-  getTableQueues: () => void;
-  approveTableQueue: (sessionId: string) => void;
-  declineTableQueue: (sessionId: string) => void;
 }
 
 const WebSocketContext = createContext<SocketEvents | null>(null);
@@ -41,7 +37,6 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
   const setLatestOrder = useMyOrderStore((store) => store.setLatestOrder);
   const setOrders = useOrdersStore((store) => store.setOrders);
   const setCartItems = useCartStore((store) => store.setCartItems);
-  const tableQueueStore = useTableQueueStore();
 
   useEffect(() => {
     getCookies().then((cookies = {}) => {
@@ -124,26 +119,6 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
     });
   }
 
-  function getTableQueues() {
-    socket?.emit("get table queues");
-
-    socket?.on("table queues sent", ({ error, data }) => {
-      console.log(data);
-      if (!error) {
-        tableQueueStore.setQueue(data);
-        tableQueueStore.setServerRetrieved(true);
-      }
-    });
-  }
-
-  function approveTableQueue(sessionId: string) {
-    socket?.emit("approve table queue", { sessionId });
-  }
-
-  function declineTableQueue(sessionId: string) {
-    socket?.emit("decline table queue", { sessionId });
-  }
-
   function checkoutCart(paymentMethod: "ONLINE" | "CASH") {
     socket?.emit("checkout cart", { paymentMethod });
   }
@@ -158,9 +133,6 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
         addToCart,
         subToCart,
         checkoutCart,
-        getTableQueues,
-        approveTableQueue,
-        declineTableQueue,
       }}
     >
       {children}
