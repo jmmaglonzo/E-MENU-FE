@@ -21,6 +21,7 @@ export async function middleware(req: NextRequest) {
   const cartItems = req.cookies.get("_cart_items")?.value!!;
   const isLoyaltyRewardSession = !!req.cookies.get("_loyalty_session");
   const isOrderingPhase = !!req.cookies.get("_is_ordering");
+  const userRole = req.cookies.get("_user_role")?.value;
 
   //set variables for routes
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
@@ -29,6 +30,15 @@ export async function middleware(req: NextRequest) {
   const isRedeemRoute = redeem.includes(nextUrl.pathname);
   const isRedeemRewardRoute = redeemRewards.includes(nextUrl.pathname);
   const isKitchenRoute = kitchenRoute.includes(nextUrl.pathname);
+
+  const isStaffRoute = kitchenRoute
+    .filter(
+      (route) =>
+        route !== "/kitchen/products" &&
+        route !== "/kitchen/rewards" &&
+        route !== "/kitchen/admin",
+    )
+    .includes(nextUrl.pathname);
 
   const isCartItemRoute = cartItemRoutes.includes(
     nextUrl.pathname.split("/")[0] + nextUrl.pathname,
@@ -44,6 +54,13 @@ export async function middleware(req: NextRequest) {
     //check if _table_session cookie exists
     if (!isTableSession) {
       return;
+    }
+  }
+
+  //check for userRole
+  if (userRole !== undefined) {
+    if (userRole !== "ADMIN" && !isStaffRoute) {
+      return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
     }
   }
 
