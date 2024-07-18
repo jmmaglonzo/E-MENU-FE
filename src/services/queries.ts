@@ -27,6 +27,8 @@ import {
   logoutUser,
   getMyLoyaltyHistory,
   registerNewStaff,
+  getRewardsList,
+  redeemLoyaltyReward,
 } from "./api";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -428,6 +430,25 @@ export const useRegisterNewStaff = () => {
     },
     onError: () => {
       toast.error("Failed to create new staff");
+    },
+  });
+};
+
+export const useGetRewardsList = () => {
+  return useQuery({
+    queryKey: ["rewardsList"],
+    queryFn: getRewardsList,
+  });
+};
+
+export const useRedeemLoyaltyReward = () => {
+  return useMutation({
+    mutationFn: redeemLoyaltyReward,
+    onSuccess: () => {
+      toast.success("Reward redeemed");
+    },
+    onError: () => {
+      toast.error("Failed to redeem reward");
     },
   });
 };
