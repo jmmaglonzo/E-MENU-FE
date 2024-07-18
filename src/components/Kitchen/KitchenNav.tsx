@@ -26,35 +26,68 @@ import { IoLogOutOutline } from "react-icons/io5";
 import { useLogout } from "@/services/queries";
 import AddStaff from "./AddStaff/AddStaff";
 import Logo from "/public/DigiBiteLogo.png";
+import { cn } from "@/lib/utils";
+import { CookieValueTypes, getCookie } from "cookies-next";
+import { useEffect, useState } from "react";
 const KitchenNav = () => {
+  const cookie: CookieValueTypes = getCookie("_user_role");
+  const [cookieState, setCookieState] = useState<CookieValueTypes>(cookie);
+
   const pathname = usePathname();
   const { mutate: logout } = useLogout();
 
-  const navLinks = [
+  useEffect(() => {
+    setCookieState(cookie);
+  }, [cookie, pathname]);
+
+  const adminNavLinks = [
     {
       name: "Table Queue",
       value: "/kitchen",
+      role: ["ADMIN"],
     },
     {
       name: "Orders",
       value: "/kitchen/order",
+      role: ["ADMIN"],
     },
     {
       name: "Assistance",
       value: "/kitchen/assistance",
+      role: ["ADMIN"],
     },
     {
       name: "Products",
       value: "/kitchen/products",
+      role: ["ADMIN"],
     },
 
     {
       name: "Rewards",
       value: "/kitchen/rewards",
+      role: ["ADMIN"],
     },
     {
       name: "Analytics",
       value: "/kitchen/admin",
+      role: ["ADMIN"],
+    },
+  ];
+  const staffNavLinks = [
+    {
+      name: "Table Queue",
+      value: "/kitchen",
+      role: ["KITCHEN", "CASHIER", "WAITER"],
+    },
+    {
+      name: "Orders",
+      value: "/kitchen/order",
+      role: ["KITCHEN", "CASHIER", "WAITER"],
+    },
+    {
+      name: "Assistance",
+      value: "/kitchen/assistance",
+      role: ["KITCHEN", "CASHIER", "WAITER"],
     },
   ];
 
@@ -79,16 +112,35 @@ const KitchenNav = () => {
 
       {/* Desktop and Tablet */}
       <ul className="hidden flex-1 items-center justify-center gap-6 font-medium md:flex">
-        {navLinks.map((link) => (
-          <li key={link.name}>
-            <Link
-              href={link.value}
-              className={`${pathname === link.value && "rounded-sm bg-primary px-4 py-2 font-semibold text-white"} text-sm duration-300 ease-in-out xl:text-base`}
-            >
-              {link.name}
-            </Link>
-          </li>
-        ))}
+        {cookieState === "ADMIN"
+          ? adminNavLinks.map((link) => (
+              <li key={link.name}>
+                <Link
+                  href={link.value}
+                  className={cn(
+                    `text-sm duration-300 ease-in-out xl:text-base`,
+                    pathname === link.value &&
+                      "rounded-sm bg-primary px-4 py-2 font-semibold text-white",
+                  )}
+                >
+                  {link.name}
+                </Link>
+              </li>
+            ))
+          : staffNavLinks.map((link) => (
+              <li key={link.name}>
+                <Link
+                  href={link.value}
+                  className={cn(
+                    `text-sm duration-300 ease-in-out xl:text-base`,
+                    pathname === link.value &&
+                      "rounded-sm bg-primary px-4 py-2 font-semibold text-white",
+                  )}
+                >
+                  {link.name}
+                </Link>
+              </li>
+            ))}
       </ul>
 
       <div className="block md:hidden">
@@ -112,16 +164,27 @@ const KitchenNav = () => {
             </SheetHeader>
 
             <ul className="mt-4 flex flex-col items-start justify-evenly gap-4">
-              {navLinks.map((link) => (
-                <SheetClose asChild key={link.value}>
-                  <Link
-                    href={link.value}
-                    className={`${pathname === link.value ? "rounded-sm bg-primary px-4 py-1 text-base font-semibold text-white" : "font-medium"} `}
-                  >
-                    {link.name}
-                  </Link>
-                </SheetClose>
-              ))}
+              {cookieState === "ADMIN"
+                ? adminNavLinks.map((link) => (
+                    <SheetClose asChild key={link.value}>
+                      <Link
+                        href={link.value}
+                        className={`${pathname === link.value ? "rounded-sm bg-primary px-4 py-1 text-base font-semibold text-white" : "font-medium"} `}
+                      >
+                        {link.name}
+                      </Link>
+                    </SheetClose>
+                  ))
+                : staffNavLinks.map((link) => (
+                    <SheetClose asChild key={link.value}>
+                      <Link
+                        href={link.value}
+                        className={`${pathname === link.value ? "rounded-sm bg-primary px-4 py-1 text-base font-semibold text-white" : "font-medium"} `}
+                      >
+                        {link.name}
+                      </Link>
+                    </SheetClose>
+                  ))}
 
               {/* MOBILE MENU */}
               <div className="block md:hidden">
@@ -131,9 +194,11 @@ const KitchenNav = () => {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                      <AddStaff />
-                    </DropdownMenuItem>
+                    {cookie === "ADMIN" && (
+                      <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                        <AddStaff />
+                      </DropdownMenuItem>
+                    )}
                     <DropdownMenuItem
                       className="flex cursor-pointer items-center gap-2"
                       onClick={() => logout()}
@@ -157,9 +222,11 @@ const KitchenNav = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-              <AddStaff />
-            </DropdownMenuItem>
+            {cookie === "ADMIN" && (
+              <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                <AddStaff />
+              </DropdownMenuItem>
+            )}
             <DropdownMenuItem
               className="flex cursor-pointer items-center gap-2"
               onClick={() => logout()}
