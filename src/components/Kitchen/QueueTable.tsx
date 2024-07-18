@@ -5,11 +5,20 @@ import ChoiceTable from "./ChoiceTable";
 import { TableTypes } from "@/types/table";
 import { useDeclineTableQueue, useApproveTableQueue } from "@/services/queries";
 import KitchenLoader from "../common/KitchenLoader";
+import { useWebSocketContext } from "@/providers/WebSocketProvider";
+import { useTableQueueStore } from "@/store/kitchenQueue-store";
+import { useEffect } from "react";
 
 const QueueTable = () => {
-  const queryResult = useGetTableQueue();
+  /* const queryResult = useGetTableQueue(); */
+  const socketEvents = useWebSocketContext();
+  const { queue: queryResult, serverRetrieved } = useTableQueueStore();
   const mutateRight = useApproveTableQueue();
   const mutateLeft = useDeclineTableQueue();
+
+  useEffect(() => {
+    socketEvents?.getTableQueues();
+  }, [socketEvents]);
 
   function getSession(data: TableTypes) {
     return data.session;
@@ -19,7 +28,7 @@ const QueueTable = () => {
     return data.status;
   }
 
-  if (queryResult.isPending)
+  if (!serverRetrieved)
     return (
       <div className="mt-52 flex items-center justify-center md:m-64">
         <KitchenLoader />
@@ -28,7 +37,7 @@ const QueueTable = () => {
 
   return (
     <ChoiceTable
-      data={queryResult.data as TableTypes[]}
+      data={queryResult as TableTypes[]}
       getSession={getSession}
       getStatus={getStatus}
       leftStatus={false}
