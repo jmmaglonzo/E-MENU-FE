@@ -24,14 +24,9 @@ import { cn } from "@/lib/utils";
 interface MenuDrawerProp {
   loyaltyCookie: CookieValueTypes | undefined;
   tableCookie: CookieValueTypes | undefined;
-  tableStatus: boolean;
 }
 
-const MenuDrawer = ({
-  loyaltyCookie,
-  tableCookie,
-  tableStatus,
-}: MenuDrawerProp) => {
+const MenuDrawer = ({ loyaltyCookie, tableCookie }: MenuDrawerProp) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   // const cookie = getCookie("_loyalty_session");
 
