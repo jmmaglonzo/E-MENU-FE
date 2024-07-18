@@ -7,14 +7,16 @@ interface KitchenProductsProps {
 }
 
 const KitchenProducts = ({
-  card: { description, name, quantity, price },
+  card: { description, name, quantity, price, id },
 }: KitchenProductsProps) => {
   return (
     <Card className="flex flex-col gap-4 rounded-sm border p-4 shadow-sm">
       <CardHeader className="p-0">
         <h3 className="font-bold">{name}</h3>
         <CardContent className="flex items-start justify-between p-0">
-          <p className="text-base leading-4">{description}</p>
+          <p className="overflow-hidden break-words text-base leading-4">
+            {description}
+          </p>
         </CardContent>
       </CardHeader>
       <CardFooter className="mt-auto flex items-end justify-between gap-2 p-0">
@@ -25,8 +27,8 @@ const KitchenProducts = ({
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <EditModal />
-          <KitchenDeleteModal />
+          <EditModal id={id} />
+          <KitchenDeleteModal id={id} />
         </div>
       </CardFooter>
     </Card>
