@@ -66,7 +66,7 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
 
       socket.on("error cart action", (response) => {
         console.log(response);
-        toast.error(response.message || response.error);
+        if (response.message) toast.error(response.message);
       });
 
       socket.on("error", (response) => {
