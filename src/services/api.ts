@@ -7,6 +7,7 @@ import { MyLatestOrder, MyOrder, OrderStatus } from "@/types/myOrder";
 import { LoginType, RegisterType } from "@/types/login";
 import { deleteCookie, setCookie } from "cookies-next";
 import { AssistanceRequest } from "@/types/assistance";
+import { RewardsType } from "@/types/loyalties";
 
 export const getMyTableStatus = async () => {
   const { data } = await api.get("/my_status");
@@ -192,5 +193,15 @@ export const registerNewStaff = async ({
     password,
     role,
   });
+  return data;
+};
+
+export const getRewardsList = async () => {
+  const { data } = await api.get<RewardsType[]>("rewards");
+  return data;
+};
+
+export const redeemLoyaltyReward = async (rewardId: string) => {
+  const { data } = await api.post("loyalty/redeem", { rewardId });
   return data;
 };
