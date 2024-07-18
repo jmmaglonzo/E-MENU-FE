@@ -31,6 +31,13 @@ const schema = z.object({
     .positive({
       message: "Time must be a positive number",
     }),
+  quantity: z
+    .number({
+      message: "Quantity must be a number",
+    })
+    .positive({
+      message: "Quantity must be a positive number",
+    }),
   link: z.string().url({
     message: "Link must be a valid URL",
   }),
@@ -109,7 +116,7 @@ const KitchenModal = () => {
           </div>
 
           <div className="grid grid-cols-4 gap-4">
-            <div>
+            <div className="col-span-2">
               <Input
                 type="number"
                 placeholder="Cooking Time"
@@ -123,7 +130,21 @@ const KitchenModal = () => {
                 </span>
               )}
             </div>
-            <div className="col-span-3">
+            <div className="col-span-2">
+              <Input
+                type="number"
+                placeholder="Quantity"
+                {...register("quantity", {
+                  valueAsNumber: true,
+                })}
+              />
+              {errors.quantity && (
+                <span className="text-sm text-red-600">
+                  {errors.quantity.message}
+                </span>
+              )}
+            </div>
+            <div className="col-span-4">
               <Input
                 type="text"
                 placeholder="Image Link"
