@@ -26,6 +26,7 @@ import {
   getMyTotalLoyalties,
   logoutUser,
   getMyLoyaltyHistory,
+  registerNewStaff,
 } from "./api";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -416,5 +417,17 @@ export const useGetMyLoyaltyHistory = () => {
   return useQuery({
     queryKey: ["myLoyaltyHistory"],
     queryFn: getMyLoyaltyHistory,
+  });
+};
+
+export const useRegisterNewStaff = () => {
+  return useMutation({
+    mutationFn: registerNewStaff,
+    onSuccess: () => {
+      toast.success("New staff created");
+    },
+    onError: () => {
+      toast.error("Failed to create new staff");
+    },
   });
 };

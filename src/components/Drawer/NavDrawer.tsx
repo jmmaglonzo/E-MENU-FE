@@ -12,24 +12,24 @@ import {
 } from "../ui/drawer";
 import { IoClose } from "react-icons/io5";
 import { MouseEvent } from "react";
-import { getCookie } from "cookies-next";
+import { CookieValueTypes, getCookie } from "cookies-next";
+import { cn } from "@/lib/utils";
 
 interface NavDrawerProp {
-  isDisabled: boolean;
+  cookie: CookieValueTypes | undefined;
+  isTableApproved: boolean;
 }
 
-const NavDrawer = ({isDisabled}: NavDrawerProp) => {
-
-  function handleClick(event: MouseEvent) {
-    if (isDisabled)
-      event.preventDefault();
-  }
-
-  const cookie = getCookie("_table_session");
-
+const NavDrawer = ({ cookie, isTableApproved }: NavDrawerProp) => {
+  console.log(isTableApproved);
   return (
     <Drawer>
-      <DrawerTrigger onClick={handleClick} className={isDisabled? "opacity-50" :""}>
+      <DrawerTrigger
+        className={cn(
+          "flex items-center justify-center",
+          !cookie && !isTableApproved && "hidden",
+        )}
+      >
         <FaUserGroup size={20} />
       </DrawerTrigger>
       <DrawerContent className="mx-auto flex max-w-[350px] items-center">
@@ -43,7 +43,10 @@ const NavDrawer = ({isDisabled}: NavDrawerProp) => {
           <DrawerDescription className="mb-4">
             Scan this QR code to start adding items.
           </DrawerDescription>
-          <QRCode value={process.env.NEXT_PUBLIC_API_BASE_URL + "/group/" + cookie} className="w-full" />
+          <QRCode
+            value={process.env.NEXT_PUBLIC_API_BASE_URL + "/group/" + cookie}
+            className="w-full"
+          />
         </DrawerHeader>
       </DrawerContent>
     </Drawer>
