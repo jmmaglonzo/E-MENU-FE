@@ -39,7 +39,6 @@ const OrderTable = () => {
       </div>
     );
   }
-  console.log("there is orders", orders);
 
   const ordersByStatus: Record<string, OrderTableType[]> = {};
 

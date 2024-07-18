@@ -44,6 +44,8 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
         query: {
           tableSession: cookies._table_session,
           userSession: cookies._user_session,
+          tableNo: cookies._table_no,
+          sessionStart: new Date(),
         },
       });
 
@@ -66,7 +68,7 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
 
       socket.on("error cart action", (response) => {
         console.log(response);
-        toast.error(response.message || response.error);
+        if (response.message) toast.error(response.message);
       });
 
       socket.on("error", (response) => {

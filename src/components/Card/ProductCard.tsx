@@ -37,7 +37,6 @@ const ProductCard = ({ data }: ProductCardProps) => {
   function handleAddCart(e: React.MouseEvent) {
     e.stopPropagation();
 
-    console.log("adding item to cart...");
     socketEvents?.addToCart(data.id);
   }
 
@@ -54,14 +53,16 @@ const ProductCard = ({ data }: ProductCardProps) => {
     setSelectedItem(data);
   };
 
+  const isOutOfStock = data.quantity <= 0;
+
   return (
-    <Card className="flex cursor-pointer flex-col" onClick={handleClick}>
+    <Card className={"flex cursor-pointer flex-col"} onClick={handleClick}>
       <CardHeader className="relative aspect-square h-[120px] w-full overflow-hidden rounded-tl-md rounded-tr-md md:h-[150px]">
         <Image
           fill
           src={data.image}
           alt={data.name}
-          className="object-cover"
+          className={`object-cover ${isOutOfStock ? "grayscale" : ""}`}
           sizes="(max-width: 768px) 100vw, 120px"
           priority
         />
@@ -90,7 +91,7 @@ const ProductCard = ({ data }: ProductCardProps) => {
         </span>
         <Button
           variant="outline"
-          className="h-7 w-7 rounded-full bg-primary p-0 text-white hover:bg-primary/90 hover:text-white"
+          className={`h-7 w-7 rounded-full ${isOutOfStock ? "bg-gray-500" : "bg-primary"} p-0 text-white ${isOutOfStock ? "hover:bg-red-700" : "hover:bg-primary/90"} hover:text-white`}
           onClick={handleAddCart}
         >
           <PlusIcon className="h-4 w-4" />
