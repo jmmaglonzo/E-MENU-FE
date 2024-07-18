@@ -123,12 +123,14 @@ export const updateTableQueue = async (sessionId: string) => {
 export const loginUser = async ({ email, password }: LoginType) => {
   const { data } = await api.post("auth/login", { email, password });
   setCookie("_user_session", data.sessionId);
+  setCookie("_user_role", data.role);
   return data;
 };
 
 export const logoutUser = async () => {
   const response = await api.get("auth/logout");
   deleteCookie("_user_session");
+  deleteCookie("_user_role");
   return response;
 };
 
