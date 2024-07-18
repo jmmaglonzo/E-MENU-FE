@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import RewardEditModal from "./RewardEditModal";
 import KitchenDeleteModal from "../KitchenModal/KitchenDeleteModal";
+import RewardDeleteModal from "./RewarDeleteModal";
 interface RewardCardProps {
   item: {
     name: string;
@@ -31,7 +32,7 @@ const RewardsCard = ({
 
           <div className="flex items-center gap-2">
             <RewardEditModal />
-            <KitchenDeleteModal />
+            <RewardDeleteModal />
           </div>
         </CardFooter>
       </CardContent>

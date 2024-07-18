@@ -8,16 +8,13 @@ import {
   DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog";
-import { useDeleteProduct } from "@/services/queries";
 import { FormEvent } from "react";
 import { HiOutlineTrash } from "react-icons/hi";
 
-const KitchenDeleteModal = ({ id }: { id: string }) => {
-  const { mutate } = useDeleteProduct();
-
+const RewardDeleteModal = () => {
   const handleDelete = (e: FormEvent) => {
     e.preventDefault();
-    mutate(id);
+    console.log("Reward Deleted");
   };
   return (
     <Dialog>
@@ -54,4 +51,4 @@ const KitchenDeleteModal = ({ id }: { id: string }) => {
   );
 };
 
-export default KitchenDeleteModal;
+export default RewardDeleteModal;

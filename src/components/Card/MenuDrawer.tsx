@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { Button } from "../ui/button";
 import { IoLogoFacebook } from "react-icons/io";
@@ -22,10 +22,11 @@ import { CookieValueTypes, getCookie } from "cookies-next";
 import { cn } from "@/lib/utils";
 
 interface MenuDrawerProp {
-  cookie: CookieValueTypes | undefined;
+  loyaltyCookie: CookieValueTypes | undefined;
+  tableCookie: CookieValueTypes | undefined;
 }
 
-const MenuDrawer = ({ cookie }: MenuDrawerProp) => {
+const MenuDrawer = ({ loyaltyCookie, tableCookie }: MenuDrawerProp) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   // const cookie = getCookie("_loyalty_session");
 
@@ -75,15 +76,16 @@ const MenuDrawer = ({ cookie }: MenuDrawerProp) => {
             href={"/order-history"}
             className={cn(
               "rounded-sm border border-primary bg-white py-1.5 text-primary transition active:scale-110",
-              !cookie && "hidden",
+              !loyaltyCookie && "hidden",
             )}
           >
             Order History
           </Link>
           <Link
-            href={cookie ? "/redeem/rewards" : "/redeem"}
+            href={loyaltyCookie ? "/redeem/rewards" : "/redeem"}
             className={cn(
               "rounded-sm bg-primary py-1.5 text-white transition active:scale-110",
+              !tableCookie && "hidden",
             )}
           >
             Redeem Points

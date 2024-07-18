@@ -27,6 +27,12 @@ import {
   logoutUser,
   getMyLoyaltyHistory,
   registerNewStaff,
+  addItemProduct,
+  getCategories,
+  deleteProducts,
+  updateProducts,
+  getRewardsList,
+  redeemLoyaltyReward,
 } from "./api";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -428,6 +434,76 @@ export const useRegisterNewStaff = () => {
     },
     onError: () => {
       toast.error("Failed to create new staff");
+    },
+  });
+};
+
+export const useAddProduct = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: addItemProduct,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+      toast.success("New Product Added");
+    },
+    onError: () => {
+      toast.error("Failed to create new Products");
+    },
+  });
+};
+
+export const useGetCategories = () => {
+  return useQuery({
+    queryKey: ["getCategories"],
+    queryFn: getCategories,
+  });
+};
+
+export const useDeleteProduct = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: ["products/delete"],
+    mutationFn: deleteProducts,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+      toast.success("Product deleted successfully,");
+    },
+    onError: () => {
+      toast.error("Failed to delete Products");
+    },
+  });
+};
+
+export const useUpdateProduct = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: ["products/edit"],
+    mutationFn: updateProducts,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+      toast.success("Product updated successfully,");
+    },
+    onError: () => {
+      toast.error("Failed to update Products");
+    },
+  });
+};
+
+export const useGetRewardsList = () => {
+  return useQuery({
+    queryKey: ["rewardsList"],
+    queryFn: getRewardsList,
+  });
+};
+
+export const useRedeemLoyaltyReward = () => {
+  return useMutation({
+    mutationFn: redeemLoyaltyReward,
+    onSuccess: () => {
+      toast.success("Reward redeemed");
+    },
+    onError: () => {
+      toast.error("Failed to redeem reward");
     },
   });
 };

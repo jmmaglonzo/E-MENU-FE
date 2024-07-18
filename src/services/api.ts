@@ -7,6 +7,8 @@ import { MyLatestOrder, MyOrder, OrderStatus } from "@/types/myOrder";
 import { LoginType, RegisterType } from "@/types/login";
 import { deleteCookie, setCookie } from "cookies-next";
 import { AssistanceRequest } from "@/types/assistance";
+import { AddItemProduct } from "@/types/AddItemProduct";
+import { RewardsType } from "@/types/loyalties";
 
 export const getMyTableStatus = async () => {
   const { data } = await api.get("/my_status");
@@ -123,12 +125,14 @@ export const updateTableQueue = async (sessionId: string) => {
 export const loginUser = async ({ email, password }: LoginType) => {
   const { data } = await api.post("auth/login", { email, password });
   setCookie("_user_session", data.sessionId);
+  setCookie("_user_role", data.role);
   return data;
 };
 
 export const logoutUser = async () => {
   const response = await api.get("auth/logout");
   deleteCookie("_user_session");
+  deleteCookie("_user_role");
   return response;
 };
 
@@ -190,5 +194,67 @@ export const registerNewStaff = async ({
     password,
     role,
   });
+  return data;
+};
+
+export const addItemProduct = async ({
+  name,
+  quantity,
+  description,
+  price,
+  image,
+  categories,
+  estimatedCookingTimeMin,
+}: AddItemProduct) => {
+  const { data } = await api.post("products", {
+    name,
+    quantity,
+    description,
+    price,
+    image,
+    categories,
+    estimatedCookingTimeMin,
+  });
+  return data;
+};
+
+export const updateProducts = async ({
+  id,
+  name,
+  description,
+  price,
+  quantity,
+  estimatedCookingTimeMin,
+}: AddItemProduct) => {
+  const { data } = await api.put(`product/update`, {
+    id,
+    name,
+    description,
+    price,
+    quantity,
+    estimatedCookingTimeMin,
+  });
+
+  return data;
+};
+
+export const getCategories = async () => {
+  const { data } = await api.get("categories");
+  return data;
+};
+
+export const deleteProducts = async (id: string) => {
+  const { data } = await api.delete(`product/delete/${id}`);
+
+  return data;
+};
+
+export const getRewardsList = async () => {
+  const { data } = await api.get<RewardsType[]>("rewards");
+  return data;
+};
+
+export const redeemLoyaltyReward = async (rewardId: string) => {
+  const { data } = await api.post("loyalty/redeem", { rewardId });
   return data;
 };
