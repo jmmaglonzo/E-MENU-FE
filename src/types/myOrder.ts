@@ -38,4 +38,5 @@ export interface MyOrder {
 export interface MyLatestOrder extends MyOrder{
     paymentMethod: PaymentMethod,
     checkoutURL?: string
+    amount: number,
 }
