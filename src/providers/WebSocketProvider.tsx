@@ -17,6 +17,10 @@ export interface SocketEvents {
   addToCart: (productId: string) => void;
   subToCart: (productId: string) => void;
   checkoutCart: (paymentMethod: "ONLINE" | "CASH") => void;
+  updateCustomerTableStatus: (
+    sessionId: string,
+    status: "APPROVED" | "DECLINE",
+  ) => void;
 }
 
 const WebSocketContext = createContext<SocketEvents | null>(null);
@@ -77,6 +81,10 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
         if (message) toast.error(message);
       });
 
+      socket.on("my table sesson update", ({ status }) => {
+        console.log(status);
+      });
+
       setSocket(socket);
     });
   }, []);
@@ -107,7 +115,6 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
     socket?.on("latest order update", (response) => {
       if (response.status === 200) {
         setLatestOrder(response.data);
-        console.log(response.data);
         if (response.data.status !== "COMPLETED") {
           setCookie("_is_ordering", 1, {
             secure: true,
@@ -123,6 +130,13 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
     socket?.emit("checkout cart", { paymentMethod });
   }
 
+  function updateCustomerTableStatus(
+    sessionId: string,
+    status: "APPROVED" | "DECLINE",
+  ) {
+    socket?.emit("table session updated", { session: sessionId, status });
+  }
+
   return (
     <WebSocketContext.Provider
       value={{
@@ -133,6 +147,7 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
         addToCart,
         subToCart,
         checkoutCart,
+        updateCustomerTableStatus,
       }}
     >
       {children}
