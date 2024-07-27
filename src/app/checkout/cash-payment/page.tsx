@@ -40,7 +40,7 @@ const CashCheckout = () => {
             </div>
             <div className="flex items-center justify-between">
               <span>Total</span>
-              <span>Php {data.total.toFixed(2)}</span>
+              <span>Php {data.amount.toFixed(2)}</span>
             </div>
           </div>
 
